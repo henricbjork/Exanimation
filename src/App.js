@@ -11,7 +11,7 @@ function App() {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   // const [completedTracks, setCompletedTracks] = useState(null);
-  let timer;
+  // let timer;
   // let limit;
 
   const url = `
@@ -143,7 +143,7 @@ redirect_uri=http://localhost:3000`;
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
         <OrbitControls />
         <ambientLight />
-        <Icosahedron recommendations={recommendedTracks} />
+        <Icosahedron recommendations={recommendedTracks} setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken} />
       </Canvas>
 
       <div className='App'>
@@ -159,7 +159,7 @@ redirect_uri=http://localhost:3000`;
             Play
           </button>
         )}
-        {/* {currentSong && <h2>Currently Playing</h2>}
+        {currentSong && <h2>Currently Playing</h2>}
         {currentSong && (
           <img
             className='current-album-cover'
@@ -171,7 +171,7 @@ redirect_uri=http://localhost:3000`;
           <h3>
             {currentSong.artist} - {currentSong.song}
           </h3>
-        )} */}
+        )}
       </div>
     </>
     // //  {completedTracks && <h2>Completed Tracks</h2>}
