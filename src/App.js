@@ -1,105 +1,141 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import queryString from 'query-string';
 import './App.css';
+// let songCount = 0;
 
 function App() {
-  const [cruiseMode, setCruiseMode] = useState(false);
-  const [pause, setPause] = useState(false); // pause function only working when Cruise Mode is off
-  const [recommendedTracks, setRecommendedTracks] = useState('');
-  const [fetchTrigger, setFetchTrigger] = useState(''); // triggers the useEffect
-  const [currentSong, setCurrentSong] = useState({
-    id: '',
-    artist: '',
-    name: ''
-  });
+  const [recommendedTracks, setRecommendedTracks] = useState(null);
+  const [currentSong, setCurrentSong] = useState(null);
+  // const [completedTracks, setCompletedTracks] = useState(null);
   let timer;
+  // let limit;
+
 
   const url = `
 https://accounts.spotify.com/authorize?
 client_id=5d27d394dabe48ceb3546e56bc892ada&
 show_dialog=true&
 response_type=token&
-scope=user-read-currently-playing&
+scope=user-modify-playback-state user-read-recently-played&
 redirect_uri=http://localhost:3000`;
 
   const getAccessToken = () => {
     const parsed = queryString.parse(window.location.hash);
-
     if (parsed.access_token !== undefined) {
       return parsed.access_token;
     }
-
     return false;
   };
 
   const accessToken = getAccessToken();
 
-  useEffect(() => {
+  // const fetchHistory = () => {
+  //   if (songCount === 0) return;
+  //   if (songCount > 50) {
+  //     limit = 50;
+  //   } else {
+  //     limit = songCount;
+  //   }
+  //   const rootUrl = 'https://api.spotify.com/v1';
+  //   fetch(`${rootUrl}/me/player/recently-played?limit=${limit}`, {
+  //     headers: {
+  //       Authorization: 'Bearer ' + accessToken
+  //     }
+  //   })
+  //   .then((response) => response.json())
+  //   .then((history) => {
+  //     setCompletedTracks(history.items);
+  //   })
+  // }
+
+  function fetchRecommendations (id) {
     if (!accessToken) return;
-
-    const rootUrl = 'https://api.spotify.com/v1';
-
-    async function fetchCurrent() {
-      await fetch(`${rootUrl}/me/player/currently-playing`, {
+    return new Promise(function(resolve, reject) {
+      const rootUrl = 'https://api.spotify.com/v1';
+      fetch(`${rootUrl}/recommendations?seed_tracks=${id}`, {
         headers: {
           Authorization: 'Bearer ' + accessToken
         }
       })
-        .catch((error) => {
-          console.log(error.message);
-        })
-        .then((res) => res.json())
-        .then((current) => {
-          console.log(
-            'Currently playing: ' + current.item.artists[0].name + ' - ' + current.item.name
-          );
-          if (fetchTrigger === current.progress_ms) {
-            setPause(true);
-            return;
-          }
+      .then((response) => response.json())
+      .then((recommend) => {
+        setRecommendedTracks(recommend.tracks);
+        resolve(recommend.tracks);
+      });
+    })
+  }
 
-          if (current.item.id !== currentSong.id) {
-            async function fetchRecommendation(id, artist, song, progress) {
-              await fetch(`${rootUrl}/recommendations?seed_tracks=${id}`, {
-                headers: {
-                  Authorization: 'Bearer ' + accessToken
-                }
-              })
-                .then((res) => res.json())
-                .then((recommend) => {
-                  console.log(recommend.tracks);
-                  setCurrentSong({
-                    id: id,
-                    artist: artist,
-                    name: song
-                  });
-                  setRecommendedTracks(recommend.tracks);
-                  setFetchTrigger(progress); // a dummy trigger to restart the useEffect / data is not used
-                });
-            }
-            fetchRecommendation(
-              current.item.id,
-              current.item.artists[0].name,
-              current.item.name,
-              current.progress_ms
-            );
-          } else {
-            if (!cruiseMode) {
-              // if user wishes to toggle songs
-              timer = setTimeout(() => {
-                setFetchTrigger(current.progress_ms);
-              }, 2000);
-            } else {
-              // if user is in cruiseMode and let's songs finish. Less fetches => better performance
-              timer = setTimeout(() => {
-                setFetchTrigger(current.progress_ms);
-              }, current.item.duration_ms - current.progress_ms + 1000); // 1000ms delay required to ensure next track is playing when useEffect/fetch is triggered
-            }
+  function playSong(uri) {
+    if (!accessToken) return;
+    return new Promise(function(resolve, reject) {
+      const rootUrl = 'https://api.spotify.com/v1';
+      fetch(`${rootUrl}/me/player/play`, {
+        method: "PUT",
+        body: JSON.stringify({"uris": [`${uri}`]}),
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        }
+      })
+      .then(()=>{
+        resolve();
+      })
+    })
+  }
+
+  function fetchCurrent() {
+    if (!accessToken) return;
+    return new Promise(function(resolve, reject) {
+      const rootUrl = 'https://api.spotify.com/v1';
+      setTimeout(() => {
+      fetch(`${rootUrl}/me/player/currently-playing`, {
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        }
+      })
+      .then((response) => response.json())
+      .then((current) => {
+          resolve(current);
+        });
+      }, 300); // delay ensures song is playing before fetch takes place / promise runs faster than Spotify
+    })
+  }
+
+  const playSelected = (uri) => {
+    if (!accessToken) return;
+    playSong(uri)
+    .then(() => {
+      fetchCurrent()
+      .then((current) => {
+        console.log(current)
+        console.log(
+          'Currently playing: ' + current.item.artists[0].name + ' - ' + current.item.name
+        )
+        setCurrentSong({
+          id: current.item.id,
+          artist: current.item.artists[0].name,
+          song: current.item.name,
+          album: {
+            image: current.item.album.images[0].url,
+            name: current.item.album.name
           }
         });
-    }
-    fetchCurrent();
-  }, [fetchTrigger]); // eslint-disable-line react-hooks/exhaustive-deps
+        fetchRecommendations(
+          current.item.id
+        )
+        // .then((res)=> {
+          // return res;
+        // }).then((recommendTracks)=> {
+          // timer = setTimeout(() => {
+            // const track = recommendTracks[Math.floor(Math.random() * recommendTracks.length)];
+            // songCount+=1;
+            // console.log(track);
+            // playSelected(track.uri);
+          // }, current.item.duration_ms - current.progress_ms); // 1000ms delay required to ensure next track is playing when useEffect/fetch is triggered
+        // })
+        // fetchHistory();
+      })
+    })
+  }
 
   return (
     <div className="App">
@@ -108,42 +144,30 @@ redirect_uri=http://localhost:3000`;
           Authorize
         </a>
       )}
-      <button
-        onClick={() => {
-          setCruiseMode(!cruiseMode);
-          clearTimeout(timer);
-          setFetchTrigger('dummyStartUseEffect');
-        }}
-      >
-        Toggle Cruise Mode
-      </button>
-      <p>Cruise Mode: {cruiseMode ? 'ON' : 'OFF'}</p>
-
-      {pause && <p>Music currently paused</p>}
-      {pause && (
-        <button
-          onClick={() => {
-            clearTimeout(timer);
-            setPause(false);
-            setFetchTrigger('dummyStartUseEffect');
-          }}
-        >
-          Resume Examination (after resuming Spotify)
-        </button>
-      )}
-      <p>
-        Currently playing: {currentSong.artist} - {currentSong.name}
-      </p>
-      <ul>
+      {accessToken && !currentSong && <button onClick={()=>playSelected("spotify:track:5duZe3kHUqNENd97WYqmYL")}>Play</button>}
+      {currentSong && <h2>Currently Playing</h2>}
+      {currentSong && <img className="current-album-cover" src={currentSong.album.image} alt={currentSong.album.name}/>}
+      {currentSong && <h3>{currentSong.artist} - {currentSong.song}</h3>}
+      {/* {completedTracks && <h2>Completed Tracks</h2>}
+      {completedTracks &&
+          completedTracks.map((track, i) => {
+            return (
+              <div className="completed-div" key={i} onClick={()=>{clearTimeout(timer);playSelected(track.track.uri);}}>
+              <img className="completed-album-cover" src={track.track.album.images[0].url} alt={track.track.album.name}/>
+              <h4>{track.track.artists[0].name} - {track.track.name}</h4>
+              </div>
+            );
+          })} */}
+      {recommendedTracks && <h2>Recommended Tracks</h2>}
         {recommendedTracks &&
           recommendedTracks.map((track, i) => {
             return (
-              <li key={i}>
-                {track.artists[0].name} - {track.name}
-              </li>
+              <div key={i} onClick={()=>{clearTimeout(timer); playSelected(track.uri); }}>
+              <img className="album-cover" src={track.album.images[0].url} alt={track.album.name}/>
+              <h4>{track.artists[0].name} - {track.name}</h4>
+              </div>
             );
           })}
-      </ul>
     </div>
   );
 }
