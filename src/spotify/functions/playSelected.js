@@ -3,11 +3,16 @@ import { playSong } from './playSong.js';
 import { fetchCurrent } from './fetchCurrent.js';
 import { fetchRecommendations } from './fetchRecommendations.js';
 
-export const playSelected = (uri) => {
-  //   if (!accessToken) return;
+export const playSelected = (
+  uri,
+  accessToken,
+  setRecommendedTracks,
+  setCurrentSong
+) => {
+  if (!accessToken) return;
 
-  playSong(uri).then(() => {
-    fetchCurrent().then((current) => {
+  playSong(uri, accessToken).then(() => {
+    fetchCurrent(accessToken).then((current) => {
       // console.log(current);
       console.log(
         'Currently playing: ' +
@@ -24,7 +29,7 @@ export const playSelected = (uri) => {
           name: current.item.album.name,
         },
       });
-      fetchRecommendations(current.item.id);
+      fetchRecommendations(current.item.id, accessToken, setRecommendedTracks);
       // .then((res)=> {
       // return res;
       // }).then((recommendTracks)=> {

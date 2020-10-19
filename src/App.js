@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
+import { playSelected } from './spotify/functions/playSelected';
 import Icosahedron from './threefiber/components/Icosahedron';
 import queryString from 'query-string';
 import './App.css';
@@ -50,56 +51,56 @@ redirect_uri=http://localhost:3000`;
   //   })
   // }
 
-  function fetchRecommendations(id) {
-    if (!accessToken) return;
-    return new Promise(function (resolve, reject) {
-      const rootUrl = 'https://api.spotify.com/v1';
-      fetch(`${rootUrl}/recommendations?seed_tracks=${id}&limit=12`, {
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-        },
-      })
-        .then((response) => response.json())
-        .then((recommend) => {
-          setRecommendedTracks(recommend.tracks);
-          resolve(recommend.tracks);
-        });
-    });
-  }
+  // function fetchRecommendations(id) {
+  //   if (!accessToken) return;
+  //   return new Promise(function (resolve, reject) {
+  //     const rootUrl = 'https://api.spotify.com/v1';
+  //     fetch(`${rootUrl}/recommendations?seed_tracks=${id}&limit=12`, {
+  //       headers: {
+  //         Authorization: 'Bearer ' + accessToken,
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((recommend) => {
+  //         setRecommendedTracks(recommend.tracks);
+  //         resolve(recommend.tracks);
+  //       });
+  //   });
+  // }
 
-  function playSong(uri) {
-    if (!accessToken) return;
-    return new Promise(function (resolve, reject) {
-      const rootUrl = 'https://api.spotify.com/v1';
-      fetch(`${rootUrl}/me/player/play`, {
-        method: 'PUT',
-        body: JSON.stringify({ uris: [`${uri}`] }),
-        headers: {
-          Authorization: 'Bearer ' + accessToken,
-        },
-      }).then(() => {
-        resolve();
-      });
-    });
-  }
+  // function playSong(uri) {
+  //   if (!accessToken) return;
+  //   return new Promise(function (resolve, reject) {
+  //     const rootUrl = 'https://api.spotify.com/v1';
+  //     fetch(`${rootUrl}/me/player/play`, {
+  //       method: 'PUT',
+  //       body: JSON.stringify({ uris: [`${uri}`] }),
+  //       headers: {
+  //         Authorization: 'Bearer ' + accessToken,
+  //       },
+  //     }).then(() => {
+  //       resolve();
+  //     });
+  //   });
+  // }
 
-  function fetchCurrent() {
-    if (!accessToken) return;
-    return new Promise(function (resolve, reject) {
-      const rootUrl = 'https://api.spotify.com/v1';
-      setTimeout(() => {
-        fetch(`${rootUrl}/me/player/currently-playing`, {
-          headers: {
-            Authorization: 'Bearer ' + accessToken,
-          },
-        })
-          .then((response) => response.json())
-          .then((current) => {
-            resolve(current);
-          });
-      }, 500); // delay ensures song is playing before fetch takes place / promise runs faster than Spotify
-    });
-  }
+  // function fetchCurrent() {
+  //   if (!accessToken) return;
+  //   return new Promise(function (resolve, reject) {
+  //     const rootUrl = 'https://api.spotify.com/v1';
+  //     setTimeout(() => {
+  //       fetch(`${rootUrl}/me/player/currently-playing`, {
+  //         headers: {
+  //           Authorization: 'Bearer ' + accessToken,
+  //         },
+  //       })
+  //         .then((response) => response.json())
+  //         .then((current) => {
+  //           resolve(current);
+  //         });
+  //     }, 500); // delay ensures song is playing before fetch takes place / promise runs faster than Spotify
+  //   });
+  // }
 
   // const playSelected = (uri) => {
   //   if (!accessToken) return;
@@ -122,22 +123,20 @@ redirect_uri=http://localhost:3000`;
   //         },
   //       });
   //       fetchRecommendations(current.item.id);
-        // .then((res)=> {
-        // return res;
-        // }).then((recommendTracks)=> {
-        // timer = setTimeout(() => {
-        // const track = recommendTracks[Math.floor(Math.random() * recommendTracks.length)];
-        // songCount+=1;
-        // console.log(track);
-        // playSelected(track.uri);
-        // }, current.item.duration_ms - current.progress_ms); // 1000ms delay required to ensure next track is playing when useEffect/fetch is triggered
-        // })
-        // fetchHistory();
+  // .then((res)=> {
+  // return res;
+  // }).then((recommendTracks)=> {
+  // timer = setTimeout(() => {
+  // const track = recommendTracks[Math.floor(Math.random() * recommendTracks.length)];
+  // songCount+=1;
+  // console.log(track);
+  // playSelected(track.uri);
+  // }, current.item.duration_ms - current.progress_ms); // 1000ms delay required to ensure next track is playing when useEffect/fetch is triggered
+  // })
+  // fetchHistory();
   //     });
   //   });
   // };
-
-  
 
   return (
     <>
@@ -155,7 +154,7 @@ redirect_uri=http://localhost:3000`;
         )}
         {accessToken && !currentSong && (
           <button
-            onClick={() => playSelected('spotify:track:2oNabuaEPsfuNu6qLpdAvc')}
+            onClick={() => playSelected('spotify:track:2oNabuaEPsfuNu6qLpdAvc', accessToken, setRecommendedTracks, setCurrentSong)}
           >
             Play
           </button>

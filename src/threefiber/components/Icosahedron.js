@@ -1,7 +1,7 @@
 import React from 'react';
 import * as THREE from 'three';
 import Song from './Song';
-import { playSelected } from '../../App';
+import { playSelected } from '../../spotify/functions/playSelected';
 
 const Icosahedron = ({ recommendations }) => {
   const vertices = new THREE.IcosahedronGeometry(4).vertices;
