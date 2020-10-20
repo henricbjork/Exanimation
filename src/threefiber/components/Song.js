@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { TextureLoader } from 'three';
 import { playSelected } from './../../spotify/functions/playSelected';
 
-const SIZE = 7;
+const SIZE = 15;
 
 const Song = ({
   distance,
@@ -11,6 +11,8 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
+  onPointerOver,
+  onPointerOut,
 }) => {
   const [hover, setHover] = useState(false);
   const mesh = useRef();

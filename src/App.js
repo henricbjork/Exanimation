@@ -85,18 +85,21 @@ redirect_uri=http://localhost:3000`;
           </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
         )}
         {currentSong && <h2>Currently Playing</h2>}
-        {currentSong && (
-          <img
-            className='current-album-cover'
-            src={currentSong.album.image}
-            alt={currentSong.album.name}
-          />
-        )}
-        {currentSong && (
-          <h3>
-            {currentSong.artist} - {currentSong.song}
-          </h3>
-        )}
+        <div className="player">
+          {currentSong && (
+            <img
+              className='current-album-cover'
+              src={currentSong.album.image}
+              alt={currentSong.album.name}
+            />
+          )}
+          {currentSong && (
+            <div>
+              <p>{currentSong.artist}</p>
+              <p>{currentSong.song}</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
     // //  {completedTracks && <h2>Completed Tracks</h2>}
