@@ -47,16 +47,20 @@ redirect_uri=http://localhost:3000`;
   //   })
   // }
 
+  const [hover, setHover] = useState(false);
+
   return (
     <>
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
-        <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
+        <OrbitControls autoRotate={!hover} autoRotateSpeed='0.5' />
         <ambientLight />
         <Icosahedron
           recommendations={recommendedTracks}
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
+          onPointerOver={(e) => setHover(true)}
+          onPointerOut={(e) => setHover(false)}
         />
       </Canvas>
 

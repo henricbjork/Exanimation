@@ -9,12 +9,18 @@ const Icosahedron = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
+  onPointerOver,
+  onPointerOut,
 }) => {
   const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
 
   return (
     <>
-      <mesh scale={[SIZE, SIZE, SIZE]}>
+      <mesh
+        scale={[SIZE, SIZE, SIZE]}
+        onPointerOver={onPointerOver}
+        onPointerOut={onPointerOut}
+      >
         <icosahedronBufferGeometry attach='geometry' />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
