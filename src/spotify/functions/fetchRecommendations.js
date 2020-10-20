@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const fetchRecommendations = (id, accessToken, setRecommendedTracks) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const playSong = (uri, accessToken) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
