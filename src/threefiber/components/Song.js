@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { TextureLoader } from 'three';
 import { playSelected } from './../../spotify/functions/playSelected';
 
+const SIZE = 7;
+
 const Song = ({
   distance,
   imageUrl,
@@ -14,8 +16,6 @@ const Song = ({
 
   const loader = new TextureLoader();
   const texture = loader.load(imageUrl);
-
-  console.log(distance);
 
   return (
     <group ref={mesh}>
@@ -31,7 +31,7 @@ const Song = ({
           );
         }}
       >
-        <boxBufferGeometry attach='geometry' args={[5, 5, 5]} />
+        <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
         <meshStandardMaterial attach='material' map={texture} />
       </mesh>
     </group>

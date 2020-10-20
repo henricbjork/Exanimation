@@ -2,7 +2,7 @@ import React from 'react';
 import * as THREE from 'three';
 import Song from './Song';
 
-const SIZE = 6;
+const SIZE = 8;
 
 const Icosahedron = ({
   recommendations,

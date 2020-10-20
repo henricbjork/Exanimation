@@ -50,9 +50,14 @@ redirect_uri=http://localhost:3000`;
   return (
     <>
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
-        <OrbitControls />
+        <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
         <ambientLight />
-        <Icosahedron recommendations={recommendedTracks} setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken} />
+        <Icosahedron
+          recommendations={recommendedTracks}
+          setCurrentSong={setCurrentSong}
+          setRecommendedTracks={setRecommendedTracks}
+          accessToken={accessToken}
+        />
       </Canvas>
 
       <div className='App'>
@@ -63,7 +68,14 @@ redirect_uri=http://localhost:3000`;
         )}
         {accessToken && !currentSong && (
           <button
-            onClick={() => playSelected('spotify:track:10vpPP0rDTRNJmQyvxyNRz', accessToken, setRecommendedTracks, setCurrentSong)}
+            onClick={() =>
+              playSelected(
+                'spotify:track:10vpPP0rDTRNJmQyvxyNRz',
+                accessToken,
+                setRecommendedTracks,
+                setCurrentSong
+              )
+            }
           >
             Play
           </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
