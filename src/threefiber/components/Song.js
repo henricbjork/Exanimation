@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { TextureLoader } from 'three';
 import { playSelected } from './../../spotify/functions/playSelected';
+import { useSpring, a } from 'react-spring/three';
 
-const SIZE = 15;
+const SIZE = 10;
 
 const Song = ({
   distance,
@@ -11,8 +12,6 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  onPointerOver,
-  onPointerOut,
 }) => {
   const [hover, setHover] = useState(false);
   const mesh = useRef();
@@ -20,13 +19,13 @@ const Song = ({
   const loader = new TextureLoader();
   const texture = loader.load(imageUrl);
 
-  const props = {
+  const props = useSpring({
     scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
-  };
+  });
 
   return (
     <group ref={mesh}>
-      <mesh
+      <a.mesh
         position={[distance.x, distance.y, distance.z]}
         scale={props.scale}
         onPointerOver={() => setHover(true)}
@@ -42,7 +41,7 @@ const Song = ({
       >
         <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
         <meshStandardMaterial attach='material' map={texture} />
-      </mesh>
+      </a.mesh>
     </group>
   );
 };
