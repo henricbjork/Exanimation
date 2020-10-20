@@ -5,14 +5,10 @@ import { playSelected } from './spotify/functions/playSelected';
 import Icosahedron from './threefiber/components/Icosahedron';
 import queryString from 'query-string';
 import './App.css';
-// let songCount = 0;
 
 function App() {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
-  // const [completedTracks, setCompletedTracks] = useState(null);
-  // let timer;
-  // let limit;
 
   const url = `
 https://accounts.spotify.com/authorize?
@@ -50,93 +46,6 @@ redirect_uri=http://localhost:3000`;
   //     setCompletedTracks(history.items);
   //   })
   // }
-
-  // function fetchRecommendations(id) {
-  //   if (!accessToken) return;
-  //   return new Promise(function (resolve, reject) {
-  //     const rootUrl = 'https://api.spotify.com/v1';
-  //     fetch(`${rootUrl}/recommendations?seed_tracks=${id}&limit=12`, {
-  //       headers: {
-  //         Authorization: 'Bearer ' + accessToken,
-  //       },
-  //     })
-  //       .then((response) => response.json())
-  //       .then((recommend) => {
-  //         setRecommendedTracks(recommend.tracks);
-  //         resolve(recommend.tracks);
-  //       });
-  //   });
-  // }
-
-  // function playSong(uri) {
-  //   if (!accessToken) return;
-  //   return new Promise(function (resolve, reject) {
-  //     const rootUrl = 'https://api.spotify.com/v1';
-  //     fetch(`${rootUrl}/me/player/play`, {
-  //       method: 'PUT',
-  //       body: JSON.stringify({ uris: [`${uri}`] }),
-  //       headers: {
-  //         Authorization: 'Bearer ' + accessToken,
-  //       },
-  //     }).then(() => {
-  //       resolve();
-  //     });
-  //   });
-  // }
-
-  // function fetchCurrent() {
-  //   if (!accessToken) return;
-  //   return new Promise(function (resolve, reject) {
-  //     const rootUrl = 'https://api.spotify.com/v1';
-  //     setTimeout(() => {
-  //       fetch(`${rootUrl}/me/player/currently-playing`, {
-  //         headers: {
-  //           Authorization: 'Bearer ' + accessToken,
-  //         },
-  //       })
-  //         .then((response) => response.json())
-  //         .then((current) => {
-  //           resolve(current);
-  //         });
-  //     }, 500); // delay ensures song is playing before fetch takes place / promise runs faster than Spotify
-  //   });
-  // }
-
-  // const playSelected = (uri) => {
-  //   if (!accessToken) return;
-  //   playSong(uri).then(() => {
-  //     fetchCurrent().then((current) => {
-  //       // console.log(current);
-  //       console.log(
-  //         'Currently playing: ' +
-  //           current.item.artists[0].name +
-  //           ' - ' +
-  //           current.item.name
-  //       );
-  //       setCurrentSong({
-  //         id: current.item.id,
-  //         artist: current.item.artists[0].name,
-  //         song: current.item.name,
-  //         album: {
-  //           image: current.item.album.images[0].url,
-  //           name: current.item.album.name,
-  //         },
-  //       });
-  //       fetchRecommendations(current.item.id);
-  // .then((res)=> {
-  // return res;
-  // }).then((recommendTracks)=> {
-  // timer = setTimeout(() => {
-  // const track = recommendTracks[Math.floor(Math.random() * recommendTracks.length)];
-  // songCount+=1;
-  // console.log(track);
-  // playSelected(track.uri);
-  // }, current.item.duration_ms - current.progress_ms); // 1000ms delay required to ensure next track is playing when useEffect/fetch is triggered
-  // })
-  // fetchHistory();
-  //     });
-  //   });
-  // };
 
   return (
     <>
@@ -184,29 +93,6 @@ redirect_uri=http://localhost:3000`;
     //           </div>
     //         );
     //       })}
-    //   {recommendedTracks && <h2>Recommended Tracks</h2>}
-    //   {recommendedTracks &&
-    //     recommendedTracks.map((track, i) => {
-    //       return (
-    //         <div
-    //           key={i}
-    //           onClick={() => {
-    //             clearTimeout(timer);
-    //             playSelected(track.uri);
-    //           }}
-    //         >
-    //           <img
-    //             className='album-cover'
-    //             src={track.album.images[0].url}
-    //             alt={track.album.name}
-    //           />
-    //           <h4>
-    //             {track.artists[0].name} - {track.name}
-    //           </h4>
-    //         </div>
-    //       );
-    //     })}
-    // </div>
   );
 }
 

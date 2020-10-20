@@ -2,7 +2,6 @@ export const fetchCurrent = (accessToken) => {
     if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';
-
       fetch(`${rootUrl}/me/player/currently-playing`, {
         headers: {
           Authorization: 'Bearer ' + accessToken,
@@ -12,6 +11,5 @@ export const fetchCurrent = (accessToken) => {
         .then((current) => {
           resolve(current);
         });
-
   });
 };
