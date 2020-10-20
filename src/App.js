@@ -47,12 +47,21 @@ redirect_uri=http://localhost:3000`;
   //   })
   // }
 
+  const [hover, setHover] = useState(false);
+
   return (
     <>
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
-        <OrbitControls />
+        <OrbitControls autoRotate={!hover} autoRotateSpeed='0.5' />
         <ambientLight />
-        <Icosahedron recommendations={recommendedTracks} setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken} />
+        <Icosahedron
+          recommendations={recommendedTracks}
+          setCurrentSong={setCurrentSong}
+          setRecommendedTracks={setRecommendedTracks}
+          accessToken={accessToken}
+          onPointerOver={(e) => setHover(true)}
+          onPointerOut={(e) => setHover(false)}
+        />
       </Canvas>
 
       <div className='App'>
@@ -63,24 +72,34 @@ redirect_uri=http://localhost:3000`;
         )}
         {accessToken && !currentSong && (
           <button
-            onClick={() => playSelected('spotify:track:10vpPP0rDTRNJmQyvxyNRz', accessToken, setRecommendedTracks, setCurrentSong)}
+            onClick={() =>
+              playSelected(
+                'spotify:track:10vpPP0rDTRNJmQyvxyNRz',
+                accessToken,
+                setRecommendedTracks,
+                setCurrentSong
+              )
+            }
           >
             Play
           </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
         )}
         {currentSong && <h2>Currently Playing</h2>}
-        {currentSong && (
-          <img
-            className='current-album-cover'
-            src={currentSong.album.image}
-            alt={currentSong.album.name}
-          />
-        )}
-        {currentSong && (
-          <h3>
-            {currentSong.artist} - {currentSong.song}
-          </h3>
-        )}
+        <div className="player">
+          {currentSong && (
+            <img
+              className='current-album-cover'
+              src={currentSong.album.image}
+              alt={currentSong.album.name}
+            />
+          )}
+          {currentSong && (
+            <div>
+              <p>{currentSong.artist}</p>
+              <p>{currentSong.song}</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
     // //  {completedTracks && <h2>Completed Tracks</h2>}

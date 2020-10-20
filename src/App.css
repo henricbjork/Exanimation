@@ -32,18 +32,25 @@ body {
 
 .App {
   position: absolute;
-  top: 0;
-  width: 100%;
+  bottom: 0;
+  left: 40px;
+  width: 50%;
   height: 200px;
-  text-align: center;
   color: white;
+}
+
+.player {
+  display: flex;
+}
+
+.current-album-cover {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
 }
 
 canvas {
   width: 100%;
   height: 100%;
-}
-
-canvas {
   background: #000;
 }
