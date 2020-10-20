@@ -2,13 +2,19 @@ import React from 'react';
 import * as THREE from 'three';
 import Song from './Song';
 
+const SIZE = 6;
 
-const Icosahedron = ({ recommendations, setCurrentSong, setRecommendedTracks, accessToken }) => {
-  const vertices = new THREE.IcosahedronGeometry(4).vertices;
+const Icosahedron = ({
+  recommendations,
+  setCurrentSong,
+  setRecommendedTracks,
+  accessToken,
+}) => {
+  const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
 
   return (
     <>
-      <mesh scale={[2, 2, 2]} >
+      <mesh scale={[SIZE, SIZE, SIZE]}>
         <icosahedronBufferGeometry attach='geometry' />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
@@ -19,7 +25,9 @@ const Icosahedron = ({ recommendations, setCurrentSong, setRecommendedTracks, ac
               key={i}
               distance={vertices[i]}
               imageUrl={recommendation.album.images[0].url}
-              setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken}
+              setCurrentSong={setCurrentSong}
+              setRecommendedTracks={setRecommendedTracks}
+              accessToken={accessToken}
               recommendation={recommendation}
             />
           );
