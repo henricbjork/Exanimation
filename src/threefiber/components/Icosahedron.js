@@ -1,25 +1,26 @@
 import React from 'react';
 import * as THREE from 'three';
 import Song from './Song';
-import { playSelected } from './../../spotify/functions/playSelected';
+
 
 const Icosahedron = ({ recommendations, setCurrentSong, setRecommendedTracks, accessToken }) => {
   const vertices = new THREE.IcosahedronGeometry(4).vertices;
 
   return (
     <>
-      <mesh scale={[2, 2, 2]}>
+      <mesh scale={[2, 2, 2]} >
         <icosahedronBufferGeometry attach='geometry' />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
       {recommendations &&
-        recommendations.map((rec, i) => {
+        recommendations.map((recommendation, i) => {
           return (
             <Song
-              distance={vertices[i]}
               key={i}
-              imageUrl={recommendations[i].album.images[0].url}
-              onClick={() => {console.log('clicked'); playSelected(recommendations[i].uri, accessToken, setRecommendedTracks, setCurrentSong)}}
+              distance={vertices[i]}
+              imageUrl={recommendation.album.images[0].url}
+              setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken}
+              recommendation={recommendation}
             />
           );
         })}

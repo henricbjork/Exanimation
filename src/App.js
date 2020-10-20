@@ -154,10 +154,10 @@ redirect_uri=http://localhost:3000`;
         )}
         {accessToken && !currentSong && (
           <button
-            onClick={() => playSelected('spotify:track:2oNabuaEPsfuNu6qLpdAvc', accessToken, setRecommendedTracks, setCurrentSong)}
+            onClick={() => playSelected('spotify:track:10vpPP0rDTRNJmQyvxyNRz', accessToken, setRecommendedTracks, setCurrentSong)}
           >
             Play
-          </button>
+          </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
         )}
         {currentSong && <h2>Currently Playing</h2>}
         {currentSong && (
