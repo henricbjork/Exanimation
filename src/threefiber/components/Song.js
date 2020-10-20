@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { TextureLoader } from 'three';
 import { playSelected } from './../../spotify/functions/playSelected';
 
@@ -12,16 +12,23 @@ const Song = ({
   setRecommendedTracks,
   accessToken,
 }) => {
+  const [hover, setHover] = useState(false);
   const mesh = useRef();
 
   const loader = new TextureLoader();
   const texture = loader.load(imageUrl);
 
+  const props = {
+    scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
+  };
+
   return (
     <group ref={mesh}>
       <mesh
         position={[distance.x, distance.y, distance.z]}
-        scale={[0.15, 0.15, 0.15]}
+        scale={props.scale}
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
         onPointerDown={() => {
           playSelected(
             recommendation.uri,
