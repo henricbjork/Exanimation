@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
-import { playSelected } from './spotify/functions/playSelected';
 import Icosahedron from './threefiber/components/Icosahedron';
 import queryString from 'query-string';
 import Track from './spotify/components/Track';
@@ -12,6 +11,7 @@ function App() {
   const [currentSong, setCurrentSong] = useState(null);
   const [searchText, setSearchText] = React.useState("");
   const [searchResult, setSearchResult] = React.useState(null);
+  const [hover, setHover] = useState(false);
 
   const url = `
 https://accounts.spotify.com/authorize?
@@ -32,10 +32,11 @@ redirect_uri=http://localhost:3000`;
   const accessToken = getAccessToken();
 
   React.useEffect(() => {
-    const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=10`;
+    const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=6`;
 
-    if (searchText === "") {
-        return
+    if (searchText === "" || searchText === " ") {
+      setSearchResult(null);
+      return;
     }
 
     fetch(url, {
@@ -46,84 +47,67 @@ redirect_uri=http://localhost:3000`;
     })
     .then((queryResult) => queryResult.json())
     .then((json) => {
-        console.log(json.tracks.items)
         setSearchResult(json.tracks.items);
     })
 }, [accessToken, searchText]);
 
-  // const fetchHistory = () => {
-  //   if (songCount === 0) return;
-  //   if (songCount > 50) {
-  //     limit = 50;
-  //   } else {
-  //     limit = songCount;
-  //   }
-  //   const rootUrl = 'https://api.spotify.com/v1';
-  //   fetch(`${rootUrl}/me/player/recently-played?limit=${limit}`, {
-  //     headers: {
-  //       Authorization: 'Bearer ' + accessToken
-  //     }
-  //   })
-  //   .then((response) => response.json())
-  //   .then((history) => {
-  //     setCompletedTracks(history.items);
-  //   })
-  // }
-
   return (
     <>
+
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
-        <OrbitControls />
+        <OrbitControls autoRotate={!hover} autoRotateSpeed='0.5' />
         <ambientLight />
-        <Icosahedron recommendations={recommendedTracks} setCurrentSong={setCurrentSong} setRecommendedTracks={setRecommendedTracks} accessToken={accessToken} />
+        <Icosahedron
+          recommendations={recommendedTracks}
+          setCurrentSong={setCurrentSong}
+          setRecommendedTracks={setRecommendedTracks}
+          accessToken={accessToken}
+          onPointerOver={(e) => setHover(true)}
+          onPointerOut={(e) => setHover(false)}
+        />
       </Canvas>
 
-      <div className='App'>
-        {!accessToken && (
-          <a href={url} onClick={getAccessToken}>
-            Authorize
-          </a>
-        )}
-        {accessToken && !currentSong && (
-          <button
-            onClick={() => playSelected('spotify:track:10vpPP0rDTRNJmQyvxyNRz', accessToken, setRecommendedTracks, setCurrentSong)}
-          >
-            Play
-          </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
-        )}
+      {!accessToken && <div className="accessToken">
+        <a href={url} onClick={getAccessToken}>
+          Authorise
+        </a>
+      </div>}
+
+      {accessToken && <div className='App'>
+
         <div className="search-box">
-            <input type="text" onChange={e => setSearchText(e.target.value)} />
-            {searchResult && searchResult.map((result, i) => {
-                return <Track key={i} image={result.album.images[0].url} artist={result.artists[0].name} track={result.name} />
-            })}
+          <input className="search-field" type="text" onChange={(e) => setSearchText(e.target.value)} />
+          {searchResult && searchResult.map((result, i) => {
+              return <Track
+              key={i}
+              id={result.uri}
+              accessToken={accessToken}
+              setCurrentSong={setCurrentSong}
+              setRecommendedTracks={setRecommendedTracks}
+              image={result.album.images[0].url}
+              artist={result.artists[0].name}
+              track={result.name} />
+          })}
         </div>
-        <div className="current-song-box">
-          {currentSong && <h2>Currently Playing</h2>}
-          {currentSong && (
+
+        {currentSong && <div className="player">
+          <h2>Currently Playing</h2>
+          <div className="cover-text-box">
             <img
-              className='current-album-cover'
-              src={currentSong.album.image}
-              alt={currentSong.album.name}
+                className='current-album-cover'
+                src={currentSong.album.image}
+                alt={currentSong.album.name}
             />
-          )}
-          {currentSong && (
-            <h3>
-              {currentSong.artist} - {currentSong.song}
-            </h3>
-          )}
-        </div>
-      </div>
+            <div>
+              <p>{currentSong.song}</p>
+              <p>{currentSong.artist}</p>
+            </div>
+          </div>
+        </div>}
+
+      </div>}
+
     </>
-    // //  {completedTracks && <h2>Completed Tracks</h2>}
-    // //   {completedTracks &&
-    //       completedTracks.map((track, i) => {
-    //         return (
-    //           <div className="completed-div" key={i} onClick={()=>{clearTimeout(timer);playSelected(track.track.uri);}}>
-    //           <img className="completed-album-cover" src={track.track.album.images[0].url} alt={track.track.album.name}/>
-    //           <h4>{track.track.artists[0].name} - {track.track.name}</h4>
-    //           </div>
-    //         );
-    //       })}
   );
 }
 
