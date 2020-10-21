@@ -31,6 +31,7 @@ body {
 }
 
 .App {
+  display: flex;
   position: absolute;
   top: 0;
   width: 100%;
@@ -39,11 +40,11 @@ body {
   color: white;
 }
 
-canvas {
-  width: 100%;
-  height: 100%;
+Canvas {
+  width: 60%;
+  height: 60%;
 }
 
-canvas {
+Canvas {
   background: #000;
 }

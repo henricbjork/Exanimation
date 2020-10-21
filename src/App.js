@@ -4,11 +4,14 @@ import { OrbitControls } from 'drei';
 import { playSelected } from './spotify/functions/playSelected';
 import Icosahedron from './threefiber/components/Icosahedron';
 import queryString from 'query-string';
+import Track from './spotify/components/Track';
 import './App.css';
 
 function App() {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
+  const [searchText, setSearchText] = React.useState("");
+  const [searchResult, setSearchResult] = React.useState(null);
 
   const url = `
 https://accounts.spotify.com/authorize?
@@ -27,6 +30,26 @@ redirect_uri=http://localhost:3000`;
   };
 
   const accessToken = getAccessToken();
+
+  React.useEffect(() => {
+    const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=10`;
+
+    if (searchText === "") {
+        return
+    }
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            Authorization: "Bearer " + accessToken,
+        },
+    })
+    .then((queryResult) => queryResult.json())
+    .then((json) => {
+        console.log(json.tracks.items)
+        setSearchResult(json.tracks.items);
+    })
+}, [accessToken, searchText]);
 
   // const fetchHistory = () => {
   //   if (songCount === 0) return;
@@ -68,19 +91,27 @@ redirect_uri=http://localhost:3000`;
             Play
           </button> // spotify:track:2oNabuaEPsfuNu6qLpdAvc
         )}
-        {currentSong && <h2>Currently Playing</h2>}
-        {currentSong && (
-          <img
-            className='current-album-cover'
-            src={currentSong.album.image}
-            alt={currentSong.album.name}
-          />
-        )}
-        {currentSong && (
-          <h3>
-            {currentSong.artist} - {currentSong.song}
-          </h3>
-        )}
+        <div className="search-box">
+            <input type="text" onChange={e => setSearchText(e.target.value)} />
+            {searchResult && searchResult.map((result, i) => {
+                return <Track key={i} image={result.album.images[0].url} artist={result.artists[0].name} track={result.name} />
+            })}
+        </div>
+        <div className="current-song-box">
+          {currentSong && <h2>Currently Playing</h2>}
+          {currentSong && (
+            <img
+              className='current-album-cover'
+              src={currentSong.album.image}
+              alt={currentSong.album.name}
+            />
+          )}
+          {currentSong && (
+            <h3>
+              {currentSong.artist} - {currentSong.song}
+            </h3>
+          )}
+        </div>
       </div>
     </>
     // //  {completedTracks && <h2>Completed Tracks</h2>}
