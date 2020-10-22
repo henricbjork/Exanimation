@@ -6,10 +6,11 @@ export const playSelected = (
   uri,
   accessToken,
   setRecommendedTracks,
-  setCurrentSong
+  setCurrentSong,
+  device
 ) => {
   if (!accessToken) return;
-  playSong(uri, accessToken).then(() => {
+  playSong(uri, accessToken, device).then(() => {
     setTimeout(() => {
       fetchCurrent(accessToken).then((current) => {
         console.log(

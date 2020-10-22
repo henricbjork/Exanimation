@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
+import { getDevices } from './spotify/functions/getDevices';
 import Icosahedron from './threefiber/components/Icosahedron';
 import queryString from 'query-string';
 import Track from './spotify/components/Track';
@@ -12,19 +13,28 @@ function App() {
   const [searchText, setSearchText] = React.useState("");
   const [searchResult, setSearchResult] = React.useState(null);
   const [hover, setHover] = useState(false);
+  const [device, setDevice] = useState(null);
 
   const url = `
 https://accounts.spotify.com/authorize?
 client_id=5d27d394dabe48ceb3546e56bc892ada&
 show_dialog=true&
 response_type=token&
-scope=user-modify-playback-state user-read-recently-played&
+scope=user-modify-playback-state user-read-playback-state user-read-recently-played&
 redirect_uri=http://localhost:3000`;
 
   const getAccessToken = () => {
     const parsed = queryString.parse(window.location.hash);
     if (parsed.access_token !== undefined) {
+      getDevices(parsed.access_token)
+      .then((devices)=>{
+        setDevice(devices.devices[0].id)
+      })
       return parsed.access_token;
+      // .catch((error)=> {
+      //   console.log(error.message); // inform the user to open Spotify on the device they wish to play from
+      // });
+
     }
     return false;
   };
@@ -62,6 +72,7 @@ redirect_uri=http://localhost:3000`;
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
+          device={device}
           onPointerOver={(e) => setHover(true)}
           onPointerOut={(e) => setHover(false)}
         />
@@ -81,6 +92,7 @@ redirect_uri=http://localhost:3000`;
               return <Track
               key={i}
               id={result.uri}
+              device={device}
               accessToken={accessToken}
               setCurrentSong={setCurrentSong}
               setRecommendedTracks={setRecommendedTracks}
