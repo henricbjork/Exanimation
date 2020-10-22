@@ -22,7 +22,7 @@ const Icosahedron = ({
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
       >
-        <icosahedronBufferGeometry attach='geometry' />
+        <icosahedronBufferGeometry attach='geometry'  />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
       {recommendations &&
