@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './login.css';
+import './Login.css';
 
 //Components
-import Button from '../../components/Button';
+// import Button from '../../components/Button';
 
 //Packages
 import { navigate } from '@reach/router';

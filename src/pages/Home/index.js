@@ -10,18 +10,29 @@ import { Redirect } from '@reach/router';
 import Track from '../../spotify/components/Track';
 
 //Functions
-import getAccessToken from '../../functions/getAccessToken';
+import { getAccessToken } from '../../spotify/functions/getAccessToken';
+import { getDevices } from '../../spotify/functions/getDevices';
 
 //CSS
-import './home.css';
+import './Home.css';
 
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState(null);
-
+  const [device, setDevice] = useState(null);
   const accessToken = getAccessToken();
+
+  if(accessToken) {
+  getDevices(accessToken)
+  .then((devices)=>{
+    setDevice(devices.devices[0].id);
+  })
+  .catch((error)=>{
+    console.log(error.message);
+  });
+}
 
   useEffect(() => {
     const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=6`;
@@ -59,6 +70,7 @@ const HomePage = () => {
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
+          device={device}
         />
       </Canvas>
 
@@ -77,6 +89,7 @@ const HomePage = () => {
                     key={i}
                     id={result.uri}
                     accessToken={accessToken}
+                    device={device}
                     setCurrentSong={setCurrentSong}
                     setRecommendedTracks={setRecommendedTracks}
                     image={result.album.images[0].url}

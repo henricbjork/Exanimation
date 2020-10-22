@@ -4,8 +4,8 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 //Pages
-import HomePage from './pages/Home/home';
-import LoginPage from './pages/Login/login';
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
 
 //CSS
 import './App.css';

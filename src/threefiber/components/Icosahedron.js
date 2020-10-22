@@ -9,6 +9,7 @@ const Icosahedron = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
+  device,
   onPointerOver,
   onPointerOut,
 }) => {
@@ -34,6 +35,7 @@ const Icosahedron = ({
               setCurrentSong={setCurrentSong}
               setRecommendedTracks={setRecommendedTracks}
               accessToken={accessToken}
+              device={device}
               recommendation={recommendation}
             />
           );

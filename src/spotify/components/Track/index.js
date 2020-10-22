@@ -10,7 +10,8 @@ const Track = (props) => {
         props.id,
         props.accessToken,
         props.setRecommendedTracks,
-        props.setCurrentSong
+        props.setCurrentSong,
+        props.device
       );
       clearSearchField();
     }

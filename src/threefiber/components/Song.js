@@ -12,6 +12,7 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
+  device
 }) => {
   const [hover, setHover] = useState(false);
   const mesh = useRef();
@@ -22,8 +23,6 @@ const Song = ({
   const props = useSpring({
     scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
   });
-
-  console.log(distance);
 
   return (
     <group ref={mesh}>
@@ -37,7 +36,8 @@ const Song = ({
             recommendation.uri,
             accessToken,
             setRecommendedTracks,
-            setCurrentSong
+            setCurrentSong,
+            device
           );
         }}
       >
