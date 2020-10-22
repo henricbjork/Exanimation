@@ -10,11 +10,11 @@ import { Redirect } from '@reach/router';
 import Track from '../../spotify/components/Track';
 
 //Functions
-import getAccessToken from '../../functions/getAccessToken';
-import {getDevices} from './../../spotify/functions/getDevices';
+import { getAccessToken } from '../../spotify/functions/getAccessToken';
+import { getDevices } from '../../spotify/functions/getDevices';
 
 //CSS
-import './home.css';
+import './Home.css';
 
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
