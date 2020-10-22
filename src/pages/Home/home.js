@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
-import Icosahedron from './threefiber/components/Icosahedron';
+import Icosahedron from '../../threefiber/components/Icosahedron';
 import { OrbitControls } from 'drei';
 import { Redirect } from '@reach/router';
+
+//Components
+import Track from '../../spotify/components/Track';
 
 //Functions
 import getAccessToken from '../../functions/getAccessToken';
@@ -12,7 +15,7 @@ import getAccessToken from '../../functions/getAccessToken';
 //CSS
 import './home.css';
 
-const Home = () => {
+const HomePage = ({ loggedIn }) => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -104,4 +107,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

@@ -21,4 +21,4 @@ redirect_uri=${redirectUri}`;
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Canvas } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
-import Icosahedron from './threefiber/components/Icosahedron';
+
 import queryString from 'query-string';
-import Track from './spotify/components/Track';
+
 import './App.css';
+import { Router } from '@reach/router';
+
+import HomePage from './pages/Home/home';
+import LoginPage from './pages/Login/login';
 
 function App() {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
@@ -52,71 +54,12 @@ redirect_uri=http://localhost:3000`;
   }, [accessToken, searchText]);
 
   return (
-    <>
-      <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
-        <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
-        <ambientLight />
-        <Icosahedron
-          recommendations={recommendedTracks}
-          setCurrentSong={setCurrentSong}
-          setRecommendedTracks={setRecommendedTracks}
-          accessToken={accessToken}
-          
-        />
-      </Canvas>
-
-      {!accessToken && (
-        <div className='accessToken'>
-          <a href={url} onClick={getAccessToken}>
-            Authorise
-          </a>
-        </div>
-      )}
-
-      {accessToken && (
-        <div className='App'>
-          <div className='search-box'>
-            <input
-              className='search-field'
-              type='text'
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-            {searchResult &&
-              searchResult.map((result, i) => {
-                return (
-                  <Track
-                    key={i}
-                    id={result.uri}
-                    accessToken={accessToken}
-                    setCurrentSong={setCurrentSong}
-                    setRecommendedTracks={setRecommendedTracks}
-                    image={result.album.images[0].url}
-                    artist={result.artists[0].name}
-                    track={result.name}
-                  />
-                );
-              })}
-          </div>
-
-          {currentSong && (
-            <div className='player'>
-              <h2>Currently Playing</h2>
-              <div className='cover-text-box'>
-                <img
-                  className='current-album-cover'
-                  src={currentSong.album.image}
-                  alt={currentSong.album.name}
-                />
-                <div>
-                  <p>{currentSong.song}</p>
-                  <p>{currentSong.artist}</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </>
+    <div className='App'>
+      <Router>
+        <HomePage path='/' loggedIn={true} />
+        <LoginPage path='/login' />
+      </Router>
+    </div>
   );
 }
 
