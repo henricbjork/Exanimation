@@ -1,37 +1,26 @@
-import React, { useState } from 'react';
-import { Canvas } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
-import Icosahedron from './threefiber/components/Icosahedron';
-import queryString from 'query-string';
-import Track from './spotify/components/Track';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+//Packages
+import { Canvas } from 'react-three-fiber';
+import Icosahedron from './threefiber/components/Icosahedron';
+import { OrbitControls } from 'drei';
+import { Redirect } from '@reach/router';
+
+//Functions
+import getAccessToken from '../../functions/getAccessToken';
+
+//CSS
+import './home.css';
+
+const Home = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
-  const [searchText, setSearchText] = React.useState('');
-  const [searchResult, setSearchResult] = React.useState(null);
-  const [hover, setHover] = useState(false);
-
-  const url = `
-https://accounts.spotify.com/authorize?
-client_id=5d27d394dabe48ceb3546e56bc892ada&
-show_dialog=true&
-response_type=token&
-scope=user-modify-playback-state user-read-recently-played&
-redirect_uri=http://localhost:3000`;
-
-  const getAccessToken = () => {
-    const parsed = queryString.parse(window.location.hash);
-    if (parsed.access_token !== undefined) {
-      return parsed.access_token;
-    }
-    return false;
-  };
+  const [searchText, setSearchText] = useState('');
+  const [searchResult, setSearchResult] = useState(null);
 
   const accessToken = getAccessToken();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=6`;
 
     if (searchText === '' || searchText === ' ') {
@@ -51,6 +40,10 @@ redirect_uri=http://localhost:3000`;
       });
   }, [accessToken, searchText]);
 
+  if (!accessToken) {
+    return <Redirect from='' to='/login' noThrow />;
+  }
+
   return (
     <>
       <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
@@ -61,20 +54,11 @@ redirect_uri=http://localhost:3000`;
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
-          
         />
       </Canvas>
 
-      {!accessToken && (
-        <div className='accessToken'>
-          <a href={url} onClick={getAccessToken}>
-            Authorise
-          </a>
-        </div>
-      )}
-
       {accessToken && (
-        <div className='App'>
+        <div className='home'>
           <div className='search-box'>
             <input
               className='search-field'
@@ -118,6 +102,6 @@ redirect_uri=http://localhost:3000`;
       )}
     </>
   );
-}
+};
 
-export default App;
+export default Home;
