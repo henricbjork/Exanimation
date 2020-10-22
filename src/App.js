@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import queryString from 'query-string';
-
-import './App.css';
+//Packages
 import { Router } from '@reach/router';
 
+//Pages
 import HomePage from './pages/Home/home';
 import LoginPage from './pages/Login/login';
+
+//CSS
+import './App.css';
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <HomePage path='/' loggedIn={true} />
+        <HomePage path='/' />
         <LoginPage path='/login' />
       </Router>
     </div>

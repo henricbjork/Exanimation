@@ -15,7 +15,7 @@ import getAccessToken from '../../functions/getAccessToken';
 //CSS
 import './home.css';
 
-const HomePage = ({ loggedIn }) => {
+const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -46,6 +46,8 @@ const HomePage = ({ loggedIn }) => {
   if (!accessToken) {
     return <Redirect from='' to='/login' noThrow />;
   }
+
+  // Vector3 {x: 4.205848693847656, y: -6.805206298828125, z: 0, isVector3: true}x: 4.205848693847656y: -6.805206298828125z: 0isVector3: true__proto__: Object
 
   return (
     <>

@@ -1,6 +1,12 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+
 import './login.css';
+
+//Components
+import Button from '../../components/Button';
+
+//Packages
+import { navigate } from '@reach/router';
 
 const LoginPage = () => {
   const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
