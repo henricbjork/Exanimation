@@ -23,6 +23,8 @@ const Song = ({
     scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
   });
 
+  console.log(distance);
+
   return (
     <group ref={mesh}>
       <a.mesh
