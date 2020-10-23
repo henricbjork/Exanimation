@@ -27,7 +27,6 @@ const HomePage = () => {
     getDevices(accessToken)
       .then((devices) => {
         setDevice(devices.devices[0].id);
-        console.log(devices);
       })
       .catch((error) => {
         console.log(error.message);
@@ -61,7 +60,7 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} />}
+          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} device={device} />}
         </div>
       )}
     </>

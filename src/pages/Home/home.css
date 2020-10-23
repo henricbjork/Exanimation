@@ -14,7 +14,7 @@
   height: 100%;
 }
 
-.player {
+/* .player {
   display: flex;
   flex-direction: column;
   color: white;
@@ -37,7 +37,7 @@
   width: 80px;
   height: 80px;
   margin-right: 20px;
-}
+} */
 
 canvas {
   height: 100vh;
