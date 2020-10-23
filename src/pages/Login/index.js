@@ -7,6 +7,7 @@ import './login.css';
 
 //Packages
 import { navigate } from '@reach/router';
+import { useSpring, a } from 'react-spring';
 
 const LoginPage = () => {
   const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
@@ -19,6 +20,12 @@ response_type=token&
 scope=user-modify-playback-state user-read-recently-played&
 redirect_uri=${redirectUri}`;
 
+  const props = useSpring({
+    to: { width: '200px' },
+    from: { width: '0px' },
+    delay: 500,
+  });
+
   return (
     <section>
       <div>
@@ -29,7 +36,9 @@ redirect_uri=${redirectUri}`;
           <br />
           Sign in to Spotify to start exploring:
         </p>
-        <button onClick={() => navigate(url)}>Sign in to spotify</button>
+        <a.button style={props} onClick={() => navigate(url)}>
+          Sign in to spotify
+        </a.button>
       </div>
     </section>
   );
