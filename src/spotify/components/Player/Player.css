@@ -1,11 +1,14 @@
 .player {
   display: flex;
   flex-direction: column;
-  color: white;
-  padding: 20px;
+  background-color: white;
+  color: black !important;
+  padding: 10px;
   position: absolute;
   bottom: 0;
   left: 0;
+  border-radius: 4px;
+  margin: 20px;
 }
 
 .cover-text-box {
@@ -13,12 +16,18 @@
 }
 
 .cover-text-box p {
-  margin: 4px 0;
+  margin: 4px 8px 4px 0;
   white-space: nowrap;
+  min-width: 200px;
 }
 
 .current-album-cover {
-  width: 80px;
-  height: 80px;
-  margin-right: 20px;
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.play-pause {
+  height: 40px;
+  width: 40px;
 }
