@@ -14,7 +14,7 @@ import { getAccessToken } from '../../spotify/functions/getAccessToken';
 import { getDevices } from '../../spotify/functions/getDevices';
 
 //CSS
-import './Home.css';
+import './home.css';
 
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);

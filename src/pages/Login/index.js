@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Login.css';
+import './login.css';
 
 //Components
 // import Button from '../../components/Button';
@@ -20,10 +20,18 @@ scope=user-modify-playback-state user-read-recently-played&
 redirect_uri=${redirectUri}`;
 
   return (
-    <div className='login-page'>
-      <h1>Welcome to MusicBox</h1>
-      <button onClick={() => navigate(url)}>Login to spotify</button>
-    </div>
+    <section>
+      <div>
+        <h1>Welcome to MusicBox</h1>
+        <p>
+          Enter a song of your choice and MusicBox
+          <br /> will generate recommendations similar to that song. <br />
+          <br />
+          Sign in to Spotify to start exploring:
+        </p>
+        <button onClick={() => navigate(url)}>Sign in to spotify</button>
+      </div>
+    </section>
   );
 };
 
