@@ -52,7 +52,6 @@ const HomePage = () => {
           device={device}
         />
       </Canvas>
-
       {accessToken && (
         <div className='home'>
           <SearchField
@@ -61,7 +60,6 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-
           {currentSong && <Player currentSong={currentSong} />}
         </div>
       )}
