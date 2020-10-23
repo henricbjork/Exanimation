@@ -10,19 +10,13 @@ const Icosahedron = ({
   setRecommendedTracks,
   accessToken,
   device,
-  onPointerOver,
-  onPointerOut,
 }) => {
   const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
 
   return (
     <>
-      <mesh
-        scale={[SIZE, SIZE, SIZE]}
-        onPointerOver={onPointerOver}
-        onPointerOut={onPointerOut}
-      >
-        <icosahedronBufferGeometry attach='geometry'  />
+      <mesh scale={[SIZE, SIZE, SIZE]}>
+        <icosahedronBufferGeometry attach='geometry' />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
       {recommendations &&

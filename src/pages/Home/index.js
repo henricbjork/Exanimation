@@ -8,6 +8,7 @@ import { Redirect } from '@reach/router';
 
 //Components
 import SearchField from '../../spotify/components/SearchField';
+import Player from '../../spotify/components/Player';
 
 //Functions
 import { getAccessToken } from '../../spotify/functions/getAccessToken';
@@ -61,22 +62,7 @@ const HomePage = () => {
             setRecommendedTracks={setRecommendedTracks}
           />
 
-          {currentSong && (
-            <div className='player'>
-              <h2>Currently Playing</h2>
-              <div className='cover-text-box'>
-                <img
-                  className='current-album-cover'
-                  src={currentSong.album.image}
-                  alt={currentSong.album.name}
-                />
-                <div>
-                  <p>{currentSong.song}</p>
-                  <p>{currentSong.artist}</p>
-                </div>
-              </div>
-            </div>
-          )}
+          {currentSong && <Player currentSong={currentSong} />}
         </div>
       )}
     </>
