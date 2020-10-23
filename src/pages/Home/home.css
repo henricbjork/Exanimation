@@ -15,7 +15,6 @@
 }
 
 .player {
-  border: 1px solid white;
   display: flex;
   flex-direction: column;
   color: white;

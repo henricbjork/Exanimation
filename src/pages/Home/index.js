@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
@@ -7,7 +7,6 @@ import { OrbitControls } from 'drei';
 import { Redirect } from '@reach/router';
 
 //Components
-import Track from '../../spotify/components/Track';
 import SearchField from '../../spotify/components/SearchField';
 
 //Functions
@@ -20,8 +19,6 @@ import './home.css';
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
-  const [searchText, setSearchText] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
   const [device, setDevice] = useState(null);
   const accessToken = getAccessToken();
 
@@ -34,26 +31,6 @@ const HomePage = () => {
         console.log(error.message);
       });
   }
-
-  useEffect(() => {
-    const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=6`;
-
-    if (searchText === '' || searchText === ' ') {
-      setSearchResult(null);
-      return;
-    }
-
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-      },
-    })
-      .then((queryResult) => queryResult.json())
-      .then((json) => {
-        setSearchResult(json.tracks.items);
-      });
-  }, [accessToken, searchText]);
 
   if (!accessToken) {
     return <Redirect from='' to='/login' noThrow />;
@@ -77,23 +54,13 @@ const HomePage = () => {
 
       {accessToken && (
         <div className='home'>
-          <SearchField handleOnChange={(e) => setSearchText(e.target.value)} />
-          {searchResult &&
-            searchResult.map((result, i) => {
-              return (
-                <Track
-                  key={i}
-                  id={result.uri}
-                  accessToken={accessToken}
-                  device={device}
-                  setCurrentSong={setCurrentSong}
-                  setRecommendedTracks={setRecommendedTracks}
-                  image={result.album.images[0].url}
-                  artist={result.artists[0].name}
-                  track={result.name}
-                />
-              );
-            })}
+          <SearchField
+            accessToken={accessToken}
+            device={device}
+            setCurrentSong={setCurrentSong}
+            setRecommendedTracks={setRecommendedTracks}
+          />
+
           {currentSong && (
             <div className='player'>
               <h2>Currently Playing</h2>
