@@ -27,16 +27,20 @@ redirect_uri=${redirectUri}`;
   });
 
   return (
-    <section>
+    <section className='sign-in-page'>
       <div>
-        <h1>Welcome to MusicBox</h1>
-        <p>
+        <h1 className='title'>Welcome to MusicBox</h1>
+        <p className='app-info'>
           Enter a song of your choice and MusicBox
           <br /> will generate recommendations similar to that song. <br />
           <br />
           Sign in to Spotify to start exploring:
         </p>
-        <a.button style={props} onClick={() => navigate(url)}>
+        <a.button
+          className='sign-in-btn'
+          style={props}
+          onClick={() => navigate(url)}
+        >
           Sign in to spotify
         </a.button>
       </div>
