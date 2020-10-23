@@ -17,7 +17,7 @@ https://accounts.spotify.com/authorize?
 client_id=${clientId}
 show_dialog=true&
 response_type=token&
-scope=user-modify-playback-state user-read-recently-played&
+scope=user-modify-playback-state user-read-playback-state user-read-recently-played&
 redirect_uri=${redirectUri}`;
 
   const props = useSpring({
