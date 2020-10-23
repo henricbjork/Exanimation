@@ -7,6 +7,7 @@ import './login.css';
 
 //Packages
 import { navigate } from '@reach/router';
+import { useSpring, a } from 'react-spring';
 
 const LoginPage = () => {
   const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
@@ -19,17 +20,29 @@ response_type=token&
 scope=user-modify-playback-state user-read-recently-played&
 redirect_uri=${redirectUri}`;
 
+  const props = useSpring({
+    to: { width: '200px' },
+    from: { width: '0px' },
+    delay: 500,
+  });
+
   return (
-    <section>
+    <section className='sign-in-page'>
       <div>
-        <h1>Welcome to MusicBox</h1>
-        <p>
+        <h1 className='title'>Welcome to MusicBox</h1>
+        <p className='app-info'>
           Enter a song of your choice and MusicBox
           <br /> will generate recommendations similar to that song. <br />
           <br />
           Sign in to Spotify to start exploring:
         </p>
-        <button onClick={() => navigate(url)}>Sign in to spotify</button>
+        <a.button
+          className='sign-in-btn'
+          style={props}
+          onClick={() => navigate(url)}
+        >
+          Sign in to spotify
+        </a.button>
       </div>
     </section>
   );

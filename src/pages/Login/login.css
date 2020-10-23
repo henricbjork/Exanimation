@@ -1,22 +1,26 @@
-section {
+.sign-in-page {
   height: 100vh;
   background: #000;
   color: white;
 }
-section div {
+.sign-in-page div {
   padding-top: 90px;
   padding-left: 140px;
 }
-h1 {
+.title {
   font-size: 44px;
 }
-p {
+.app-info {
   padding: 40px 0px 40px 0px;
 }
-button {
+.sign-in-btn {
   height: 55px;
   width: 200px;
   border-radius: 30px;
   border: none;
   font-size: 20px;
+  white-space: nowrap;
+}
+.sign-in-btn:hover {
+  cursor: pointer;
 }
