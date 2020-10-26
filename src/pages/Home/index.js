@@ -60,8 +60,14 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} device={device} />}
         </div>
+      )}
+      {currentSong && (
+        <Player
+          currentSong={currentSong}
+          accessToken={accessToken}
+          device={device}
+        />
       )}
     </>
   );
