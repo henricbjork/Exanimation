@@ -32,7 +32,7 @@ const Player = ({ currentSong, accessToken, device }) => {
         onClick={() => {
           setPaused(!paused);
           paused
-            ? playSong(position.uri, accessToken, device, position.position)
+            ? putTrack(position.uri, accessToken, device, position.position)
             : pauseTrack(accessToken).then((res) => {
                 setPosition(res);
               });
