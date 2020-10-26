@@ -1,4 +1,4 @@
-export const fetchCurrent = (accessToken) => {
+export const getCurrentlyPlaying = (accessToken) => {
     if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';

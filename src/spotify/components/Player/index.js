@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Player.css';
 import PauseImg from './../../../assets/icons/pause.svg';
 import PlayImg from './../../../assets/icons/play.svg';
-import { playSong } from '../../functions/playSong';
+import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 
 const Player = ({ currentSong, accessToken, device }) => {
