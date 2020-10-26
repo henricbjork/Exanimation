@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
@@ -21,6 +21,10 @@ const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [currentDevice, setCurrentDevice] = useState(null);
+  const [windowSize, setWindowSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
   const accessToken = getAccessToken();
 
   useEffect(() => {
@@ -35,6 +39,15 @@ const HomePage = () => {
     }
   }, [accessToken]);
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowSize({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    });
+  });
+
   if (!accessToken) {
     return <Redirect from='' to='/login' noThrow />;
   }
@@ -43,7 +56,10 @@ const HomePage = () => {
 
   return (
     <>
-      <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
+      <Canvas
+        camera={{ position: [0, 0, 120], fov: 10 }}
+        style={{ height: '100vh', width: '100vw' }}
+      >
         <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
         <ambientLight />
         <Icosahedron
@@ -52,6 +68,7 @@ const HomePage = () => {
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
           currentDevice={currentDevice}
+          windowSize={windowSize}
         />
       </Canvas>
       {accessToken && (
@@ -62,8 +79,15 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} currentDevice={currentDevice} setCurrentDevice={setCurrentDevice} />}
         </div>
+      )}
+      {currentSong && (
+        <Player
+          currentSong={currentSong}
+          accessToken={accessToken}
+          currentDevice={currentDevice}
+          setCurrentDevice={setCurrentDevice}
+        />
       )}
     </>
   );

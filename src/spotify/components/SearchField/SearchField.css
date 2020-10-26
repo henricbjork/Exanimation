@@ -1,5 +1,5 @@
 .search-box {
-  padding: 20px 0px 10px 20px;
+  margin: 20px 0px 10px 20px;
 }
 
 .search-field {
@@ -16,4 +16,10 @@
 .search-field:focus {
   text-decoration: none !important;
   outline: none !important;
+}
+
+@media screen and (max-width: 700px) {
+  .search-box {
+    margin: 0 auto;
+  }
 }

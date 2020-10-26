@@ -2,15 +2,22 @@ import React from 'react';
 import * as THREE from 'three';
 import Song from './Song';
 
-const SIZE = 8;
-
 const Icosahedron = ({
   recommendations,
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
   currentDevice,
+  windowSize,
 }) => {
+  let SIZE;
+
+  if (windowSize !== undefined && windowSize.width < 700) {
+    SIZE = 5;
+  } else if (windowSize !== undefined && windowSize.width > 700) {
+    SIZE = 8;
+  }
+
   const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
 
   return (
@@ -31,6 +38,7 @@ const Icosahedron = ({
               accessToken={accessToken}
               currentDevice={currentDevice}
               recommendation={recommendation}
+              icoSize={SIZE}
             />
           );
         })}
