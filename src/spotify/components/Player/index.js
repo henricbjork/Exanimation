@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Player.css';
 import PauseImg from './../../../assets/icons/pause.svg';
 import PlayImg from './../../../assets/icons/play.svg';
-import { playSong } from '../../functions/playSong';
+import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 
 const Player = ({ currentSong, accessToken, device }) => {
@@ -25,7 +25,7 @@ const Player = ({ currentSong, accessToken, device }) => {
           <p>{currentSong.song}</p>
           <p>{currentSong.artist}</p>
         </div>
-        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? playSong(position.uri, accessToken, device, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
+        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, device, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
       </div>
     </div>
   );

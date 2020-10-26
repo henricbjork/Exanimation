@@ -1,4 +1,4 @@
-export const fetchRecommendations = (id, accessToken, setRecommendedTracks) => {
+export const getRecommendations = (accessToken, id) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';
@@ -9,8 +9,7 @@ export const fetchRecommendations = (id, accessToken, setRecommendedTracks) => {
     })
       .then((response) => response.json())
       .then((recommend) => {
-        setRecommendedTracks(recommend.tracks);
-        resolve(recommend.tracks);
+        resolve(recommend);
       });
   });
 };

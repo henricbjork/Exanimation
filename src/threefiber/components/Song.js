@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { TextureLoader } from 'three';
-import { playSelected } from './../../spotify/functions/playSelected';
+import { playSelectedTrack } from '../../spotify/functions/playSelectedTrack';
 import { useSpring, a } from 'react-spring/three';
 
 const SIZE = 10;
@@ -32,7 +32,7 @@ const Song = ({
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
         onPointerDown={() => {
-          playSelected(
+          playSelectedTrack(
             recommendation.uri,
             accessToken,
             setRecommendedTracks,

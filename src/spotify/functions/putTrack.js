@@ -1,4 +1,4 @@
-export const playSong = (uri, accessToken, device, position=0) => {
+export const putTrack = (uri, accessToken, device, position=0) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';
