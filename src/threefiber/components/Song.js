@@ -13,11 +13,11 @@ const Song = ({
   device,
   icoSize,
 }) => {
-  const [hover, setHover] = useState(false);
-  const mesh = useRef();
-
   const loader = new TextureLoader();
   const texture = loader.load(imageUrl);
+
+  const [hover, setHover] = useState(false);
+  const mesh = useRef();
 
   let SIZE;
 
