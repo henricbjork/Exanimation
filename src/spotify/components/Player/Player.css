@@ -1,18 +1,30 @@
 .player {
   display: flex;
-  flex-direction: row;
-  background-color: white;
-  color: black !important;
-  padding: 10px;
+  flex-direction: column;
   position: absolute;
   bottom: 0;
   left: 0;
-  border-radius: 4px;
   margin: 20px;
   width: 350px;
 }
 
+.device-text {
+  padding: 6px 0;
+  color: #008000;
+  font-size: 14px;
+}
+
+.player-box {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black !important;
+  padding: 10px;
+  border-radius: 4px;
+}
+
 .cover-text-box {
+  position: relative;
   display: flex;
 }
 
@@ -44,8 +56,8 @@
   height: 40px;
   width: 40px;
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 4px;
+  top: 4px;
 }
 
 @media screen and (max-width: 700px) {

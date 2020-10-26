@@ -10,7 +10,7 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  device,
+  currentDevice,
   icoSize,
 }) => {
   const loader = new TextureLoader();
@@ -44,7 +44,7 @@ const Song = ({
             accessToken,
             setRecommendedTracks,
             setCurrentSong,
-            device
+            currentDevice.id
           );
         }}
       >

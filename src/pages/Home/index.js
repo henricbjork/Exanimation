@@ -20,22 +20,24 @@ import './home.css';
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
-  const [device, setDevice] = useState(null);
+  const [currentDevice, setCurrentDevice] = useState(null);
   const [windowSize, setWindowSize] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
   const accessToken = getAccessToken();
 
-  if (accessToken) {
-    getDevices(accessToken)
+  useEffect(() => {
+    if(accessToken) {
+      getDevices(accessToken)
       .then((devices) => {
-        setDevice(devices.devices[0].id);
+        setCurrentDevice(devices.devices[0]);
       })
       .catch((error) => {
         console.log(error.message);
       });
-  }
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -65,7 +67,7 @@ const HomePage = () => {
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
-          device={device}
+          currentDevice={currentDevice}
           windowSize={windowSize}
         />
       </Canvas>
@@ -73,7 +75,7 @@ const HomePage = () => {
         <div className='home'>
           <SearchField
             accessToken={accessToken}
-            device={device}
+            currentDevice={currentDevice}
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
@@ -83,7 +85,8 @@ const HomePage = () => {
         <Player
           currentSong={currentSong}
           accessToken={accessToken}
-          device={device}
+          currentDevice={currentDevice}
+          setCurrentDevice={setCurrentDevice}
         />
       )}
     </>

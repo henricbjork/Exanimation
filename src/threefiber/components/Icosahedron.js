@@ -7,7 +7,7 @@ const Icosahedron = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  device,
+  currentDevice,
   windowSize,
 }) => {
   let SIZE;
@@ -36,7 +36,7 @@ const Icosahedron = ({
               setCurrentSong={setCurrentSong}
               setRecommendedTracks={setRecommendedTracks}
               accessToken={accessToken}
-              device={device}
+              currentDevice={currentDevice}
               recommendation={recommendation}
               icoSize={SIZE}
             />
