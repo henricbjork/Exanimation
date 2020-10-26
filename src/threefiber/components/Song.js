@@ -3,8 +3,6 @@ import { TextureLoader } from 'three';
 import { playSelected } from './../../spotify/functions/playSelected';
 import { useSpring, a } from 'react-spring/three';
 
-const SIZE = 10;
-
 const Song = ({
   distance,
   imageUrl,
@@ -12,13 +10,22 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  device
+  device,
+  icoSize,
 }) => {
   const [hover, setHover] = useState(false);
   const mesh = useRef();
 
   const loader = new TextureLoader();
   const texture = loader.load(imageUrl);
+
+  let SIZE;
+
+  if (icoSize === 8) {
+    SIZE = 10;
+  } else {
+    SIZE = 6;
+  }
 
   const props = useSpring({
     scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
