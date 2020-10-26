@@ -1,6 +1,6 @@
 .player {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: white;
   color: black !important;
   padding: 10px;
@@ -9,6 +9,7 @@
   left: 0;
   border-radius: 4px;
   margin: 20px;
+  width: 350px;
 }
 
 .cover-text-box {
@@ -18,7 +19,19 @@
 .cover-text-box p {
   margin: 4px 8px 4px 0;
   white-space: nowrap;
-  min-width: 200px;
+  max-width: 160px;
+  overflow-x: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.cover-text-box p::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.cover-text-box p {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .current-album-cover {
@@ -30,4 +43,18 @@
 .play-pause {
   height: 40px;
   width: 40px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+@media screen and (max-width: 700px) {
+  .player {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 45px;
+    margin: 0 auto;
+    width: 315px;
+  }
 }

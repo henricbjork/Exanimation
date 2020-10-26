@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
@@ -21,6 +21,10 @@ const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [device, setDevice] = useState(null);
+  const [windowSize, setWindowSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
   const accessToken = getAccessToken();
 
   if (accessToken) {
@@ -33,6 +37,15 @@ const HomePage = () => {
       });
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowSize({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    });
+  });
+
   if (!accessToken) {
     return <Redirect from='' to='/login' noThrow />;
   }
@@ -41,7 +54,10 @@ const HomePage = () => {
 
   return (
     <>
-      <Canvas camera={{ position: [0, 0, 120], fov: 10 }}>
+      <Canvas
+        camera={{ position: [0, 0, 120], fov: 10 }}
+        style={{ height: '100vh', width: '100vw' }}
+      >
         <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
         <ambientLight />
         <Icosahedron
@@ -50,6 +66,7 @@ const HomePage = () => {
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
           device={device}
+          windowSize={windowSize}
         />
       </Canvas>
       {accessToken && (
@@ -60,8 +77,14 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} device={device} />}
         </div>
+      )}
+      {currentSong && (
+        <Player
+          currentSong={currentSong}
+          accessToken={accessToken}
+          device={device}
+        />
       )}
     </>
   );

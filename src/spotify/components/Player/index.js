@@ -25,8 +25,19 @@ const Player = ({ currentSong, accessToken, device }) => {
           <p>{currentSong.song}</p>
           <p>{currentSong.artist}</p>
         </div>
-        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, device, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
       </div>
+      <img
+        className='play-pause'
+        src={paused ? PlayImg : PauseImg}
+        onClick={() => {
+          setPaused(!paused);
+          paused
+            ? playSong(position.uri, accessToken, device, position.position)
+            : pauseTrack(accessToken).then((res) => {
+                setPosition(res);
+              });
+        }}
+      />
     </div>
   );
 };
