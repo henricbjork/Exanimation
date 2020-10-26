@@ -1,8 +1,8 @@
-export const putTrack = (uri, accessToken, device, position=0) => {
+export const putTrack = (uri, accessToken, currentDevice, position=0) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';
-    fetch(`${rootUrl}/me/player/play?device_id=${device}`, {
+    fetch(`${rootUrl}/me/player/play?device_id=${currentDevice}`, {
       method: 'PUT',
       body: JSON.stringify({ uris: [`${uri}`], position_ms: `${position}` }),
       headers: {

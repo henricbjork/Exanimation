@@ -12,7 +12,7 @@ const Song = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  device
+  currentDevice
 }) => {
   const [hover, setHover] = useState(false);
   const mesh = useRef();
@@ -37,7 +37,7 @@ const Song = ({
             accessToken,
             setRecommendedTracks,
             setCurrentSong,
-            device
+            currentDevice
           );
         }}
       >

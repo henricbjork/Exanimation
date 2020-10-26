@@ -9,7 +9,7 @@ const Icosahedron = ({
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
-  device,
+  currentDevice,
 }) => {
   const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
 
@@ -29,7 +29,7 @@ const Icosahedron = ({
               setCurrentSong={setCurrentSong}
               setRecommendedTracks={setRecommendedTracks}
               accessToken={accessToken}
-              device={device}
+              currentDevice={currentDevice}
               recommendation={recommendation}
             />
           );

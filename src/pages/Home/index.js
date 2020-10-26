@@ -20,13 +20,13 @@ import './home.css';
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
-  const [device, setDevice] = useState(null);
+  const [currentDevice, setCurrentDevice] = useState(null);
   const accessToken = getAccessToken();
 
   if (accessToken) {
     getDevices(accessToken)
       .then((devices) => {
-        setDevice(devices.devices[0].id);
+        setCurrentDevice(devices.devices[0].id);
       })
       .catch((error) => {
         console.log(error.message);
@@ -49,18 +49,18 @@ const HomePage = () => {
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
-          device={device}
+          currentDevice={currentDevice}
         />
       </Canvas>
       {accessToken && (
         <div className='home'>
           <SearchField
             accessToken={accessToken}
-            device={device}
+            currentDevice={currentDevice}
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} device={device} />}
+          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} currentDevice={currentDevice} />}
         </div>
       )}
     </>

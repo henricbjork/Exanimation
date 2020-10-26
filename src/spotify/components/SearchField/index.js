@@ -6,7 +6,7 @@ import './SearchField.css';
 
 const SearchField = ({
   accessToken,
-  device,
+  currentDevice,
   setRecommendedTracks,
   setCurrentSong,
 }) => {
@@ -49,7 +49,7 @@ const SearchField = ({
               key={i}
               id={result.uri}
               accessToken={accessToken}
-              device={device}
+              currentDevice={currentDevice}
               setCurrentSong={setCurrentSong}
               setRecommendedTracks={setRecommendedTracks}
               image={result.album.images[0].url}

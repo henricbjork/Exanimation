@@ -5,7 +5,7 @@ import PlayImg from './../../../assets/icons/play.svg';
 import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 
-const Player = ({ currentSong, accessToken, device }) => {
+const Player = ({ currentSong, accessToken, currentDevice }) => {
   const [paused, setPaused] = useState(false);
   const [position, setPosition] = useState(null);
 
@@ -25,7 +25,7 @@ const Player = ({ currentSong, accessToken, device }) => {
           <p>{currentSong.song}</p>
           <p>{currentSong.artist}</p>
         </div>
-        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, device, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
+        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, currentDevice, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
       </div>
     </div>
   );

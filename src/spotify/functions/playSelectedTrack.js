@@ -8,11 +8,11 @@ export const playSelectedTrack = (
   accessToken,
   setRecommendedTracks,
   setCurrentSong,
-  device
+  currentDevice
 ) => {
   if (!accessToken) return;
   const id = uri.split(":")[2];
-  putTrack(uri, accessToken, device);
+  putTrack(uri, accessToken, currentDevice);
   getTrack(accessToken, id).then((current) => {
     console.log(
       'Currently playing: ' +
