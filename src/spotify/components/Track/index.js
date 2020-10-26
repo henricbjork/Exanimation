@@ -11,7 +11,7 @@ const Track = (props) => {
         props.accessToken,
         props.setRecommendedTracks,
         props.setCurrentSong,
-        props.currentDevice
+        props.currentDevice.id
       );
       clearSearchField();
     }

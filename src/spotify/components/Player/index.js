@@ -1,33 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import './Player.css';
+import ToggleDevice from './../ToggleDevice';
 import PauseImg from './../../../assets/icons/pause.svg';
 import PlayImg from './../../../assets/icons/play.svg';
 import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
+import { getDevices } from './../../functions/getDevices';
 
-const Player = ({ currentSong, accessToken, currentDevice }) => {
+const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice }) => {
   const [paused, setPaused] = useState(false);
+  const [devices, setDevices] = useState([]);
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
     setPaused(false);
   }, [currentSong]);
 
+  useEffect(() => {
+    getDevices(accessToken)
+    .then((devices) => {
+      setDevices(devices.devices);
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paused]);
+
   return (
+    <>
     <div className='player'>
-      <div className='cover-text-box'>
-        <img
-          className='current-album-cover'
-          src={currentSong.album.image}
-          alt={currentSong.album.name}
-        />
-        <div>
-          <p>{currentSong.song}</p>
-          <p>{currentSong.artist}</p>
+    {devices.length>1 && ((
+    paused && <ToggleDevice devices={devices} currentDevice={currentDevice} setCurrentDevice={setCurrentDevice} />) || (!paused && <p className="device-text">{currentDevice.name}</p>))}
+    {devices.length===1 && <p className="device-text">{currentDevice.name}</p>}
+      <div className='player-box'>
+        <div className='cover-text-box'>
+          <img
+            className='current-album-cover'
+            src={currentSong.album.image}
+            alt={currentSong.album.name}
+          />
+          <div>
+            <p>{currentSong.song}</p>
+            <p>{currentSong.artist}</p>
+          </div>
+          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, currentDevice.id, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} alt="play/pause" />
         </div>
-        <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, currentDevice, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} />
       </div>
     </div>
+    </>
   );
 };
 

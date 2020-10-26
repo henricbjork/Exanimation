@@ -1,0 +1,27 @@
+.toggle-device-box {
+  display: flex;
+}
+
+.arrow-img {
+  width: 15px;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  color: #008000;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  padding: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select::-ms-e {
+  display: none;
+}

@@ -1,7 +1,7 @@
 import { putTrack } from './putTrack.js';
 import { getTrack } from './getTrack.js';
 import { getRecommendations } from './getRecommendations.js';
-import { getAudioAnalysis } from './getAudioAnalysis.js';
+// import { getAudioAnalysis } from './getAudioAnalysis.js';
 
 export const playSelectedTrack = (
   uri,
@@ -20,10 +20,10 @@ export const playSelectedTrack = (
         ' - ' +
         current.name
     );
-    getAudioAnalysis(accessToken, id)
-    .then((audioAnalysis) => {
-      console.log(audioAnalysis)
-    });
+    // getAudioAnalysis(accessToken, id)
+    // .then((audioAnalysis) => {
+    //   console.log(audioAnalysis)
+    // });
     getRecommendations(accessToken, id)
     .then((recommend)=> {
       setRecommendedTracks(recommend.tracks);

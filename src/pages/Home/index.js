@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
@@ -23,15 +23,17 @@ const HomePage = () => {
   const [currentDevice, setCurrentDevice] = useState(null);
   const accessToken = getAccessToken();
 
-  if (accessToken) {
-    getDevices(accessToken)
+  useEffect(() => {
+    if(accessToken) {
+      getDevices(accessToken)
       .then((devices) => {
-        setCurrentDevice(devices.devices[0].id);
+        setCurrentDevice(devices.devices[0]);
       })
       .catch((error) => {
         console.log(error.message);
       });
-  }
+    }
+  }, [accessToken]);
 
   if (!accessToken) {
     return <Redirect from='' to='/login' noThrow />;
@@ -60,7 +62,7 @@ const HomePage = () => {
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
-          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} currentDevice={currentDevice} />}
+          {currentSong && <Player currentSong={currentSong} accessToken={accessToken} currentDevice={currentDevice} setCurrentDevice={setCurrentDevice} />}
         </div>
       )}
     </>

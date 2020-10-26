@@ -37,7 +37,7 @@ const Song = ({
             accessToken,
             setRecommendedTracks,
             setCurrentSong,
-            currentDevice
+            currentDevice.id
           );
         }}
       >
