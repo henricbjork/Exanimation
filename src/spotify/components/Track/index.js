@@ -1,12 +1,12 @@
 import React from 'react';
 import './Track.css';
-import { playSelected } from './../../functions/playSelected';
+import { playSelectedTrack } from '../../functions/playSelectedTrack';
 import { clearSearchField } from '../../functions/clearSearchField';
 
 const Track = (props) => {
   return (
     <div className="search-item-box" onClick={() => {
-      playSelected(
+      playSelectedTrack(
         props.id,
         props.accessToken,
         props.setRecommendedTracks,

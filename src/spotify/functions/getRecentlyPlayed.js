@@ -1,4 +1,4 @@
-  // const fetchHistory = () => {
+  // const getRecentlyPlayed = () => {
   //   if (songCount === 0) return;
   //   if (songCount > 50) {
   //     limit = 50;
