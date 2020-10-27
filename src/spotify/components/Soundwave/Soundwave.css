@@ -1,0 +1,8 @@
+.script-bf-box {
+  width: 2px;
+  height: 15px;
+  background: darkgreen;
+  margin: 1.5px;
+  will-change: transform;
+  border-radius: 50px;
+}
