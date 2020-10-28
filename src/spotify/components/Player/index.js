@@ -42,7 +42,7 @@ const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice, rec
             <p>{currentSong.song}</p>
             <p>{currentSong.artist}</p>
           </div>
-          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.currentUri, accessToken, currentDevice.id, position.position) && queueTrack(position.nextTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id, position.duration-position.position) : pauseTrack(accessToken, recommendedTracks).then((res)=>{setPosition(res); queueTrack(res.currentUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);})}} alt="play/pause" />
+          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.currentUri, accessToken, currentDevice.id, position.progress) && queueTrack(position.nextTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id, position.duration-position.progress) : pauseTrack(accessToken, recommendedTracks).then((res)=>{setPosition(res); queueTrack(res.currentUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);})}} alt="play/pause" />
         </div>
       </div>
     </div>

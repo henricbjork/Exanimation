@@ -8,7 +8,7 @@ export const pauseTrack = (accessToken, recommendedTracks) => {
     .then((current) => {
       putPause(accessToken);
       const randomRecommendation = recommendedTracks[Math.floor(Math.random() * recommendedTracks.length)].uri;
-      resolve({currentUri: current.item.uri, position: current.progress_ms, duration: current.item.duration_ms, nextTrackUri: randomRecommendation});
+      resolve({currentUri: current.item.uri, progress: current.progress_ms, duration: current.item.duration_ms, nextTrackUri: randomRecommendation});
     });
   })
   return position;
