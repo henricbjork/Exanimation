@@ -1,5 +1,6 @@
 import React from 'react';
 import * as THREE from 'three';
+import { useSpring, a } from 'react-spring';
 import Song from './Song';
 
 const Icosahedron = ({
@@ -18,12 +19,12 @@ const Icosahedron = ({
     SIZE = 8;
   }
 
-  const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
+  const vertices = new THREE.IcosahedronGeometry(SIZE, 1).vertices;
 
   return (
     <>
       <mesh scale={[SIZE, SIZE, SIZE]}>
-        <icosahedronBufferGeometry attach='geometry' />
+        <icosahedronBufferGeometry attach='geometry' args={[1, 1]} />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
       {recommendations &&
