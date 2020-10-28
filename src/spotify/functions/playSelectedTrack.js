@@ -15,7 +15,6 @@ export const playSelectedTrack = (
   const id = uri.split(":")[2];
   putTrack(uri, accessToken, currentDevice);
   getTrack(accessToken, id).then((current) => {
-    // console.log(current)
     console.log(
       'Currently playing: ' +
         current.artists[0].name +
