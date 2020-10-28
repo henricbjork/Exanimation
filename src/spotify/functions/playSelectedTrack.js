@@ -38,7 +38,7 @@ export const playSelectedTrack = (
           name: current.album.name,
         },
       });
-      const trackUri = recommend[Math.floor(Math.random() * recommend.length)].uri;
+      const trackUri = recommend[Math.floor(Math.random() * recommend.length)].uri; // select a random track from recommendations
       queueTrack(trackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice, current.duration_ms);
     })
     // getRecentlyPlayed();

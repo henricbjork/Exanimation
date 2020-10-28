@@ -6,8 +6,10 @@ import PlayImg from './../../../assets/icons/play.svg';
 import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 import { getDevices } from './../../functions/getDevices';
+import { queueTrack } from '../../functions/queueTrack';
+// import { clearQueueTimer } from './../../functions/clearQueueTimer';
 
-const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice }) => {
+const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice, recommendedTracks, setRecommendedTracks, setCurrentSong }) => {
   const [paused, setPaused] = useState(false);
   const [devices, setDevices] = useState([]);
   const [position, setPosition] = useState(null);
@@ -41,7 +43,7 @@ const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice }) =
             <p>{currentSong.song}</p>
             <p>{currentSong.artist}</p>
           </div>
-          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, currentDevice.id, position.position) : pauseTrack(accessToken).then((res)=>{setPosition(res)})}} alt="play/pause" />
+          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.uri, accessToken, currentDevice.id, position.position) && queueTrack(position.nextTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id, position.duration-position.position) : pauseTrack(accessToken, recommendedTracks).then((res)=>{setPosition(res); queueTrack(res.uri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);})}} alt="play/pause" />
         </div>
       </div>
     </div>

@@ -83,10 +83,13 @@ const HomePage = () => {
       )}
       {currentSong && (
         <Player
-          currentSong={currentSong}
           accessToken={accessToken}
+          currentSong={currentSong}
+          setCurrentSong={setCurrentSong}
           currentDevice={currentDevice}
           setCurrentDevice={setCurrentDevice}
+          recommendedTracks={recommendedTracks}
+          setRecommendedTracks={setRecommendedTracks}
         />
       )}
     </>
