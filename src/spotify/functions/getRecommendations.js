@@ -9,7 +9,7 @@ export const getRecommendations = (accessToken, id) => {
     })
       .then((response) => response.json())
       .then((recommend) => {
-        resolve(recommend);
+        resolve(recommend.tracks);
       });
   });
 };

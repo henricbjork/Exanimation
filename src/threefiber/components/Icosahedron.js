@@ -5,7 +5,7 @@ import Song from './Song';
 import createTubeWireframe from 'three-tube-wireframe';
 
 const Icosahedron = ({
-  recommendations,
+  recommendedTracks,
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
@@ -35,9 +35,8 @@ const Icosahedron = ({
       <mesh scale={[SIZE, SIZE, SIZE]} geometry={wireGeo}>
         <meshPhysicalMaterial attach='material' roughness='0.75' flatShading />
       </mesh>
-
-      {recommendations &&
-        recommendations.map((recommendation, i) => {
+      {recommendedTracks &&
+        recommendedTracks.map((recommendation, i) => {
           return (
             <Song
               key={i}

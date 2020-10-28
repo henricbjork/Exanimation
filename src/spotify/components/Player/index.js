@@ -7,13 +7,9 @@ import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 import { getDevices } from './../../functions/getDevices';
 import Soundwave from '../Soundwave';
+import { queueTrack } from '../../functions/queueTrack';
 
-const Player = ({
-  currentSong,
-  accessToken,
-  currentDevice,
-  setCurrentDevice,
-}) => {
+const Player = ({ currentSong, accessToken, currentDevice, setCurrentDevice, recommendedTracks, setRecommendedTracks, setCurrentSong }) => {
   const [paused, setPaused] = useState(false);
   const [devices, setDevices] = useState([]);
   const [position, setPosition] = useState(null);
@@ -31,64 +27,23 @@ const Player = ({
 
   return (
     <>
-      <div className='player'>
-        <div className='currently-playing'>
-          {devices.length > 1 &&
-            ((paused && (
-              <ToggleDevice
-                devices={devices}
-                currentDevice={currentDevice}
-                setCurrentDevice={setCurrentDevice}
-              />
-            )) ||
-              (!paused && <p className='device-text'>{currentDevice.name}</p>))}
-          {devices.length === 1 && (
-            <p className='device-text'>{currentDevice.name}</p>
-          )}
-          <Soundwave isPlaying={!paused} />
-        </div>
-        <div className='player-box'>
-          <div className='cover-text-box'>
-            <img
-              className='current-album-cover'
-              src={currentSong.album.image}
-              alt={currentSong.album.name}
-            />
-            <div>
-              <p>{currentSong.song}</p>
-              <p>{currentSong.artist}</p>
-            </div>
-            <img
-              className='play-pause'
-              src={paused ? PlayImg : PauseImg}
-              onClick={() => {
-                setPaused(!paused);
-                paused
-                  ? putTrack(
-                      position.uri,
-                      accessToken,
-                      currentDevice.id,
-                      position.position
-                    )
-                  : pauseTrack(accessToken).then((res) => {
-                      setPosition(res);
-                    });
-              }}
-              alt='play/pause'
-            />
+    <div className='player'>
+    {devices.length>1 && ((
+    paused && <ToggleDevice devices={devices} currentDevice={currentDevice} setCurrentDevice={setCurrentDevice} />) || (!paused && <p className="device-text">{currentDevice.name}</p>))}
+    {devices.length===1 && <p className="device-text">{currentDevice.name}</p>}
+      <Soundwave isPlaying={!paused} />
+      <div className='player-box'>
+        <div className='cover-text-box'>
+          <img
+            className='current-album-cover'
+            src={currentSong.album.image}
+            alt={currentSong.album.name}
+          />
+          <div>
+            <p>{currentSong.song}</p>
+            <p>{currentSong.artist}</p>
           </div>
-          {/* <img
-        className='play-pause'
-        src={paused ? PlayImg : PauseImg}
-        onClick={() => {
-          setPaused(!paused);
-          paused
-            ? putTrack(position.uri, accessToken, currentDevice.id, position.position)
-            : pauseTrack(accessToken).then((res) => {
-                setPosition(res);
-              });
-        }}
-      /> */}
+          <img className="play-pause" src={paused ? PlayImg : PauseImg } onClick={()=>{setPaused(!paused); paused ? putTrack(position.currentUri, accessToken, currentDevice.id, position.position) && queueTrack(position.nextTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id, position.duration-position.position) : pauseTrack(accessToken, recommendedTracks).then((res)=>{setPosition(res); queueTrack(res.currentUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);})}} alt="play/pause" />
         </div>
       </div>
     </>
