@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import Song from './Song';
 
 const Icosahedron = ({
-  recommendations,
+  recommendedTracks,
   setCurrentSong,
   setRecommendedTracks,
   accessToken,
@@ -26,8 +26,8 @@ const Icosahedron = ({
         <icosahedronBufferGeometry attach='geometry' />
         <meshBasicMaterial attach='material' wireframe />
       </mesh>
-      {recommendations &&
-        recommendations.map((recommendation, i) => {
+      {recommendedTracks &&
+        recommendedTracks.map((recommendation, i) => {
           return (
             <Song
               key={i}

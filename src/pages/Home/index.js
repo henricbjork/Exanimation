@@ -63,7 +63,7 @@ const HomePage = () => {
         <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
         <ambientLight />
         <Icosahedron
-          recommendations={recommendedTracks}
+          recommendedTracks={recommendedTracks}
           setCurrentSong={setCurrentSong}
           setRecommendedTracks={setRecommendedTracks}
           accessToken={accessToken}
@@ -83,10 +83,13 @@ const HomePage = () => {
       )}
       {currentSong && (
         <Player
-          currentSong={currentSong}
           accessToken={accessToken}
+          currentSong={currentSong}
+          setCurrentSong={setCurrentSong}
           currentDevice={currentDevice}
           setCurrentDevice={setCurrentDevice}
+          recommendedTracks={recommendedTracks}
+          setRecommendedTracks={setRecommendedTracks}
         />
       )}
     </>
