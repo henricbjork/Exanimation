@@ -28,14 +28,14 @@ const HomePage = () => {
   const accessToken = getAccessToken();
 
   useEffect(() => {
-    if(accessToken) {
+    if (accessToken) {
       getDevices(accessToken)
-      .then((devices) => {
-        setCurrentDevice(devices.devices[0]);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+        .then((devices) => {
+          setCurrentDevice(devices.devices[0]);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }, [accessToken]);
 
@@ -60,7 +60,7 @@ const HomePage = () => {
         camera={{ position: [0, 0, 120], fov: 10 }}
         style={{ height: '100vh', width: '100vw' }}
       >
-        <OrbitControls autoRotate='true' autoRotateSpeed='0.5' />
+        <OrbitControls autoRotate autoRotateSpeed='0.5' />
         <ambientLight />
         <Icosahedron
           recommendedTracks={recommendedTracks}

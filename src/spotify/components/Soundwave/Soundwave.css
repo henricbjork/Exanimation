@@ -1,0 +1,38 @@
+.bars {
+  width: 13px;
+  height: 30px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bar {
+  background: #1DB954;
+  width: 3px;
+  animation: sound 0ms -800ms linear infinite alternate;
+  border-radius: 100px;
+}
+
+@keyframes sound {
+  0% {
+    opacity: 0.7;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 15px;
+  }
+}
+
+.bar:nth-child(1) {
+  left: 1px;
+  animation-duration: 474ms;
+}
+.bar:nth-child(2) {
+  left: 5px;
+  animation-duration: 404ms;
+}
+.bar:nth-child(3) {
+  left: 9px;
+  animation-duration: 474ms;
+}

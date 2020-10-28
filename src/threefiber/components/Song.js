@@ -22,7 +22,7 @@ const Song = ({
   let SIZE;
 
   if (icoSize === 8) {
-    SIZE = 10;
+    SIZE = 8;
   } else {
     SIZE = 6;
   }
