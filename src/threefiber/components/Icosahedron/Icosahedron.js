@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useSpring, a } from 'react-spring';
-import Song from './Song';
+import Song from '../Song/Song';
 import createTubeWireframe from 'three-tube-wireframe';
+import { useFrame } from 'react-three-fiber';
 
 const Icosahedron = ({
   recommendedTracks,
@@ -13,6 +14,7 @@ const Icosahedron = ({
   windowSize,
 }) => {
   let SIZE;
+  const mesh = useRef();
 
   if (windowSize !== undefined && windowSize.width < 700) {
     SIZE = 5;
@@ -20,19 +22,25 @@ const Icosahedron = ({
     SIZE = 8;
   }
 
-  const geo = new THREE.IcosahedronGeometry();
+  // useFrame(() => {
+  //   mesh.current.rotation.y += 0.001;
+  // });
+
+  const geo = new THREE.IcosahedronGeometry(SIZE);
 
   const wireGeo = createTubeWireframe(geo, {
-    thickness: 0.01, // thickness in world units of tubes
+    thickness: 0.1, // thickness in world units of tubes
     radiusSegments: 4, // number of segments around the tubes
     mode: 'triangle', // face layout, use quads instead of triangles
   });
 
-  const vertices = new THREE.IcosahedronGeometry(SIZE).vertices;
+  const vertices = geo.vertices;
+
+  console.log(vertices);
 
   return (
     <>
-      <mesh scale={[SIZE, SIZE, SIZE]} geometry={wireGeo}>
+      <mesh geometry={wireGeo} ref={mesh}>
         <meshPhysicalMaterial attach='material' roughness='0.75' flatShading />
       </mesh>
       {recommendedTracks &&
