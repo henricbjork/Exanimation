@@ -47,12 +47,16 @@ const Player = ({
             (!paused && (
               <div className='device-text'>
                 <p>{currentDevice.name}</p>
+                <Soundwave isPlaying={!paused} />
               </div>
             )))}
         {devices.length === 1 && (
-          <p className='device-text'>{currentDevice.name}</p>
+          <div className='device-text'>
+            <p>{currentDevice.name}</p>
+            <Soundwave isPlaying={!paused} />
+          </div>
         )}
-        <Soundwave isPlaying={!paused} />
+
         <div className='player-box'>
           <div className='cover-text-box'>
             <img
