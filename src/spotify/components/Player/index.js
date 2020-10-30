@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './Player.css';
 import ToggleDevice from './../ToggleDevice';
+import Soundwave from '../Soundwave';
 import PauseImg from './../../../assets/icons/pause.svg';
 import PlayImg from './../../../assets/icons/play.svg';
 import { putTrack } from '../../functions/putTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
 import { getDevices } from './../../functions/getDevices';
-import Soundwave from '../Soundwave';
 import { queueTrack } from '../../functions/queueTrack';
+import './Player.css';
 
 const Player = ({
   currentSong,
@@ -74,7 +74,7 @@ const Player = ({
                       position.currentUri,
                       accessToken,
                       currentDevice.id,
-                      position.position
+                      position.progress
                     ) &&
                     queueTrack(
                       position.nextTrackUri,
@@ -82,7 +82,7 @@ const Player = ({
                       setRecommendedTracks,
                       setCurrentSong,
                       currentDevice.id,
-                      position.duration - position.position
+                      position.duration - position.progress
                     )
                   : pauseTrack(accessToken, recommendedTracks).then((res) => {
                       setPosition(res);

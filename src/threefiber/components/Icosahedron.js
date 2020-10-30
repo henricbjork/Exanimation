@@ -1,6 +1,5 @@
 import React from 'react';
 import * as THREE from 'three';
-import { useSpring, a } from 'react-spring';
 import Song from './Song';
 import createTubeWireframe from 'three-tube-wireframe';
 

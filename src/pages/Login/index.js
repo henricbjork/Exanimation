@@ -14,7 +14,7 @@ const LoginPage = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT;
   const url = `
 https://accounts.spotify.com/authorize?
-client_id=${clientId}
+client_id=${clientId}&
 show_dialog=true&
 response_type=token&
 scope=user-modify-playback-state user-read-playback-state user-read-recently-played&
