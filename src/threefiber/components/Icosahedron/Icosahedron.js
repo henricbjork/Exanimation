@@ -1,9 +1,7 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
-import { useSpring, a } from 'react-spring';
 import Song from '../Song/Song';
 import createTubeWireframe from 'three-tube-wireframe';
-import { useFrame } from 'react-three-fiber';
 
 const Icosahedron = ({
   recommendedTracks,
@@ -36,7 +34,7 @@ const Icosahedron = ({
 
   const vertices = geo.vertices;
 
-  console.log(vertices);
+  // console.log(vertices);
 
   return (
     <>

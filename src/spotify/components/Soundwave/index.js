@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSpring, a } from 'react-spring';
 import './Soundwave.css';
 
 const items = [1, 2, 3];

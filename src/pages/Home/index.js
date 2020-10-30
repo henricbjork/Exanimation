@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 //Packages
-import { Canvas, useResource } from 'react-three-fiber';
+import { Canvas } from 'react-three-fiber';
 import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
 import { OrbitControls } from 'drei';
 import { Redirect } from '@reach/router';
-import * as THREE from 'three';
 
 //Components
 import SearchField from '../../spotify/components/SearchField';
