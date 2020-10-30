@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
-import Icosahedron from '../../threefiber/components/Icosahedron';
+import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
 import { OrbitControls } from 'drei';
 import { Redirect } from '@reach/router';
 
@@ -52,7 +52,6 @@ const HomePage = () => {
     return <Redirect from='' to='/login' noThrow />;
   }
 
-  // Vector3 {x: 4.205848693847656, y: -6.805206298828125, z: 0, isVector3: true}x: 4.205848693847656y: -6.805206298828125z: 0isVector3: true__proto__: Object
 
   return (
     <>
@@ -61,7 +60,7 @@ const HomePage = () => {
         style={{ height: '100vh', width: '100vw' }}
       >
         <OrbitControls autoRotate autoRotateSpeed='0.5' />
-        <ambientLight />
+        <spotLight position={[50, 50, 50]} />
         <Icosahedron
           recommendedTracks={recommendedTracks}
           setCurrentSong={setCurrentSong}
