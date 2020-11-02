@@ -35,9 +35,6 @@ const HomePage = () => {
 
   useEffect(() => {
     if(sessionStorage.getItem('queuedTrackUri')!==null && currentDevice) {
-      console.log('current device');
-      console.log(currentDevice);
-      console.log(sessionStorage.getItem('queuedTrackUri'));
       const queuedTrackUri = sessionStorage.getItem('queuedTrackUri');
       playSelectedTrack(queuedTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);
     }
@@ -65,6 +62,10 @@ const HomePage = () => {
     });
   });
 
+  if (!accessToken) {
+    return <Redirect from='' to='/login' noThrow />;
+  }
+
   return (
     <>
       <Canvas
@@ -72,7 +73,7 @@ const HomePage = () => {
         style={{ height: '100vh', width: '100vw' }}
       >
         <OrbitControls autoRotate autoRotateSpeed='0.5' />
-        <spotLight position={[50, 50, 50]} />
+        <ambientLight position={[50, 50, 50]} />
         <Icosahedron
           recommendedTracks={recommendedTracks}
           setCurrentSong={setCurrentSong}

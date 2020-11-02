@@ -1,15 +1,14 @@
 import React, { useRef, useState } from 'react';
-// import React, { useEffect } from 'react';
 import * as THREE from 'three';
 
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
-import { a } from 'react-spring/three';
-// import { useSpring } from 'react-spring/three';
+// import { useSpring, a } from 'react-spring/three';
 // import JSONfont from './AktivGrotesk-Regular.json';
 
 // import { useFrame } from 'react-three-fiber';
 
 import { Html } from 'drei';
+import './Song.css';
 
 const Song = ({
   distance,
@@ -27,6 +26,7 @@ const Song = ({
   const song = {
     title: recommendation.name.slice(0, 15),
     artist: recommendation.artists[0].name.slice(0, 15),
+    images: recommendation.album.images,
   };
 
   const [hover, setHover] = useState(false);
@@ -37,7 +37,7 @@ const Song = ({
   if (icoSize === 8) {
     SIZE = 2.5;
   } else {
-    SIZE = 1;
+    SIZE = 1.2;
   }
 
   // useFrame(() => {
@@ -61,11 +61,15 @@ const Song = ({
   return (
     <>
       <group ref={mesh}>
-        <a.mesh
+        <mesh
           position={[distance.x, distance.y, distance.z]}
-          onPointerOver={() => setHover(true)}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            setHover(true);
+          }}
           onPointerOut={() => setHover(false)}
-          onPointerDown={() => {
+          onPointerDown={(e) => {
+            e.stopPropagation();
             playSelectedTrack(
               recommendation.uri,
               accessToken,
@@ -77,7 +81,7 @@ const Song = ({
         >
           <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
           <meshStandardMaterial attach='material' map={texture} />
-        </a.mesh>
+        </mesh>
         {/* <mesh position={[distance.x - 1.5, distance.y - 1.5, distance.z * 1.2]}>
           <textGeometry
             attach='geometry'
@@ -93,22 +97,14 @@ const Song = ({
           <meshStandardMaterial attach='material' />
         </mesh> */}
         {hover && (
-          <Html position={[distance.x - 2, distance.y - 2, distance.z * 1.2]}>
-            <p
-              style={{
-                color: 'black',
-                width: '150px',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                background: 'white',
-                borderRadius: '5px',
-                padding: '10px',
-              }}
-            >
-              {song.title}
-              <br />
-              {song.artist}
-            </p>
+          <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
+            <div className='song-frame'>
+              <img src={song.images[2].url} />
+              <div>
+                <p>{song.title}</p>
+                <p>{song.artist}</p>
+              </div>
+            </div>
           </Html>
         )}
       </group>
