@@ -14,7 +14,7 @@
 
 .device-text {
   padding: 6px 0;
-  color: #1DB954;
+  color: #1db954;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -66,12 +66,16 @@
   top: 4px;
 }
 
+.play-pause:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 700px) {
   .player {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 45px;
+    bottom: 25px;
     margin: 0 auto;
     width: 315px;
   }

@@ -26,6 +26,7 @@ const Song = ({
   const song = {
     title: recommendation.name.slice(0, 15),
     artist: recommendation.artists[0].name.slice(0, 15),
+    images: recommendation.album.images,
   };
 
   const [hover, setHover] = useState(false);
@@ -36,7 +37,7 @@ const Song = ({
   if (icoSize === 8) {
     SIZE = 2.5;
   } else {
-    SIZE = 1;
+    SIZE = 1.2;
   }
 
   // useFrame(() => {
@@ -62,9 +63,13 @@ const Song = ({
       <group ref={mesh}>
         <mesh
           position={[distance.x, distance.y, distance.z]}
-          onPointerOver={() => setHover(true)}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            setHover(true);
+          }}
           onPointerOut={() => setHover(false)}
-          onPointerDown={() => {
+          onPointerDown={(e) => {
+            e.stopPropagation();
             playSelectedTrack(
               recommendation.uri,
               accessToken,
@@ -92,10 +97,13 @@ const Song = ({
           <meshStandardMaterial attach='material' />
         </mesh> */}
         {hover && (
-          <Html position={[distance.x - 2, distance.y - 2, distance.z * 1.2]}>
-            <div className='song-card'>
-              <p style={{}}>{song.title}</p>
-              <p>{song.artist}</p>
+          <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
+            <div className='song-frame'>
+              <img src={song.images[2].url} />
+              <div>
+                <p>{song.title}</p>
+                <p>{song.artist}</p>
+              </div>
             </div>
           </Html>
         )}

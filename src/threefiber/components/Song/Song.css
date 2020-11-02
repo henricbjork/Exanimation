@@ -1,9 +1,18 @@
-.song-card {
-  color: black;
-  width: 150px;
+.song-frame {
+  color: #fff;
+  width: 200px;
+  height: 70px;
   white-space: nowrap;
+  border: 3px solid white;
+  background: #191414;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background: white;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 3px;
+}
+.song-frame img {
+  width: 50px;
+  height: 50px;
+  margin: 0 5px 0 8px;
+  border-radius: 2px;
 }
