@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Canvas } from 'react-three-fiber';
 import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
 import { OrbitControls } from 'drei';
+import { Redirect } from '@reach/router';
 
 //Components
 import SearchField from '../../spotify/components/SearchField';
