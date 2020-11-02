@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ToggleDevice from './../ToggleDevice';
+import ToggleDevice from '../ToggleDevice';
 import Soundwave from '../Soundwave';
-import PauseImg from './../../../assets/icons/pause.svg';
-import PlayImg from './../../../assets/icons/play.svg';
-import { putTrack } from '../../functions/putTrack';
+import PauseImg from '../../../assets/icons/pause.svg';
+import PlayImg from '../../../assets/icons/play.svg';
+import { playTrack } from '../../functions/playTrack';
 import { pauseTrack } from '../../functions/pauseTrack';
-import { getDevices } from './../../functions/getDevices';
+import { getDevices } from '../../functions/getDevices';
 import { queueTrack } from '../../functions/queueTrack';
 import './Player.css';
 
@@ -74,7 +74,7 @@ const Player = ({
               onClick={() => {
                 setPaused(!paused);
                 paused
-                  ? putTrack(
+                  ? playTrack(
                       position.currentUri,
                       accessToken,
                       currentDevice.id,

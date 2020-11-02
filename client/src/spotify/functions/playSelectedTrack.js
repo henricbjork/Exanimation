@@ -1,4 +1,4 @@
-import { putTrack } from './putTrack.js';
+import { playTrack } from './playTrack.js';
 import { getTrack } from './getTrack.js';
 import { queueTrack } from './queueTrack.js';
 import { getRecommendations } from './getRecommendations.js';
@@ -12,8 +12,12 @@ export const playSelectedTrack = (
   currentDevice
 ) => {
   if (!accessToken) return;
+  if(sessionStorage.getItem('queuedTrackUri')!==null) {
+    sessionStorage.removeItem('queuedTrackUri');
+    console.log('queuedTrackUri removed');
+  }
   const id = uri.split(":")[2];
-  putTrack(uri, accessToken, currentDevice);
+  playTrack(uri, accessToken, currentDevice);
   getTrack(accessToken, id).then((current) => {
     console.log(
       'Currently playing: ' +

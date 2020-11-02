@@ -11,11 +11,14 @@ import SearchField from '../../spotify/components/SearchField';
 import Player from '../../spotify/components/Player';
 
 //Functions
-import { getAccessToken } from '../../spotify/functions/getAccessToken';
+import { parseAccessToken } from '../../spotify/functions/parseAccessToken';
+import { parseRefreshToken } from '../../spotify/functions/parseRefreshToken';
 import { getDevices } from '../../spotify/functions/getDevices';
+import { playSelectedTrack } from './../../spotify/functions/playSelectedTrack';
 
 //CSS
 import './home.css';
+let accessToken;
 
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
@@ -25,7 +28,18 @@ const HomePage = () => {
     height: window.innerHeight,
     width: window.innerWidth,
   });
-  const accessToken = getAccessToken();
+  if (parseRefreshToken() && !accessToken) {
+    const refreshToken = parseRefreshToken();
+    sessionStorage.setItem('refreshToken', refreshToken);
+  }
+  accessToken = parseAccessToken();
+
+  useEffect(() => {
+    if(sessionStorage.getItem('queuedTrackUri')!==null && currentDevice) {
+      const queuedTrackUri = sessionStorage.getItem('queuedTrackUri');
+      playSelectedTrack(queuedTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);
+    }
+  }, [currentDevice])
 
   useEffect(() => {
     if (accessToken) {
@@ -37,6 +51,7 @@ const HomePage = () => {
           console.log(error.message);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   useEffect(() => {

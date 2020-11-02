@@ -99,7 +99,7 @@ const Song = ({
         {hover && (
           <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
             <div className='song-frame'>
-              <img src={song.images[2].url} />
+              <img src={song.images[2].url} alt="song" />
               <div>
                 <p>{song.title}</p>
                 <p>{song.artist}</p>
