@@ -1,0 +1,9 @@
+.song-card {
+  color: black;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+}

@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
-import { useSpring, a } from 'react-spring/three';
-import JSONfont from './AktivGrotesk-Regular.json';
+// import { useSpring, a } from 'react-spring/three';
+// import JSONfont from './AktivGrotesk-Regular.json';
 
-import { useFrame } from 'react-three-fiber';
+// import { useFrame } from 'react-three-fiber';
 
 import { Html } from 'drei';
+import './Song.css';
 
 const Song = ({
   distance,
@@ -47,19 +48,19 @@ const Song = ({
   // });
 
   // load in font
-  const font = new THREE.FontLoader().parse(JSONfont);
+  // const font = new THREE.FontLoader().parse(JSONfont);
 
   // configure font mesh
-  const textOptions = {
-    font,
-    size: 0.2,
-    height: 0,
-  };
+  // const textOptions = {
+  //   font,
+  //   size: 0.2,
+  //   height: 0,
+  // };
 
   return (
     <>
       <group ref={mesh}>
-        <a.mesh
+        <mesh
           position={[distance.x, distance.y, distance.z]}
           onPointerOver={() => setHover(true)}
           onPointerOut={() => setHover(false)}
@@ -75,7 +76,7 @@ const Song = ({
         >
           <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
           <meshStandardMaterial attach='material' map={texture} />
-        </a.mesh>
+        </mesh>
         {/* <mesh position={[distance.x - 1.5, distance.y - 1.5, distance.z * 1.2]}>
           <textGeometry
             attach='geometry'
@@ -92,21 +93,10 @@ const Song = ({
         </mesh> */}
         {hover && (
           <Html position={[distance.x - 2, distance.y - 2, distance.z * 1.2]}>
-            <p
-              style={{
-                color: 'black',
-                width: '150px',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                background: 'white',
-                borderRadius: '5px',
-                padding: '10px',
-              }}
-            >
-              {song.title}
-              <br />
-              {song.artist}
-            </p>
+            <div className='song-card'>
+              <p style={{}}>{song.title}</p>
+              <p>{song.artist}</p>
+            </div>
           </Html>
         )}
       </group>
