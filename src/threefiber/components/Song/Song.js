@@ -63,9 +63,13 @@ const Song = ({
       <group ref={mesh}>
         <mesh
           position={[distance.x, distance.y, distance.z]}
-          onPointerOver={() => setHover(true)}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            setHover(true);
+          }}
           onPointerOut={() => setHover(false)}
-          onPointerDown={() => {
+          onPointerDown={(e) => {
+            e.stopPropagation();
             playSelectedTrack(
               recommendation.uri,
               accessToken,
