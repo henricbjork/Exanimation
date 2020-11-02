@@ -57,6 +57,7 @@ const SearchField = ({
           onChange={(e) => setSearchText(e.target.value)}
           onClick={(e) => setClicked(true)}
         />
+        <img src={searchIcon} alt='' className='search-icon' />
       </div>
       {searchResult &&
         searchResult.map((result, i) => {
