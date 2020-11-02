@@ -37,7 +37,7 @@ const Song = ({
   if (icoSize === 8) {
     SIZE = 2.5;
   } else {
-    SIZE = 1;
+    SIZE = 1.2;
   }
 
   // useFrame(() => {

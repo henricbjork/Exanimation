@@ -22,9 +22,8 @@ const SearchField = ({
   }, [searchField]);
 
   const inputStyle = useSpring({
-    to: clicked && { width: '250px', cursor: 'text' },
-    from: !clicked && { width: '44px', cursor: 'pointer' },
-    animationDuration: 10,
+    to: clicked && { cursor: 'text' },
+    from: !clicked && { cursor: 'pointer' },
   });
 
   useEffect(() => {
