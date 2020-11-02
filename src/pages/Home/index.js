@@ -52,7 +52,6 @@ const HomePage = () => {
     return <Redirect from='' to='/login' noThrow />;
   }
 
-
   return (
     <>
       <Canvas
@@ -60,7 +59,7 @@ const HomePage = () => {
         style={{ height: '100vh', width: '100vw' }}
       >
         <OrbitControls autoRotate autoRotateSpeed='0.5' />
-        <spotLight position={[50, 50, 50]} />
+        <ambientLight position={[50, 50, 50]} />
         <Icosahedron
           recommendedTracks={recommendedTracks}
           setCurrentSong={setCurrentSong}

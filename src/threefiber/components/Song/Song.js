@@ -23,9 +23,12 @@ const Song = ({
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
 
+  console.log(recommendation);
+
   const song = {
     title: recommendation.name.slice(0, 15),
     artist: recommendation.artists[0].name.slice(0, 15),
+    images: recommendation.album.images,
   };
 
   const [hover, setHover] = useState(false);
@@ -94,8 +97,13 @@ const Song = ({
         {hover && (
           <Html position={[distance.x - 2, distance.y - 2, distance.z * 1.2]}>
             <div className='song-card'>
-              <p style={{}}>{song.title}</p>
-              <p>{song.artist}</p>
+              <div className='song-frame'>
+                <img src={song.images[2].url} />
+                <div>
+                  <p>{song.title}</p>
+                  <p>{song.artist}</p>
+                </div>
+              </div>
             </div>
           </Html>
         )}
