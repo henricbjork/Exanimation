@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ToggleDevice.css';
-import arrowImg from './../../../assets/icons/down-arrow.svg';
+import arrowImg from '../../../assets/icons/down-arrow.svg';
 
 const ToggleDevice = ({currentDevice, devices, setCurrentDevice}) => {
   const [newDevice, setNewDevice] = useState({name: currentDevice.name, id: currentDevice.id});

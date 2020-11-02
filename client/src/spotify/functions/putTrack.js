@@ -1,4 +1,4 @@
-export const putTrack = (uri, accessToken, currentDevice, progress=0) => {
+export const putTrack = (uri, accessToken, currentDevice, progress) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
     const rootUrl = 'https://api.spotify.com/v1';
@@ -8,8 +8,7 @@ export const putTrack = (uri, accessToken, currentDevice, progress=0) => {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },
-    }).then(() => {
-      resolve();
-    });
-  });
+    })
+    .then((response) => resolve(response));
+  })
 };

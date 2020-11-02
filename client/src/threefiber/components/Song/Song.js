@@ -1,11 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
+// import React, { useEffect } from 'react';
 import * as THREE from 'three';
 
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
-import { useSpring, a } from 'react-spring/three';
-import JSONfont from './AktivGrotesk-Regular.json';
+import { a } from 'react-spring/three';
+// import { useSpring } from 'react-spring/three';
+// import JSONfont from './AktivGrotesk-Regular.json';
 
-import { useFrame } from 'react-three-fiber';
+// import { useFrame } from 'react-three-fiber';
 
 import { Html } from 'drei';
 
@@ -47,14 +49,14 @@ const Song = ({
   // });
 
   // load in font
-  const font = new THREE.FontLoader().parse(JSONfont);
+  // const font = new THREE.FontLoader().parse(JSONfont);
 
   // configure font mesh
-  const textOptions = {
-    font,
-    size: 0.2,
-    height: 0,
-  };
+  // const textOptions = {
+  //   font,
+  //   size: 0.2,
+  //   height: 0,
+  // };
 
   return (
     <>

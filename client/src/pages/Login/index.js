@@ -10,15 +10,7 @@ import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
 
 const LoginPage = () => {
-  const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
-  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT;
-  const url = `
-https://accounts.spotify.com/authorize?
-client_id=${clientId}&
-show_dialog=true&
-response_type=token&
-scope=user-modify-playback-state user-read-playback-state user-read-recently-played&
-redirect_uri=${redirectUri}`;
+  const url = `http://localhost:8888/login`;
 
   const props = useSpring({
     to: { width: '200px' },
