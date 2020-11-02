@@ -23,8 +23,6 @@ const Song = ({
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
 
-  console.log(recommendation);
-
   const song = {
     title: recommendation.name.slice(0, 15),
     artist: recommendation.artists[0].name.slice(0, 15),

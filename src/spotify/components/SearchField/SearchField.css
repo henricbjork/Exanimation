@@ -3,14 +3,19 @@
 }
 
 .search-field {
-  width: 280px;
+  width: 44px;
   height: 44px;
-  padding-left: 20px;
   font-size: 14px;
   border: white solid 2px;
   border-radius: 30px;
   background-color: #191414;
   color: white;
+  padding-left: 15px;
+  transition: box-shadow 0.3s;
+}
+
+.search-field:hover {
+  box-shadow: 0 0 5px #9ecaed;
 }
 
 .search-field:focus {

@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Track from '../Track';
+import searchIcon from '../../../assets/icons/searchIcon.svg';
+import { useSpring, a } from 'react-spring';
 
 import './SearchField.css';
 
@@ -12,6 +14,18 @@ const SearchField = ({
 }) => {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState(null);
+  const [clicked, setClicked] = useState(false);
+  const searchField = useRef(null);
+
+  useEffect(() => {
+    console.log(searchField.current.style);
+  }, [searchField]);
+
+  const inputStyle = useSpring({
+    to: clicked && { width: '250px', cursor: 'text' },
+    from: !clicked && { width: '44px', cursor: 'pointer' },
+    animationDuration: 10,
+  });
 
   useEffect(() => {
     const url = `https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=6`;
@@ -36,10 +50,13 @@ const SearchField = ({
   return (
     <>
       <div className='search-box'>
-        <input
+        <a.input
+          ref={searchField}
           className='search-field'
           type='text'
+          style={inputStyle}
           onChange={(e) => setSearchText(e.target.value)}
+          onClick={(e) => setClicked(true)}
         />
       </div>
       {searchResult &&
