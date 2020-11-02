@@ -97,14 +97,12 @@ const Song = ({
           <meshStandardMaterial attach='material' />
         </mesh> */}
         {hover && (
-          <Html position={[distance.x - 2, distance.y - 2, distance.z * 1.2]}>
-            <div className='song-card'>
-              <div className='song-frame'>
-                <img src={song.images[2].url} />
-                <div>
-                  <p>{song.title}</p>
-                  <p>{song.artist}</p>
-                </div>
+          <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
+            <div className='song-frame'>
+              <img src={song.images[2].url} />
+              <div>
+                <p>{song.title}</p>
+                <p>{song.artist}</p>
               </div>
             </div>
           </Html>
