@@ -1,0 +1,11 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "start": "(cd server && npm run start) & (cd client && npm run start)"
+  }
+}
