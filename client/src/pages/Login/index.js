@@ -1,16 +1,19 @@
 import React from 'react';
-
 import './login.css';
-
-//Components
-// import Button from '../../components/Button';
 
 //Packages
 import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
 
+let backend_endpoint;
+if(process.env.NODE_ENV!=='development') {
+  backend_endpoint = process.env.REACT_APP_NETLIFY_PATH;
+} else {
+  backend_endpoint = process.env.REACT_APP_LOCAL_ENDPOINT;
+}
+
 const LoginPage = () => {
-  const url = `http://localhost:8888/login`;
+  const url = `${backend_endpoint}/login-background`;
 
   const props = useSpring({
     to: { width: '200px' },

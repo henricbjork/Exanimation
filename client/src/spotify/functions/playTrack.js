@@ -1,6 +1,13 @@
 import { navigate } from '@reach/router';
 import { putTrack } from './putTrack';
 
+let backend_endpoint;
+if(process.env.NODE_ENV!=='development') {
+  backend_endpoint = process.env.REACT_APP_NETLIFY_PATH;
+} else {
+  backend_endpoint = process.env.REACT_APP_LOCAL_ENDPOINT;
+}
+
 export const playTrack = (uri, accessToken, currentDevice, progress=0) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
@@ -16,7 +23,7 @@ export const playTrack = (uri, accessToken, currentDevice, progress=0) => {
       sessionStorage.setItem('queuedTrackUri', uri);
       console.log('queuedTrackUri added');
       let refreshToken = sessionStorage.getItem('refreshToken');
-      navigate(`http://localhost:8888/refresh_token?refresh_token=${refreshToken}`);
+      navigate(`${backend_endpoint}/refresh_token?refresh_token=${refreshToken}`);
     });
   });
 };

@@ -6,6 +6,19 @@
     "server"
   ],
   "scripts": {
-    "start": "(cd server && npm run start) & (cd client && npm run start)"
+    "serve": "NODE_ENV=development & netlify-lambda serve functions & (cd client && npm run start)",
+    "start": "(cd client && npm run start)",
+    "build": "netlify-lambda build functions & (cd client && npm run start)",
+    "lambda-serve": "netlify-lambda serve functions",
+    "lambda-build": "netlify-lambda build functions"
+  },
+  "devDependencies": {
+    "netlify-cli": "^2.67.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "netlify-lambda": "^2.0.1",
+    "node-fetch": "^2.6.1",
+    "query-string": "^6.13.6"
   }
 }
