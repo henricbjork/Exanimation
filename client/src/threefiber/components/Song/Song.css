@@ -16,3 +16,16 @@
   margin: 0 5px 0 8px;
   border-radius: 2px;
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .song-frame {
+    width: 180px;
+    height: 50px;
+  }
+
+  .song-frame img {
+    width: 30px;
+    height: 30px;
+  }
+}

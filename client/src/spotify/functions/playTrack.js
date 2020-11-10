@@ -23,6 +23,7 @@ export const playTrack = (uri, accessToken, currentDevice, progress=0) => {
       sessionStorage.setItem('queuedTrackUri', uri);
       console.log('queuedTrackUri added');
       let refreshToken = sessionStorage.getItem('refreshToken');
+      sessionStorage.removeItem('accessToken');
       navigate(`${backend_endpoint}/refresh_token?refresh_token=${refreshToken}`);
     });
   });
