@@ -1,5 +1,6 @@
 [build]
   functions = "lambda"
+  publish = "dist/"
 
 [[redirects]]
   from = "/http://localhost:9000/*"
