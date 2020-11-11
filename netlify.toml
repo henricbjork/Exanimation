@@ -2,5 +2,5 @@
   functions = "lambda"
 
 [[redirects]]
-  from = "/*"
+  from = "/http://localhost:9000/*"
   to = "/.netlify/functions/:splat"

@@ -5,12 +5,7 @@ import './login.css';
 import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
 
-let backend_endpoint;
-if(process.env.NODE_ENV!=='development') {
-  backend_endpoint = process.env.REACT_APP_NETLIFY_PATH;
-} else {
-  backend_endpoint = process.env.REACT_APP_LOCAL_ENDPOINT;
-}
+const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 const LoginPage = () => {
   const url = `${backend_endpoint}/login-background`;

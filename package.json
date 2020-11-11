@@ -1,24 +1,51 @@
 {
-  "name": "workspace",
-  "version": "1.0.0",
-  "workspaces": [
-    "client",
-    "server"
-  ],
+  "name": "exanimation",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "serve": "NODE_ENV=development & netlify-lambda serve functions & (cd client && npm run start)",
-    "start": "(cd client && npm run start)",
-    "build": "netlify-lambda build functions & (cd client && npm run start)",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "NODE_ENV=development & netlify-lambda serve functions & npm run start",
+    "prod": "netlify-lambda build functions & (cd client && npm run build)",
     "lambda-serve": "netlify-lambda serve functions",
     "lambda-build": "netlify-lambda build functions"
+  },
+  "dependencies": {
+    "@reach/router": "^1.3.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "dotenv": "^8.2.0",
+    "drei": "^1.5.7",
+    "netlify-lambda": "^2.0.1",
+    "node-fetch": "^2.6.1",
+    "query-string": "^6.13.6",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "^3.4.4",
+    "react-spring": "^8.0.27",
+    "react-three-fiber": "^5.1.4",
+    "three": "^0.121.1",
+    "three-tube-wireframe": "^1.2.0"
   },
   "devDependencies": {
     "netlify-cli": "^2.67.4"
   },
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "netlify-lambda": "^2.0.1",
-    "node-fetch": "^2.6.1",
-    "query-string": "^6.13.6"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

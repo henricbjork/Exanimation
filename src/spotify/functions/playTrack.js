@@ -1,12 +1,7 @@
 import { navigate } from '@reach/router';
 import { putTrack } from './putTrack';
 
-let backend_endpoint;
-if(process.env.NODE_ENV!=='development') {
-  backend_endpoint = process.env.REACT_APP_NETLIFY_PATH;
-} else {
-  backend_endpoint = process.env.REACT_APP_LOCAL_ENDPOINT;
-}
+const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 export const playTrack = (uri, accessToken, currentDevice, progress=0) => {
   if (!accessToken) return;
