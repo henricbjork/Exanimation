@@ -20,7 +20,8 @@ exports.handler = async function(event, context) {
           Authorization:
             'Basic ' +
             new Buffer.from(client_id + ':' + client_secret).toString('base64'),
-          "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/x-www-form-urlencoded",
         },
       })
       .then((data) => data.json())
