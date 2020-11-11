@@ -8,7 +8,7 @@ import { useSpring, a } from 'react-spring';
 const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
 
 const LoginPage = () => {
-  const url = `${backend_endpoint}/login-background`;
+  const url = `${backend_endpoint}/login`;
 
   const props = useSpring({
     to: { width: '200px' },
