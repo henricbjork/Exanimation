@@ -33,7 +33,7 @@ exports.handler = function(event, context, callback) {
         .then((data)=>data.json())
         .then((body)=>{
           console.log(body)
-          const url = `${base_url}/#?access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
+          const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
           console.log('url: ' + url);
 
           callback(null,{
