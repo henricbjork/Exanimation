@@ -12,7 +12,7 @@ exports.handler = function(event, context, callback) {
 
     try {
       callback(null,{
-        statusCode: 302,
+        statusCode: 301,
         headers: {
           Location: url,
         },

@@ -37,7 +37,7 @@ exports.handler = function(event, context, callback) {
           console.log('url: ' + url);
 
           callback(null,{
-            statusCode: 302,
+            statusCode: 301,
             headers: {
               Location: url
             }
