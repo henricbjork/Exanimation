@@ -2,6 +2,3 @@
   functions = "lambda"
   publish = "build/"
 
-[[redirects]]
-  from = "/http://localhost:9000/*"
-  to = "/.netlify/functions/:splat"
