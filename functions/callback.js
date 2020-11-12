@@ -7,11 +7,11 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 const base_url = process.env.BASE_URL;
 
-exports.handler = async function(event, context) {
+exports.handler = function(event, context, callback) {
   const code = event.queryStringParameters.code;
   console.log('code: ' + code)
 
-  return new Promise((resolve, reject) => {
+  // return new Promise((resolve, reject) => {
 
     try {
       fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`, {
@@ -36,7 +36,7 @@ exports.handler = async function(event, context) {
           const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
           console.log('url: ' + url);
 
-          resolve({
+          callback(null,{
             statusCode: 302,
             headers: {
               Location: url
@@ -47,10 +47,10 @@ exports.handler = async function(event, context) {
       })
 
     } catch (err) {
-      reolve({ statusCode: 500, body: err.message });
+      callback(null,{ statusCode: 500, body: err.message });
     }
 
-  })
+  // })
 
 };
 
