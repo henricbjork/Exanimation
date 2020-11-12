@@ -16,6 +16,7 @@ exports.handler = function(event, context, callback) {
         headers: {
           Location: url,
         },
+        body: JSON.stringify('')
       })
     } catch (err) {
       return callback(null,{ statusCode: 500, body: err.message });

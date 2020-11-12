@@ -40,7 +40,8 @@ exports.handler = function(event, context, callback) {
             statusCode: 301,
             headers: {
               Location: url
-            }
+            },
+            body: JSON.stringify("")
           });
         })
 
