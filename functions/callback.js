@@ -36,7 +36,7 @@ exports.handler = function(event, context, callback) {
           const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
           console.log('url: ' + url);
 
-          callback(null,{
+          return callback(null,{
             statusCode: 301,
             headers: {
               Location: url
@@ -47,7 +47,7 @@ exports.handler = function(event, context, callback) {
       })
 
     } catch (err) {
-      callback(null,{ statusCode: 500, body: err.message });
+      return callback(null,{ statusCode: 500, body: err.message });
     }
 
   // })

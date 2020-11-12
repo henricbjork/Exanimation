@@ -11,14 +11,14 @@ exports.handler = function(event, context, callback) {
   // return new Promise((resolve, reject) => {
 
     try {
-      callback(null,{
+      return callback(null,{
         statusCode: 301,
         headers: {
           Location: url,
         },
       })
     } catch (err) {
-      callback(null,{ statusCode: 500, body: err.message });
+      return callback(null,{ statusCode: 500, body: err.message });
     }
 
   // })
