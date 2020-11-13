@@ -2,8 +2,9 @@ import React from 'react';
 
 import './login.css';
 
-//Components
-// import Button from '../../components/Button';
+import { Canvas } from 'react-three-fiber';
+import { OrbitControls } from 'drei';
+import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
 
 //Packages
 import { navigate } from '@reach/router';
@@ -13,27 +14,33 @@ const LoginPage = () => {
   const url = `http://localhost:8888/login`;
 
   const props = useSpring({
-    to: { width: '200px' },
-    from: { width: '0px' },
-    delay: 500,
+    to: { width: '125px', opacity: 1 },
+    from: { width: '0px', opacity: 0 },
+    delay: 800,
   });
 
   return (
     <section className='sign-in-page'>
-      <div>
-        <h1 className='title'>Welcome to MusicBox</h1>
+      <div className='sign-in-window'>
+        <p className='title'>MusicBox</p>
         <p className='app-info'>
           Enter a song of your choice and MusicBox
-          <br /> will generate recommendations similar to that song. <br />
-          <br />
-          Sign in to Spotify to start exploring:
+          <br /> will generate recommendations
+          <br /> similar to that song.
         </p>
+
+        <p className='notice'>
+          Make sure that you have Spotify
+          <br /> running in the background
+        </p>
+
+        <p className='sign-in-msg'>Sign in to Spotify to start exploring:</p>
         <a.button
           className='sign-in-btn'
           style={props}
           onClick={() => navigate(url)}
         >
-          Sign in to spotify
+          Sign in
         </a.button>
       </div>
     </section>

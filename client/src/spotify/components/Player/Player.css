@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Discotechia';
+  src: url('../../../assets/fonts/Discotechia-zZYX.otf');
+}
+@font-face {
+  font-family: 'Discotechia Gradient';
+  src: url('../../../assets/fonts/DiscotechiaGradient-nPVY.otf');
+}
+@font-face {
+  font-family: 'Discotechia Straight';
+  src: url('../../../assets/fonts/DiscotechiaStraight-rozA.otf');
+}
+
 .currently-playing {
   display: flex;
   flex-direction: row;
@@ -18,15 +31,21 @@
   font-size: 14px;
   display: flex;
   align-items: center;
+  font-family: 'Discotechia Straight';
+  font-size: 12px;
 }
-
 .player-box {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  color: black !important;
+  background: white;
+  -webkit-box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
+  color: black;
   padding: 10px;
   border-radius: 4px;
+  font-family: 'Discotechia Straight';
+  font-size: 14px;
 }
 
 .cover-text-box {

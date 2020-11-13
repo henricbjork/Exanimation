@@ -35,11 +35,17 @@ const HomePage = () => {
   accessToken = parseAccessToken();
 
   useEffect(() => {
-    if(sessionStorage.getItem('queuedTrackUri')!==null && currentDevice) {
+    if (sessionStorage.getItem('queuedTrackUri') !== null && currentDevice) {
       const queuedTrackUri = sessionStorage.getItem('queuedTrackUri');
-      playSelectedTrack(queuedTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);
+      playSelectedTrack(
+        queuedTrackUri,
+        accessToken,
+        setRecommendedTracks,
+        setCurrentSong,
+        currentDevice.id
+      );
     }
-  }, [currentDevice])
+  }, [currentDevice]);
 
   useEffect(() => {
     if (accessToken) {
@@ -70,6 +76,7 @@ const HomePage = () => {
   return (
     <>
       <Canvas
+        className='home-canvas'
         camera={{ position: [0, 0, 120], fov: 10 }}
         style={{ height: '100vh', width: '100vw' }}
       >
