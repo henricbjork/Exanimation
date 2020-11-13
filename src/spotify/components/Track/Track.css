@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'Discotechia';
+  src: url('../../../assets/fonts/Discotechia-zZYX.otf');
+}
+@font-face {
+  font-family: 'Discotechia Gradient';
+  src: url('../../../assets/fonts/DiscotechiaGradient-nPVY.otf');
+}
+@font-face {
+  font-family: 'Discotechia Straight';
+  src: url('../../../assets/fonts/DiscotechiaStraight-rozA.otf');
+}
+
+.search-item-box {
+  display: flex;
+  width: 280px;
+  height: 60px;
+  font-family: 'Discotechia Straight';
+}
+.track-container {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+.search-item-cover {
+  width: 50px;
+  height: 50px;
+}
+
+.search-text-field {
+  width: 100%;
+  overflow: hidden;
+}
+
+.search-text-field p {
+  text-align: left;
+  color: white;
+  overflow: scroll;
+  margin: 0px 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.search-text-field p::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.search-text-field p {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@media screen and (max-width: 700px) {
+  .search-item-box {
+    background: #191414;
+    width: 100%;
+  }
+}
