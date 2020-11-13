@@ -1,3 +1,5 @@
+/*Fonts*/
+
 @font-face {
   font-family: 'Discotechia';
   src: url('../../assets/fonts/Discotechia-zZYX.otf');
@@ -9,6 +11,26 @@
 @font-face {
   font-family: 'Discotechia Straight';
   src: url('../../assets/fonts/DiscotechiaStraight-rozA.otf');
+}
+
+/*Animations*/
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .sign-in-page {
@@ -31,23 +53,6 @@
   -webkit-box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 6px 13px 1px rgba(0, 0, 0, 0.4);
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeInOut {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
 }
 
 .title {
@@ -107,4 +112,19 @@
 .sign-in-btn:hover {
   cursor: pointer;
   background: #00ff5a;
+}
+
+@media screen and (max-width: 700px) {
+  .sign-in-window {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  .title {
+    font-size: 70px;
+  }
+  .app-info,
+  .sign-in-msg {
+    font-size: 13px;
+  }
 }
