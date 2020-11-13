@@ -65,8 +65,12 @@ const Player = ({
               alt={currentSong.album.name}
             />
             <div>
-              <p>{currentSong.song}</p>
-              <p>{currentSong.artist}</p>
+              <div className='current-text-song'>
+                <p>{currentSong.song}</p>
+              </div>
+              <div className='current-text-artist'>
+                <p>{currentSong.artist}</p>
+              </div>
             </div>
             <img
               className='play-pause'

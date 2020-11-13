@@ -1,13 +1,13 @@
 .bars {
   width: 13px;
   height: 30px;
-  margin-left: 5px;
+  margin-left: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .bar {
-  background: #1DB954;
+  background: #1db954;
   width: 3px;
   animation: sound 0ms -800ms linear infinite alternate;
   border-radius: 100px;
