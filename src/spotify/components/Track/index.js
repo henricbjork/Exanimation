@@ -3,26 +3,26 @@ import './Track.css';
 import { playSelectedTrack } from '../../functions/playSelectedTrack';
 import { clearSearchField } from '../../functions/clearSearchField';
 
-const Track = (props) => {
+const Track = ({uri, accessToken, currentDevice, setCurrentSong, setRecommendedTracks, image, artist, track}) => {
   return (
     <div
       className='search-item-box'
       onClick={() => {
         playSelectedTrack(
-          props.id,
-          props.accessToken,
-          props.setRecommendedTracks,
-          props.setCurrentSong,
-          props.currentDevice.id
+          uri,
+          accessToken,
+          setRecommendedTracks,
+          setCurrentSong,
+          currentDevice.id
         );
         clearSearchField();
       }}
     >
       <div className='track-container'>
-        <img className='search-item-cover' src={props.image} alt='track' />
+        <img className='search-item-cover' src={image} alt='track' />
         <div className='search-text-field'>
-          <p className='search-track'>{props.track}</p>
-          <p className='search-artist'>{props.artist}</p>
+          <p className='search-track'>{track}</p>
+          <p className='search-artist'>{artist}</p>
         </div>
       </div>
     </div>

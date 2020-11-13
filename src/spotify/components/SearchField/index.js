@@ -64,7 +64,7 @@ const SearchField = ({
           return (
             <Track
               key={i}
-              id={result.uri}
+              uri={result.uri}
               accessToken={accessToken}
               currentDevice={currentDevice}
               setCurrentSong={setCurrentSong}
