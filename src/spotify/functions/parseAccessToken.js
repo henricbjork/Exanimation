@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 const base_url = process.env.BASE_URL;
+console.log(base_url)
 
 export const parseAccessToken = () => {
   if (sessionStorage.getItem('accessToken')!==null) {
