@@ -5,7 +5,7 @@ process.env.SILENCE_EMPTY_LAMBDA_WARNING = true; // removes a netlify-lambda war
 const client_id = process.env.SPOTIFY_CLIENT;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
-const base_url = process.env.BASE_URL;
+const base_url = process.env.REACT_APP_BASE_URL;
 
 exports.handler = function(event, context, callback) {
   const code = event.queryStringParameters.code;
