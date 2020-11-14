@@ -4,7 +4,7 @@ require('dotenv').config();
 process.env.SILENCE_EMPTY_LAMBDA_WARNING = true; // removes a netlify-lambda warning
 const client_id = process.env.SPOTIFY_CLIENT;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const base_url = process.env.BASE_URL;
+const base_url = process.env.REACT_APP_BASE_URL;
 
 exports.handler = function(event, context, callback) {
   const refresh_token = event.queryStringParameters.refresh_token;
@@ -31,9 +31,9 @@ exports.handler = function(event, context, callback) {
         return callback(null,{
           statusCode: 301,
           headers: {
-            Location: url
-          },
-          body: JSON.stringify("")
+            Location: url,
+            "Cache-Control": "no-cache"
+          }
         });
       })
 
