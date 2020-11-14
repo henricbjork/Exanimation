@@ -20,8 +20,8 @@ exports.handler = function(event, context, callback) {
           Authorization:
             'Basic ' +
             new Buffer.from(client_id + ':' + client_secret).toString('base64'),
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/x-www-form-urlencoded",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       })
       .then((data) => data.json())
@@ -39,9 +39,9 @@ exports.handler = function(event, context, callback) {
           return callback(null,{
             statusCode: 301,
             headers: {
-              Location: url
-            },
-            body: JSON.stringify("")
+              Location: url,
+              "Cache-Control": "no-cache"
+            }
           });
         })
 
