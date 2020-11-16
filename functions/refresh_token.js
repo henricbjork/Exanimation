@@ -8,7 +8,6 @@ const base_url = process.env.REACT_APP_BASE_URL;
 
 exports.handler = function(event, context, callback) {
   const refresh_token = event.queryStringParameters.refresh_token;
-  console.log('refresh-token: ' + refresh_token)
 
     try {
       fetch(`https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=${refresh_token}`, {
@@ -23,10 +22,8 @@ exports.handler = function(event, context, callback) {
       })
       .then((data) => data.json())
       .then((postData)=> {
-        console.log(postData);
 
         const url = `${base_url}/#access_token=${postData.access_token}`;
-        console.log('url: ' + url);
 
         return callback(null,{
           statusCode: 301,
