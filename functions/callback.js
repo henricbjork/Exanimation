@@ -9,7 +9,6 @@ const base_url = process.env.REACT_APP_BASE_URL;
 
 exports.handler = function(event, context, callback) {
   const code = event.queryStringParameters.code;
-  console.log('code: ' + code)
 
   try {
     fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`, {
@@ -24,15 +23,13 @@ exports.handler = function(event, context, callback) {
     })
     .then((data) => data.json())
     .then((postData)=> {
-      console.log(postData);
       fetch('https://api.spotify.com/v1/me', {
           headers: { Authorization: 'Bearer ' + postData.access_token },
       })
       .then((data)=>data.json())
       .then((body)=>{
-        console.log(body)
+        console.log(body) // Console log user's details
         const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
-        console.log('url: ' + url);
 
         return callback(null,{
           statusCode: 301,

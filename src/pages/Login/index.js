@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './login.css';
 
-//Packages
+//Packages and functions
 import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
+import { addNoDevicesClassName } from '../../spotify/functions/addNoDevicesClassName';
 
 const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
+const url = `${backend_endpoint}/login`;
 
 const LoginPage = () => {
-  const url = `${backend_endpoint}/login`;
 
   const props = useSpring({
     to: { width: '125px', opacity: 1 },
@@ -16,22 +17,28 @@ const LoginPage = () => {
     delay: 800,
   });
 
+  useEffect(()=>{
+    if(sessionStorage.getItem('noDevices')) {
+      sessionStorage.removeItem('noDevices');
+      addNoDevicesClassName();
+    }
+  }, [])
+
   return (
     <section className='sign-in-page'>
       <div className='sign-in-window'>
-        <p className='title'>Musicbox</p>
+        <p className='title'>ICOSAHEDRON</p>
         <p className='app-info'>
-          Enter a song of your choice and MusicBox
-          <br /> will generate recommendations
-          <br /> similar to that song.
+          Play a song and ICOSAHEDRON
+          <br /> will recommend you similar tracks
         </p>
 
         <p className='notice'>
-          Make sure that you have Spotify
-          <br /> running in the background
+          Ensure Spotify is running
+          <br /> on your chosen device
         </p>
-
-        <p className='sign-in-msg'>Sign in to Spotify to start exploring:</p>
+        <p className='no-devices-msg'>Your device is turned off</p>
+        <p className='sign-in-msg'>Sign in to Spotify to start exploring</p>
         <a.button
           className='sign-in-btn'
           style={props}

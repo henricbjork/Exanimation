@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 export const getDevices = (accessToken) => {
   if (!accessToken) return;
   return new Promise(function (resolve, reject) {
@@ -9,6 +11,11 @@ export const getDevices = (accessToken) => {
     })
     .then((response) => response.json())
     .then((devices) => {
+      if(Object.keys(devices).length===0) {
+        const base_url = process.env.REACT_APP_BASE_URL;
+        sessionStorage.setItem('noDevices', true);
+        navigate(`${base_url}/login`);
+      }
       resolve(devices);
     });
   });

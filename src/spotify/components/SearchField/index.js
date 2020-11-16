@@ -17,10 +17,6 @@ const SearchField = ({
   const [clicked, setClicked] = useState(false);
   const searchField = useRef(null);
 
-  useEffect(() => {
-    console.log(searchField.current.style);
-  }, [searchField]);
-
   const inputStyle = useSpring({
     to: clicked && { cursor: 'text' },
     from: !clicked && { cursor: 'pointer' },

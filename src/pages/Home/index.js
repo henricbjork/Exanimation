@@ -47,9 +47,6 @@ const HomePage = () => {
         .then((devices) => {
           setCurrentDevice(devices.devices[0]);
         })
-        .catch((error) => {
-          console.log(error.message);
-        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);

@@ -88,10 +88,23 @@
   animation-delay: 1500ms;
   animation-iteration-count: infinite;
 }
+
 .sign-in-msg {
   font-family: 'Discotechia Straight';
   font-size: 14px;
   opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 2s;
+  animation-delay: 800ms;
+  animation-fill-mode: forwards;
+}
+
+.no-devices-msg {
+  font-family: 'Discotechia Straight';
+  font-size: 14px;
+  opacity: 0;
+  margin-bottom: 10px;
+  color: transparent;
   animation-name: fadeIn;
   animation-duration: 2s;
   animation-delay: 800ms;

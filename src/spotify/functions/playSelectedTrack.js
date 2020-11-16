@@ -16,7 +16,6 @@ export const playSelectedTrack = (
   if (!accessToken) return;
   if(sessionStorage.getItem('queuedTrackUri')!==null) {
     sessionStorage.removeItem('queuedTrackUri');
-    console.log('queuedTrackUri removed');
   }
   const id = uri.split(":")[2];
   playTrack(uri, accessToken, currentDevice);
