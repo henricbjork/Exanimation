@@ -11,47 +11,43 @@ exports.handler = function(event, context, callback) {
   const code = event.queryStringParameters.code;
   console.log('code: ' + code)
 
-  // return new Promise((resolve, reject) => {
-
-    try {
-      fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`, {
-        method: 'POST',
-        headers: {
-          Authorization:
-            'Basic ' +
-            new Buffer.from(client_id + ':' + client_secret).toString('base64'),
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+  try {
+    fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`, {
+      method: 'POST',
+      headers: {
+        Authorization:
+          'Basic ' +
+          new Buffer.from(client_id + ':' + client_secret).toString('base64'),
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+    .then((data) => data.json())
+    .then((postData)=> {
+      console.log(postData);
+      fetch('https://api.spotify.com/v1/me', {
+          headers: { Authorization: 'Bearer ' + postData.access_token },
       })
-      .then((data) => data.json())
-      .then((postData)=> {
-        console.log(postData);
-        fetch('https://api.spotify.com/v1/me', {
-            headers: { Authorization: 'Bearer ' + postData.access_token },
-        })
-        .then((data)=>data.json())
-        .then((body)=>{
-          console.log(body)
-          const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
-          console.log('url: ' + url);
+      .then((data)=>data.json())
+      .then((body)=>{
+        console.log(body)
+        const url = `${base_url}/#access_token=${postData.access_token}&refresh_token=${postData.refresh_token}`;
+        console.log('url: ' + url);
 
-          return callback(null,{
-            statusCode: 301,
-            headers: {
-              Location: url,
-              "Cache-Control": "no-cache"
-            }
-          });
-        })
-
+        return callback(null,{
+          statusCode: 301,
+          headers: {
+            Location: url,
+            "Cache-Control": "no-cache"
+          }
+        });
       })
 
-    } catch (err) {
-      return callback(null,{ statusCode: 500, body: err.message });
-    }
+    })
 
-  // })
+  } catch (err) {
+    return callback(null,{ statusCode: 500, body: err.message });
+  }
 
 };
 

@@ -94,9 +94,9 @@
 }
 
 .translate p {
-  -moz-transform: translateX(50%);
-  -webkit-transform: translateX(50%);
-  transform: translateX(50%);
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
   /* Apply animation to this element */
   -moz-animation: translate 18s linear infinite;
   -webkit-animation: translate 18s linear infinite;

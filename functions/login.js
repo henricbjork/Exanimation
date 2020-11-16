@@ -8,20 +8,16 @@ exports.handler = function(event, context, callback) {
   const scope = 'user-read-private%20user-read-email%20user-modify-playback-state%20user-read-playback-state%20user-read-recently-played';
   const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}`;
 
-  // return new Promise((resolve, reject) => {
-
-    try {
-      return callback(null,{
-        statusCode: 301,
-        headers: {
-          Location: url,
-          "Cache-Control": "no-cache"
-        }
-      })
-    } catch (err) {
-      return callback(null,{ statusCode: 500, body: err.message });
-    }
-
-  // })
+  try {
+    return callback(null,{
+      statusCode: 301,
+      headers: {
+        Location: url,
+        "Cache-Control": "no-cache"
+      }
+    })
+  } catch (err) {
+    return callback(null,{ statusCode: 500, body: err.message });
+  }
 
 }
