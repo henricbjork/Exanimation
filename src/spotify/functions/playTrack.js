@@ -1,4 +1,3 @@
-import { navigate } from '@reach/router';
 import { putTrack } from './putTrack';
 
 const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
@@ -18,7 +17,7 @@ export const playTrack = (uri, accessToken, currentDevice, progress=0) => {
       sessionStorage.setItem('queuedTrackUri', uri);
       let refreshToken = sessionStorage.getItem('refreshToken');
       sessionStorage.removeItem('accessToken');
-      navigate(`${backend_endpoint}/refresh_token?refresh_token=${refreshToken}`);
+      window.location.href = `${backend_endpoint}/refresh_token?refresh_token=${refreshToken}`;
     });
   });
 };
