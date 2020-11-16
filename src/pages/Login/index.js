@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './login.css';
 
 //Packages and functions
-import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
 import { addNoDevicesClassName } from '../../spotify/functions/addNoDevicesClassName';
 
@@ -42,7 +41,7 @@ const LoginPage = () => {
         <a.button
           className='sign-in-btn'
           style={props}
-          onClick={() => navigate(url)}
+          onClick={() => {window.location.href = url;}}
         >
           Sign in
         </a.button>
