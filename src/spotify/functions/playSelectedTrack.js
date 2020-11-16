@@ -2,6 +2,8 @@ import { playTrack } from './playTrack.js';
 import { getTrack } from './getTrack.js';
 import { queueTrack } from './queueTrack.js';
 import { getRecommendations } from './getRecommendations.js';
+import { checkSongTextWidth } from './checkSongTextWidth';
+import { checkArtistTextWidth } from './checkArtistTextWidth';
 // import { getAudioAnalysis } from './getAudioAnalysis.js';
 
 export const playSelectedTrack = (
@@ -27,8 +29,8 @@ export const playSelectedTrack = (
     );
     // getAudioAnalysis(accessToken, id)
     // .then((audioAnalysis) => {
-    //   console.log(audioAnalysis)
-    // });
+      //   console.log(audioAnalysis)
+      // });
     getRecommendations(accessToken, id)
     .then((recommend)=> {
       setRecommendedTracks(recommend);
@@ -41,6 +43,8 @@ export const playSelectedTrack = (
           name: current.album.name,
         },
       });
+      checkSongTextWidth()
+      checkArtistTextWidth()
       const trackUri = recommend[Math.floor(Math.random() * recommend.length)].uri; // select a random track from recommendations
       queueTrack(trackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice, current.duration_ms);
     })

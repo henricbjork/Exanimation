@@ -114,6 +114,10 @@
   background: #00ff5a;
 }
 
+.sign-in-btn:focus {
+  outline: 0;
+}
+
 @media screen and (max-width: 700px) {
   .sign-in-window {
     -webkit-box-shadow: none;

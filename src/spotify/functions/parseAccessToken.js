@@ -1,4 +1,6 @@
 import queryString from 'query-string';
+const base_url = process.env.REACT_APP_BASE_URL;
+console.log(base_url)
 
 export const parseAccessToken = () => {
   if (sessionStorage.getItem('accessToken')!==null) {
@@ -7,7 +9,7 @@ export const parseAccessToken = () => {
   const parsed = queryString.parse(window.location.hash);
   if (parsed.access_token !== undefined) {
     sessionStorage.setItem('accessToken', parsed.access_token);
-    window.history.pushState({}, null, "http://localhost:3000/");
+    window.location.href = base_url;
     return sessionStorage.getItem('accessToken');
   }
   return false;

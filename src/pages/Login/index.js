@@ -1,17 +1,14 @@
 import React from 'react';
-
 import './login.css';
-
-import { Canvas } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
-import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
 
 //Packages
 import { navigate } from '@reach/router';
 import { useSpring, a } from 'react-spring';
 
+const backend_endpoint = process.env.REACT_APP_BACKEND_ENDPOINT;
+
 const LoginPage = () => {
-  const url = `http://localhost:8888/login`;
+  const url = `${backend_endpoint}/login`;
 
   const props = useSpring({
     to: { width: '125px', opacity: 1 },

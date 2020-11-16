@@ -15,8 +15,8 @@ exports.handler = function(event, context, callback) {
         statusCode: 301,
         headers: {
           Location: url,
-        },
-        body: JSON.stringify('')
+          "Cache-Control": "no-cache"
+        }
       })
     } catch (err) {
       return callback(null,{ statusCode: 500, body: err.message });
