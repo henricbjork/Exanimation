@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import Track from '../Track';
-import searchIcon from '../../../assets/icons/searchIcon.svg';
+import searchIcon from '../../../assets/icons/search.svg';
 import { useSpring, a } from 'react-spring';
 
 import './SearchField.css';
@@ -53,7 +53,7 @@ const SearchField = ({
           onChange={(e) => setSearchText(e.target.value)}
           onClick={(e) => setClicked(true)}
         />
-        <img src={searchIcon} alt='' className='search-icon' />
+        <img src={searchIcon} alt='search' className='search-icon' />
       </div>
       {searchResult &&
         searchResult.map((result, i) => {
