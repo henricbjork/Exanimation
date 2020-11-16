@@ -11,6 +11,8 @@ const Icosahedron = ({
   currentDevice,
   windowSize,
 }) => {
+  const [activeBox, setActiveBox] = React.useState('');
+
   let SIZE;
   let lineWidth;
   const mesh = useRef();
@@ -23,10 +25,6 @@ const Icosahedron = ({
     lineWidth = 0.1;
   }
 
-  // useFrame(() => {
-  //   mesh.current.rotation.y += 0.001;
-  // });
-
   const geo = new THREE.IcosahedronGeometry(SIZE);
 
   const wireGeo = createTubeWireframe(geo, {
@@ -37,7 +35,9 @@ const Icosahedron = ({
 
   const vertices = geo.vertices;
 
-  // console.log(vertices);
+  const handleBoxClick = (id) => {
+    setActiveBox(id);
+  };
 
   return (
     <>
@@ -57,6 +57,8 @@ const Icosahedron = ({
               currentDevice={currentDevice}
               recommendation={recommendation}
               icoSize={SIZE}
+              onClick={() => handleBoxClick(recommendation.id)}
+              isActive={activeBox === recommendation.id}
             />
           );
         })}

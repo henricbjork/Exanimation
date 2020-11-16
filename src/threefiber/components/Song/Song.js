@@ -1,12 +1,6 @@
 import React, { useRef, useState } from 'react';
 import * as THREE from 'three';
-
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
-// import { useSpring, a } from 'react-spring/three';
-// import JSONfont from './AktivGrotesk-Regular.json';
-
-// import { useFrame } from 'react-three-fiber';
-
 import { Html } from 'drei';
 import './Song.css';
 
@@ -19,13 +13,17 @@ const Song = ({
   accessToken,
   currentDevice,
   icoSize,
+  isActive,
+  onClick,
 }) => {
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
+  const mobile = icoSize === 4;
+  const desktop = icoSize === 8;
 
   const song = {
-    title: recommendation.name.slice(0, 15),
-    artist: recommendation.artists[0].name.slice(0, 15),
+    title: recommendation.name.slice(0, 18),
+    artist: recommendation.artists[0].name.slice(0, 18),
     images: recommendation.album.images,
   };
 
@@ -34,72 +32,64 @@ const Song = ({
 
   let SIZE;
 
-  if (icoSize === 8) {
+  if (desktop) {
     SIZE = 2.5;
   } else {
     SIZE = 1.2;
   }
 
-  // useFrame(() => {
-  //   mesh.current.rotation.y += 0.001;
-  // });
-
-  // const props = useSpring({
-  //   scale: hover ? [0.2, 0.2, 0.2] : [0.15, 0.15, 0.15],
-  // });
-
-  // load in font
-  // const font = new THREE.FontLoader().parse(JSONfont);
-
-  // configure font mesh
-  // const textOptions = {
-  //   font,
-  //   size: 0.2,
-  //   height: 0,
-  // };
-
   return (
     <>
       <group ref={mesh}>
-        <mesh
-          position={[distance.x, distance.y, distance.z]}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            setHover(true);
-          }}
-          onPointerOut={() => setHover(false)}
-          onPointerDown={(e) => {
-            e.stopPropagation();
-            playSelectedTrack(
-              recommendation.uri,
-              accessToken,
-              setRecommendedTracks,
-              setCurrentSong,
-              currentDevice.id
-            );
-          }}
-        >
-          <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
-          <meshStandardMaterial attach='material' map={texture} />
-        </mesh>
-        {/* <mesh position={[distance.x - 1.5, distance.y - 1.5, distance.z * 1.2]}>
-          <textGeometry
-            attach='geometry'
-            args={[`${song.title}${song.artist}`, textOptions]}
-          />
-          <meshStandardMaterial attach='material' />
-        </mesh> */}
-        {/* <mesh position={[distance.x - 1.5, distance.y - 2, distance.z * 1.2]}>
-          <textGeometry
-            attach='geometry'
-            args={[`${song.artist}`, textOptions]}
-          />
-          <meshStandardMaterial attach='material' />
-        </mesh> */}
-        {hover && (
+        {desktop ? (
+          <mesh
+            position={[distance.x, distance.y, distance.z]}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              setHover(true);
+            }}
+            onPointerOut={() => setHover(false)}
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              playSelectedTrack(
+                recommendation.uri,
+                accessToken,
+                setRecommendedTracks,
+                setCurrentSong,
+                currentDevice.id
+              );
+            }}
+            onClick={onClick}
+          >
+            <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
+            <meshStandardMaterial attach='material' map={texture} />
+          </mesh>
+        ) : (
+          <mesh
+            position={[distance.x, distance.y, distance.z]}
+            onPointerDown={(e) => {
+              if (isActive) {
+                e.stopPropagation();
+                playSelectedTrack(
+                  recommendation.uri,
+                  accessToken,
+                  setRecommendedTracks,
+                  setCurrentSong,
+                  currentDevice.id
+                );
+              }
+            }}
+            onClick={onClick}
+          >
+            <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
+            <meshStandardMaterial attach='material' map={texture} />
+          </mesh>
+        )}
+
+        {((desktop && hover) || (mobile && isActive)) && (
           <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
             <div className='song-frame'>
-              <img src={song.images[2].url} alt="song" />
+              <img src={song.images[2].url} alt='song' />
               <div>
                 <p>{song.title}</p>
                 <p>{song.artist}</p>
