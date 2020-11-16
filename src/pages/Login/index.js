@@ -19,7 +19,7 @@ const LoginPage = () => {
   return (
     <section className='sign-in-page'>
       <div className='sign-in-window'>
-        <p className='title'>MusicBox</p>
+        <p className='title'>Musicbox</p>
         <p className='app-info'>
           Enter a song of your choice and MusicBox
           <br /> will generate recommendations
