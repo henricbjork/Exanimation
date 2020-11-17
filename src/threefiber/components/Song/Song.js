@@ -67,7 +67,7 @@ const Song = ({
         ) : (
           <mesh
             position={[distance.x, distance.y, distance.z]}
-            onPointerDown={(e) => {
+            onClick={(e) => {
               if (isActive) {
                 e.stopPropagation();
                 playSelectedTrack(
