@@ -14,8 +14,9 @@ const Song = ({
   currentDevice,
   icoSize,
   isActive,
-  onClick,
+  setActiveId
 }) => {
+
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
   const mobile = icoSize === 4;
@@ -59,7 +60,6 @@ const Song = ({
                 currentDevice.id
               );
             }}
-            onClick={onClick}
           >
             <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
             <meshStandardMaterial attach='material' map={texture} />
@@ -77,9 +77,10 @@ const Song = ({
                   setCurrentSong,
                   currentDevice.id
                 );
+              } else {
+                setActiveId(recommendation.id);
               }
             }}
-            onClick={onClick}
           >
             <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
             <meshStandardMaterial attach='material' map={texture} />

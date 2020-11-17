@@ -115,7 +115,7 @@
   height: 35px;
   border-radius: 30px;
   border: none;
-  font-size: 14px;
+  font-size: 18px;
   white-space: nowrap;
   font-family: 'Discotechia Straight';
   background: #1db954;
@@ -124,6 +124,7 @@
 }
 .sign-in-btn:hover {
   cursor: pointer;
+  font-family: 'Discotechia Semi-Italic';
   background: #00ff5a;
 }
 
