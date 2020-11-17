@@ -127,7 +127,11 @@
   font-family: 'Discotechia Semi-Italic';
   background: #00ff5a;
 }
-
+.sign-in-btn:active {
+  cursor: pointer;
+  font-family: 'Discotechia Semi-Italic';
+  background: #00ff5a;
+}
 .sign-in-btn:focus {
   outline: 0;
 }
