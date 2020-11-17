@@ -9,15 +9,15 @@ exports.handler = function(event, context, callback) {
   const url = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}`;
 
   try {
-    setTimeout(() => {
-      return callback(null,{
-        statusCode: 301,
-        headers: {
-          Location: url,
-          "Cache-Control": "no-cache"
-        }
-      })
-    }, 1000);
+
+    return callback(null,{
+      statusCode: 301,
+      headers: {
+        Location: url,
+        "Cache-Control": "no-cache"
+      }
+    })
+
   } catch (err) {
     return callback(null,{ statusCode: 500, body: err.message });
   }
