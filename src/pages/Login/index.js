@@ -29,7 +29,7 @@ const LoginPage = () => {
         <p className='title'>ICOSAHEDRON</p>
         <p className='app-info'>
           Play a song and ICOSAHEDRON
-          <br /> will recommend you similar tracks
+          <br /> will recommend similar tracks
         </p>
 
         <p className='notice'>

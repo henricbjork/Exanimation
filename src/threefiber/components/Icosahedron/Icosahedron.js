@@ -11,7 +11,7 @@ const Icosahedron = ({
   currentDevice,
   windowSize,
 }) => {
-  const [activeBox, setActiveBox] = React.useState('');
+  const [activeId, setActiveId] = React.useState("");
 
   let SIZE;
   let lineWidth;
@@ -35,10 +35,6 @@ const Icosahedron = ({
 
   const vertices = geo.vertices;
 
-  const handleBoxClick = (id) => {
-    setActiveBox(id);
-  };
-
   return (
     <>
       <mesh geometry={wireGeo} ref={mesh}>
@@ -57,8 +53,8 @@ const Icosahedron = ({
               currentDevice={currentDevice}
               recommendation={recommendation}
               icoSize={SIZE}
-              onClick={() => handleBoxClick(recommendation.id)}
-              isActive={activeBox === recommendation.id}
+              setActiveId={setActiveId}
+              isActive={(activeId===recommendation.id) ? true : false}
             />
           );
         })}
