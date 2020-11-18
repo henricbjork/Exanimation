@@ -33,11 +33,11 @@ const LoginPage = () => {
         </p>
 
         <p className='notice'>
-          Ensure Spotify is running
-          <br /> on your chosen device
+          Please ensure Spotify is running
+          <br /> on your device
         </p>
         <p className='no-devices-msg'>Your device is turned off</p>
-        <p className='sign-in-msg'>Sign in to Spotify to start exploring</p>
+        <p className='sign-in-msg'>Sign in to start exploring</p>
         <a.button
           className='sign-in-btn'
           style={props}

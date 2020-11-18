@@ -16,6 +16,7 @@ const Song = ({
   isActive,
   setActiveId
 }) => {
+  const [hover, setHover] = useState(false);
 
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
@@ -28,7 +29,6 @@ const Song = ({
     images: recommendation.album.images,
   };
 
-  const [hover, setHover] = useState(false);
   const mesh = useRef();
 
   let SIZE;
