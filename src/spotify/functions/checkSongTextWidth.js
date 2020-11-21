@@ -1,11 +1,23 @@
-export const checkSongTextWidth = () => {
-  const songTextDiv = document.querySelector(".current-text-song");
-  const songText = document.querySelector(".current-text-song p");
+export const checkSongTextWidth = (textTile) => {
   const root = document.querySelector(':root');
-  songTextDiv.classList.remove('translateSong');
-  if(songText.innerHTML.length>=27) {
-    const length = songText.innerHTML.length * 7.5; // Magic number / approximate character length in pixels
-    root.style.setProperty('--animation-song-length', `${length}px`)
-    songTextDiv.classList.add('translateSong');
+  let length;
+  if(textTile==='player') {
+    const songTextDiv = document.querySelector(".current-text-song");
+    const songText = document.querySelector(".current-text-song p");
+    songTextDiv.classList.remove('translateSong');
+    if(songText.innerHTML.length>=27) {
+      length = songText.innerHTML.length * 7.8; // Magic number / approximate character length in pixels
+      root.style.setProperty('--animation-song-length', `${length}px`)
+      songTextDiv.classList.add('translateSong');
+    }
+  } else if (textTile==='recommendation') {
+    const recommendedSongTextDiv = document.querySelector(".recommendation-text-song");
+    const recommendedSongText = document.querySelector(".recommendation-text-song p");
+    recommendedSongTextDiv.classList.remove('translateRecommendedSong');
+    if(recommendedSongText.innerText.length>=21) {
+      length = recommendedSongText.innerText.length * 7.8; // Magic number / approximate character length in pixels
+      root.style.setProperty('--recommendation-song-length', `${length}px`)
+      recommendedSongTextDiv.classList.add('translateRecommendedSong');
+    }
   }
 }

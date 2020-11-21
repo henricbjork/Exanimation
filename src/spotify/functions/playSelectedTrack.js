@@ -42,8 +42,8 @@ export const playSelectedTrack = (
           name: current.album.name,
         },
       });
-      checkSongTextWidth()
-      checkArtistTextWidth()
+      checkSongTextWidth('player')
+      checkArtistTextWidth('player')
       const trackUri = recommend[Math.floor(Math.random() * recommend.length)].uri; // select a random track from recommendations
       queueTrack(trackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice, current.duration_ms);
     })

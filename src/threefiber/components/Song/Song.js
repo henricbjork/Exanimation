@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
 import { Html } from 'drei';
 import './Song.css';
+import { checkSongTextWidth } from '../../../spotify/functions/checkSongTextWidth';
+import { checkArtistTextWidth } from '../../../spotify/functions/checkArtistTextWidth';
 
 const Song = ({
   distance,
@@ -18,14 +20,21 @@ const Song = ({
 }) => {
   const [hover, setHover] = useState(false);
 
+  useEffect(()=>{
+    if(hover || isActive) {
+      checkSongTextWidth('recommendation');
+      checkArtistTextWidth('recommendation');
+    }
+  }, [hover, isActive])
+
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
   const mobile = icoSize === 4;
   const desktop = icoSize === 8;
 
   const song = {
-    title: recommendation.name.slice(0, 18),
-    artist: recommendation.artists[0].name.slice(0, 18),
+    title: recommendation.name,
+    artist: recommendation.artists[0].name,
     images: recommendation.album.images,
   };
 
@@ -92,8 +101,12 @@ const Song = ({
             <div className='song-frame'>
               <img src={song.images[2].url} alt='song' />
               <div>
-                <p>{song.title}</p>
-                <p>{song.artist}</p>
+                <div className='recommendation-text-song'>
+                  <p>{song.title}</p>
+                </div>
+                <div className='recommendation-text-artist'>
+                  <p>{song.artist}</p>
+                </div>
               </div>
             </div>
           </Html>
