@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SongDesktop from '../SongDesktop';
 import SongMobile from '../SongMobile';
@@ -12,7 +12,7 @@ const Icosahedron = ({
   currentDevice,
   windowSize,
 }) => {
-  const [activeId, setActiveId] = React.useState("");
+  const [activeId, setActiveId] = useState("");
 
   let SIZE;
   let lineWidth;

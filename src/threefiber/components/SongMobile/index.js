@@ -44,9 +44,11 @@ const SongMobile = ({
       <mesh
         ref={mesh}
         position={[distance.x, distance.y, distance.z]}
-        onTouchUp={() => {
-          if (isActive) {
+        onPointerDown={() => {
+          if (!isActive) {
             // e.stopPropagation();
+            setActiveId(recommendation.id);
+          } else {
             setSongSelection(recommendation.uri, accessToken).then(()=> {
               playSelectedTrack(
                 recommendation.uri,
@@ -56,8 +58,6 @@ const SongMobile = ({
                 currentDevice.id
               );
             });
-          } else {
-            setActiveId(recommendation.id);
           }
         }}
       >

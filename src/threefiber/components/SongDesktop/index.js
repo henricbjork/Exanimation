@@ -40,47 +40,46 @@ const SongDesktop = ({
 
   return (
     <>
-      <group ref={mesh}>
-        <mesh
-          position={[distance.x, distance.y, distance.z]}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            setHover(true);
-          }}
-          onPointerOut={() => setHover(false)}
-          onPointerDown={(e) => {
-            // e.stopPropagation();
-            setSongSelection(recommendation.uri, accessToken).then(()=> {
-              playSelectedTrack(
-                recommendation.uri,
-                accessToken,
-                setRecommendedTracks,
-                setCurrentSong,
-                currentDevice.id
-              );
-            });
-          }}
-        >
-          <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
-          <meshStandardMaterial attach='material' map={texture} />
-        </mesh>
+      <mesh
+        ref={mesh}
+        position={[distance.x, distance.y, distance.z]}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHover(true);
+        }}
+        onPointerOut={() => setHover(false)}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          setSongSelection(recommendation.uri, accessToken).then(()=> {
+            playSelectedTrack(
+              recommendation.uri,
+              accessToken,
+              setRecommendedTracks,
+              setCurrentSong,
+              currentDevice.id
+            );
+          });
+        }}
+      >
+        <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
+        <meshStandardMaterial attach='material' map={texture} />
+      </mesh>
 
-        {hover && (
-          <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
-            <div className='song-frame'>
-              <img src={song.images[2].url} alt='song' />
-              <div>
-                <div className='recommendation-text-song'>
-                  <p>{song.title}</p>
-                </div>
-                <div className='recommendation-text-artist'>
-                  <p>{song.artist}</p>
-                </div>
+      {hover && (
+        <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
+          <div className='song-frame'>
+            <img src={song.images[2].url} alt='song' />
+            <div>
+              <div className='recommendation-text-song'>
+                <p>{song.title}</p>
+              </div>
+              <div className='recommendation-text-artist'>
+                <p>{song.artist}</p>
               </div>
             </div>
-          </Html>
-        )}
-      </group>
+          </div>
+        </Html>
+      )}
     </>
   );
 };
