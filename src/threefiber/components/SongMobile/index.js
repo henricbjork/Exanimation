@@ -41,9 +41,10 @@ const SongMobile = ({
 
   return (
     <>
-      <group
+      <mesh
         ref={mesh}
-        onClick={(e) => {
+        position={[distance.x, distance.y, distance.z]}
+        onPointerDown={() => {
           if (isActive) {
             // e.stopPropagation();
             setSongSelection(recommendation.uri, accessToken).then(()=> {
@@ -60,29 +61,25 @@ const SongMobile = ({
           }
         }}
       >
-        <mesh
-          position={[distance.x, distance.y, distance.z]}
-        >
-          <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
-          <meshStandardMaterial attach='material' map={texture} />
-        </mesh>
+        <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
+        <meshStandardMaterial attach='material' map={texture} />
+      </mesh>
 
-        {isActive && (
-          <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
-            <div className='song-frame'>
-              <img src={song.images[2].url} alt='song' />
-              <div>
-                <div className='recommendation-text-song'>
-                  <p>{song.title}</p>
-                </div>
-                <div className='recommendation-text-artist'>
-                  <p>{song.artist}</p>
-                </div>
+      {isActive && (
+        <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
+          <div className='song-frame'>
+            <img src={song.images[2].url} alt='song' />
+            <div>
+              <div className='recommendation-text-song'>
+                <p>{song.title}</p>
+              </div>
+              <div className='recommendation-text-artist'>
+                <p>{song.artist}</p>
               </div>
             </div>
-          </Html>
-        )}
-      </group>
+          </div>
+        </Html>
+      )}
     </>
   );
 };
