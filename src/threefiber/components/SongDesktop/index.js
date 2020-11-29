@@ -49,7 +49,7 @@ const SongDesktop = ({
           }}
           onPointerOut={() => setHover(false)}
           onPointerDown={(e) => {
-            e.stopPropagation();
+            // e.stopPropagation();
             setSongSelection(recommendation.uri, accessToken).then(()=> {
               playSelectedTrack(
                 recommendation.uri,

@@ -46,7 +46,7 @@ const SongMobile = ({
           position={[distance.x, distance.y, distance.z]}
           onPointerDown={(e) => {
             if (isActive) {
-              e.stopPropagation();
+              // e.stopPropagation();
               setSongSelection(recommendation.uri, accessToken).then(()=> {
                 playSelectedTrack(
                   recommendation.uri,
