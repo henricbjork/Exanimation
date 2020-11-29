@@ -44,7 +44,7 @@ const SongMobile = ({
       <mesh
         ref={mesh}
         position={[distance.x, distance.y, distance.z]}
-        onPointerDown={() => {
+        onTouchUp={() => {
           if (isActive) {
             // e.stopPropagation();
             setSongSelection(recommendation.uri, accessToken).then(()=> {
