@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-import Track from '../Track';
-import searchIcon from '../../../assets/icons/search.svg';
 import { useSpring, a } from 'react-spring';
+import searchIcon from '../../../assets/icons/search.svg';
+import Track from '../Track';
 
 import './SearchField.css';
 

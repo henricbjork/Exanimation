@@ -1,0 +1,224 @@
+@font-face {
+  font-family: 'Discotechia';
+  src: url('../../../assets/fonts/Discotechia-zZYX.otf');
+}
+@font-face {
+  font-family: 'Discotechia Gradient';
+  src: url('../../../assets/fonts/DiscotechiaGradient-nPVY.otf');
+}
+@font-face {
+  font-family: 'Discotechia Straight';
+  src: url('../../../assets/fonts/DiscotechiaStraight-rozA.otf');
+}
+
+:root {
+  --recommendation-song-length: 0px;
+  --recommendation-artist-length: 0px;
+}
+
+.song-frame {
+  width: 250px;
+  height: 70px;
+  border: 3px solid white;
+  background: #191414;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Discotechia Straight';
+  font-size: 14px;
+  padding: 0px 10px;
+}
+.song-frame img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+.song-frame div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.song-frame p {
+  white-space: nowrap;
+}
+
+.recommendation-text-song {
+  width: 100%;
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.recommendation-text-song p {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 12px 8px 2px 0;
+}
+
+.recommendation-text-artist {
+  width: 100%;
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.recommendation-text-artist p {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.translateRecommendedSong p {
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: translateRecommendedSong 8s linear infinite;
+  -webkit-animation: translateRecommendedSong 8s linear infinite;
+  animation: translateRecommendedSong 8s linear infinite;
+}
+
+.translateRecommendedArtist p {
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: translateRecommendedArtist 8s linear infinite;
+  -webkit-animation: translateRecommendedArtist 8s linear infinite;
+  animation: translateRecommendedArtist 8s linear infinite;
+}
+
+@-moz-keyframes translateRecommendedSong {
+  0% {
+    -moz-transform: translateX(0%);
+  }
+  10% {
+    -moz-transform: translateX(0%);
+  }
+  55% {
+    -moz-transform: translateX(calc(-1 * var(--recommendation-song-length)));
+  }
+  55.001% {
+    -moz-transform: translateX(calc(var(--recommendation-song-length)));
+  }
+  100% {
+    -moz-transform: translateX(0%);
+  }
+}
+@-webkit-keyframes translateRecommendedSong {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  10% {
+    -webkit-transform: translateX(0%);
+  }
+  55% {
+    -webkit-transform: translateX(calc(-1 * var(--recommendation-song-length)));
+  }
+  55.001% {
+    -webkit-transform: translateX(calc(var(--recommendation-song-length)));
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+@keyframes translateRecommendedSong {
+  0% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+  10% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+  55% {
+    -moz-transform: translateX(calc(-1 * var(--recommendation-song-length))); /* Firefox bug fix */
+    -webkit-transform: translateX(
+      calc(-1 * var(--recommendation-song-length))
+    ); /* Firefox bug fix */
+    transform: translateX(calc(-1 * var(--recommendation-song-length)));
+  }
+  55.001% {
+    -moz-transform: translateX(calc(var(--recommendation-song-length))); /* Firefox bug fix */
+    -webkit-transform: translateX(calc(var(--recommendation-song-length))); /* Firefox bug fix */
+    transform: translateX(calc(var(--recommendation-song-length)));
+  }
+  100% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+}
+
+@-moz-keyframes translateRecommendedArtist {
+  0% {
+    -moz-transform: translateX(0%);
+  }
+  10% {
+    -moz-transform: translateX(0%);
+  }
+  55% {
+    -moz-transform: translateX(calc(-1 * var(--recommendation-artist-length)));
+  }
+  55.001% {
+    -moz-transform: translateX(calc(var(--recommendation-artist-length)));
+  }
+  100% {
+    -moz-transform: translateX(0%);
+  }
+}
+@-webkit-keyframes translateRecommendedArtist {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  10% {
+    -webkit-transform: translateX(0%);
+  }
+  55% {
+    -webkit-transform: translateX(calc(-1 * var(--recommendation-artist-length)));
+  }
+  55.001% {
+    -webkit-transform: translateX(calc(var(--recommendation-artist-length)));
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+@keyframes translateRecommendedArtist {
+  0% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+  10% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+  55% {
+    -moz-transform: translateX(
+      calc(-1 * var(--recommendation-artist-length))
+    ); /* Firefox bug fix */
+    -webkit-transform: translateX(
+      calc(-1 * var(--recommendation-artist-length))
+    ); /* Firefox bug fix */
+    transform: translateX(calc(-1 * var(--recommendation-artist-length)));
+  }
+  55.001% {
+    -moz-transform: translateX(calc(var(--recommendation-artist-length))); /* Firefox bug fix */
+    -webkit-transform: translateX(calc(var(--recommendation-artist-length))); /* Firefox bug fix */
+    transform: translateX(calc(var(--recommendation-artist-length)));
+  }
+  100% {
+    -moz-transform: translateX(0%); /* Firefox bug fix */
+    -webkit-transform: translateX(0%); /* Firefox bug fix */
+    transform: translateX(0%);
+  }
+}

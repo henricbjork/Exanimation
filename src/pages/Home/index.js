@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 //Packages
 import { Canvas } from 'react-three-fiber';
-import Icosahedron from '../../threefiber/components/Icosahedron/Icosahedron';
+import Icosahedron from '../../threefiber/components/Icosahedron';
 import { OrbitControls } from 'drei';
 import { Redirect } from '@reach/router';
 

@@ -14,7 +14,7 @@ export const checkSongTextWidth = (textTile) => {
     const recommendedSongTextDiv = document.querySelector(".recommendation-text-song");
     const recommendedSongText = document.querySelector(".recommendation-text-song p");
     recommendedSongTextDiv.classList.remove('translateRecommendedSong');
-    if(recommendedSongText.innerText.length>=21) {
+    if(recommendedSongText.innerText.length>=22) {
       length = recommendedSongText.innerText.length * 7.8; // Magic number / approximate character length in pixels
       root.style.setProperty('--recommendation-song-length', `${length}px`)
       recommendedSongTextDiv.classList.add('translateRecommendedSong');
