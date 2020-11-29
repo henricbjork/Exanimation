@@ -18,6 +18,10 @@ import { playSelectedTrack } from './../../spotify/functions/playSelectedTrack';
 
 //CSS
 import './home.css';
+
+// Override console warn
+window.console.warn = function(){};
+
 let accessToken;
 
 const HomePage = () => {

@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
 import { Html } from 'drei';
-import './Song.css';
 import { checkSongTextWidth } from '../../../spotify/functions/checkSongTextWidth';
 import { checkArtistTextWidth } from '../../../spotify/functions/checkArtistTextWidth';
+import './Song.css';
 
 const Song = ({
   distance,
