@@ -1,6 +1,7 @@
 import React from 'react';
 import './Track.css';
 import { navigate } from '@reach/router';
+import { setSongSelection } from '../../functions/setSongSelection';
 import { playSelectedTrack } from '../../functions/playSelectedTrack';
 import { clearSearchField } from '../../functions/clearSearchField';
 
@@ -16,14 +17,16 @@ const Track = ({uri, accessToken, currentDevice, setCurrentSong, setRecommendedT
     <div
       className='search-item-box'
       onClick={() => {
-        playSelectedTrack(
-          uri,
-          accessToken,
-          setRecommendedTracks,
-          setCurrentSong,
-          currentDevice.id
-        );
-        clearSearchField();
+        setSongSelection(uri, accessToken).then(()=> {
+          playSelectedTrack(
+            uri,
+            accessToken,
+            setRecommendedTracks,
+            setCurrentSong,
+            currentDevice.id
+          );
+          clearSearchField();
+        })
       }}
     >
       <div className='track-container'>
