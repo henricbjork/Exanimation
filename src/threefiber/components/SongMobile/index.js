@@ -41,25 +41,27 @@ const SongMobile = ({
 
   return (
     <>
-      <group ref={mesh}>
+      <group
+        ref={mesh}
+        onClick={(e) => {
+          if (isActive) {
+            // e.stopPropagation();
+            setSongSelection(recommendation.uri, accessToken).then(()=> {
+              playSelectedTrack(
+                recommendation.uri,
+                accessToken,
+                setRecommendedTracks,
+                setCurrentSong,
+                currentDevice.id
+              );
+            });
+          } else {
+            setActiveId(recommendation.id);
+          }
+        }}
+      >
         <mesh
           position={[distance.x, distance.y, distance.z]}
-          onClick={(e) => {
-            if (isActive) {
-              // e.stopPropagation();
-              setSongSelection(recommendation.uri, accessToken).then(()=> {
-                playSelectedTrack(
-                  recommendation.uri,
-                  accessToken,
-                  setRecommendedTracks,
-                  setCurrentSong,
-                  currentDevice.id
-                );
-              });
-            } else {
-              setActiveId(recommendation.id);
-            }
-          }}
         >
           <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
           <meshStandardMaterial attach='material' map={texture} />
