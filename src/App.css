@@ -1,6 +1,13 @@
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 body {
   margin: 0;
   height: 100vh;
+  position: relative;
+  background-color: #191414;
 }
 * {
   margin: 0;

@@ -22,7 +22,7 @@ const Icosahedron = ({
 
   if (windowSize !== undefined && windowSize.width <= 700) {
     mobile = true;
-    SIZE = 4;
+    SIZE = 4.3;
     lineWidth = 0.05;
   } else if (windowSize !== undefined && windowSize.width > 700) {
     desktop = true;
