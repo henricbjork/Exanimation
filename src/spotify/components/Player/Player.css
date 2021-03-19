@@ -27,7 +27,6 @@
   bottom: 0;
   left: 0;
   margin: 20px;
-  padding-bottom: 18vh;
   width: 350px;
 }
 
@@ -278,7 +277,7 @@
     left: 0;
     right: 0;
     bottom: 25px;
-    margin: 0 auto;
+    margin: 24vh auto;
     width: 315px;
   }
 }
