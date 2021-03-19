@@ -21,6 +21,7 @@
   display: flex;
   align-items: center;
   padding-left: 20px;
+  overflow: hidden;
 }
 .search-item-cover {
   width: 50px;
@@ -55,6 +56,6 @@
 @media screen and (max-width: 700px) {
   .search-item-box {
     background: #191414;
-    width: 100%;
+    width: 80%;
   }
 }
