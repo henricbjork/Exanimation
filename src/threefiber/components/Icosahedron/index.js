@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useRef } from 'react';
 import * as THREE from 'three';
 import SongDesktop from '../SongDesktop';
 import SongMobile from '../SongMobile';
@@ -11,9 +11,9 @@ const Icosahedron = ({
   accessToken,
   currentDevice,
   windowSize,
+  mobileBrowseSong,
+  setMobileBrowseSong
 }) => {
-  const [activeId, setActiveId] = useState("");
-
   let SIZE;
   let lineWidth;
   let desktop = false;
@@ -35,7 +35,7 @@ const Icosahedron = ({
   const wireGeo = createTubeWireframe(geo, {
     thickness: lineWidth, // thickness in world units of tubes
     radiusSegments: 4, // number of segments around the tubes
-    mode: 'triangle', // face layout, use quads instead of triangles
+    mode: 'triangle' // face layout, use quads instead of triangles
   });
 
   const vertices = geo.vertices;
@@ -43,10 +43,11 @@ const Icosahedron = ({
   return (
     <>
       <mesh geometry={wireGeo} ref={mesh}>
-        <meshPhysicalMaterial attach='material' roughness='0.75' flatShading />
+        <meshPhysicalMaterial attach="material" roughness="0.75" flatShading />
       </mesh>
 
-      {desktop && recommendedTracks &&
+      {desktop &&
+        recommendedTracks &&
         recommendedTracks.map((recommendation, i) => {
           return (
             <Fragment key={i}>
@@ -63,7 +64,8 @@ const Icosahedron = ({
           );
         })}
 
-        {mobile && recommendedTracks &&
+      {mobile &&
+        recommendedTracks &&
         recommendedTracks.map((recommendation, j) => {
           return (
             <Fragment key={j}>
@@ -75,8 +77,8 @@ const Icosahedron = ({
                 accessToken={accessToken}
                 currentDevice={currentDevice}
                 recommendation={recommendation}
-                setActiveId={setActiveId}
-                isActive={(activeId===recommendation.id) ? true : false}
+                mobileBrowseSong={mobileBrowseSong}
+                setMobileBrowseSong={setMobileBrowseSong}
               />
             </Fragment>
           );

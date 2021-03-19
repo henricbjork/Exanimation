@@ -20,17 +20,18 @@ import { playSelectedTrack } from './../../spotify/functions/playSelectedTrack';
 import './home.css';
 
 // Override console warn
-window.console.warn = function(){};
+window.console.warn = function () {};
 
 let accessToken;
 
 const HomePage = () => {
   const [recommendedTracks, setRecommendedTracks] = useState(null);
+  const [mobileBrowseSong, setMobileBrowseSong] = useState(null);
   const [currentSong, setCurrentSong] = useState(null);
   const [currentDevice, setCurrentDevice] = useState(null);
   const [windowSize, setWindowSize] = useState({
     height: window.innerHeight,
-    width: window.innerWidth,
+    width: window.innerWidth
   });
   if (parseRefreshToken() && !accessToken) {
     const refreshToken = parseRefreshToken();
@@ -39,18 +40,23 @@ const HomePage = () => {
   accessToken = parseAccessToken();
 
   useEffect(() => {
-    if(sessionStorage.getItem('queuedTrackUri')!==null && currentDevice) {
+    if (sessionStorage.getItem('queuedTrackUri') !== null && currentDevice) {
       const queuedTrackUri = sessionStorage.getItem('queuedTrackUri');
-      playSelectedTrack(queuedTrackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice.id);
+      playSelectedTrack(
+        queuedTrackUri,
+        accessToken,
+        setRecommendedTracks,
+        setCurrentSong,
+        currentDevice.id
+      );
     }
-  }, [currentDevice])
+  }, [currentDevice]);
 
   useEffect(() => {
     if (accessToken) {
-      getDevices(accessToken)
-        .then((devices) => {
-          setCurrentDevice(devices.devices[0]);
-        })
+      getDevices(accessToken).then((devices) => {
+        setCurrentDevice(devices.devices[0]);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
@@ -59,13 +65,13 @@ const HomePage = () => {
     window.addEventListener('resize', () => {
       setWindowSize({
         height: window.innerHeight,
-        width: window.innerWidth,
+        width: window.innerWidth
       });
     });
   });
 
   if (!accessToken) {
-    return <Redirect from='' to='/login' noThrow />;
+    return <Redirect from="" to="/login" noThrow />;
   }
 
   return (
@@ -74,7 +80,7 @@ const HomePage = () => {
         camera={{ position: [0, 0, 120], fov: 10 }}
         style={{ height: '100vh', width: '100vw' }}
       >
-        <OrbitControls autoRotate autoRotateSpeed='0.5' />
+        <OrbitControls autoRotate autoRotateSpeed="0.5" />
         <ambientLight position={[50, 50, 50]} />
         <Icosahedron
           recommendedTracks={recommendedTracks}
@@ -83,16 +89,31 @@ const HomePage = () => {
           accessToken={accessToken}
           currentDevice={currentDevice}
           windowSize={windowSize}
+          mobileBrowseSong={mobileBrowseSong}
+          setMobileBrowseSong={setMobileBrowseSong}
         />
       </Canvas>
       {accessToken && (
-        <div className='home'>
+        <div className="home">
           <SearchField
             accessToken={accessToken}
             currentDevice={currentDevice}
             setCurrentSong={setCurrentSong}
             setRecommendedTracks={setRecommendedTracks}
           />
+          {windowSize.width <= 700 && mobileBrowseSong !== null && (
+            <div className="song-frame">
+              <img src={mobileBrowseSong?.images[2].url} alt="song" />
+              <div>
+                <div className="recommendation-text-song">
+                  <p>{mobileBrowseSong?.title}</p>
+                </div>
+                <div className="recommendation-text-artist">
+                  <p>{mobileBrowseSong?.artist}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
       {currentSong && (

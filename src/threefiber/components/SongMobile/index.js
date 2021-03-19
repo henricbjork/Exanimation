@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { setSongSelection } from '../../../spotify/functions/setSongSelection';
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
-import { Html } from 'drei';
 import { checkSongTextWidth } from '../../../spotify/functions/checkSongTextWidth';
 import { checkArtistTextWidth } from '../../../spotify/functions/checkArtistTextWidth';
 import './SongMobile.css';
@@ -15,25 +14,24 @@ const SongMobile = ({
   setRecommendedTracks,
   accessToken,
   currentDevice,
-  isActive,
-  setActiveId
+  mobileBrowseSong,
+  setMobileBrowseSong
 }) => {
+  const song = {
+    id: recommendation.id,
+    title: recommendation.name,
+    artist: recommendation.artists[0].name,
+    images: recommendation.album.images
+  };
 
-  useEffect(()=>{
-    if(isActive) {
-      checkSongTextWidth('recommendation');
-      checkArtistTextWidth('recommendation');
-    }
-  }, [isActive])
+  const previewSong = (value = null) => {
+    setMobileBrowseSong(value);
+    checkSongTextWidth('recommendation');
+    checkArtistTextWidth('recommendation');
+  };
 
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
-
-  const song = {
-    title: recommendation.name,
-    artist: recommendation.artists[0].name,
-    images: recommendation.album.images,
-  };
 
   const mesh = useRef();
 
@@ -45,41 +43,29 @@ const SongMobile = ({
         ref={mesh}
         position={[distance.x, distance.y, distance.z]}
         onPointerDown={() => {
-          if (!isActive) {
+          if (mobileBrowseSong?.id !== recommendation.id) {
             // e.stopPropagation();
-            setActiveId(recommendation.id);
+            previewSong(song);
           } else {
-            setSongSelection(recommendation.uri, accessToken).then(()=> {
-              playSelectedTrack(
-                recommendation.uri,
-                accessToken,
-                setRecommendedTracks,
-                setCurrentSong,
-                currentDevice.id
-              );
-            });
+            setSongSelection(recommendation.uri, accessToken)
+              .then(() => {
+                playSelectedTrack(
+                  recommendation.uri,
+                  accessToken,
+                  setRecommendedTracks,
+                  setCurrentSong,
+                  currentDevice.id
+                );
+              })
+              .then(() => {
+                previewSong();
+              });
           }
         }}
       >
-        <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
-        <meshStandardMaterial attach='material' map={texture} />
+        <boxBufferGeometry attach="geometry" args={[SIZE, SIZE, SIZE]} />
+        <meshStandardMaterial attach="material" map={texture} />
       </mesh>
-
-      {isActive && (
-        <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
-          <div className='song-frame'>
-            <img src={song.images[2].url} alt='song' />
-            <div>
-              <div className='recommendation-text-song'>
-                <p>{song.title}</p>
-              </div>
-              <div className='recommendation-text-artist'>
-                <p>{song.artist}</p>
-              </div>
-            </div>
-          </div>
-        </Html>
-      )}
     </>
   );
 };
