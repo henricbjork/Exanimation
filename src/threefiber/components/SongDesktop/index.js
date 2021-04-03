@@ -18,12 +18,12 @@ const SongDesktop = ({
 }) => {
   const [hover, setHover] = useState(false);
 
-  useEffect(()=>{
-    if(hover) {
+  useEffect(() => {
+    if (hover) {
       checkSongTextWidth('recommendation');
       checkArtistTextWidth('recommendation');
     }
-  }, [hover])
+  }, [hover]);
 
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
@@ -31,7 +31,7 @@ const SongDesktop = ({
   const song = {
     title: recommendation.name,
     artist: recommendation.artists[0].name,
-    images: recommendation.album.images,
+    images: recommendation.album.images
   };
 
   const mesh = useRef();
@@ -50,7 +50,7 @@ const SongDesktop = ({
         onPointerOut={() => setHover(false)}
         onPointerDown={(e) => {
           e.stopPropagation();
-          setSongSelection(recommendation.uri, accessToken).then(()=> {
+          setSongSelection(recommendation.uri, accessToken).then(() => {
             playSelectedTrack(
               recommendation.uri,
               accessToken,
@@ -61,19 +61,19 @@ const SongDesktop = ({
           });
         }}
       >
-        <boxBufferGeometry attach='geometry' args={[SIZE, SIZE, SIZE]} />
-        <meshStandardMaterial attach='material' map={texture} />
+        <boxBufferGeometry attach="geometry" args={[SIZE, SIZE, SIZE]} />
+        <meshStandardMaterial attach="material" map={texture} />
       </mesh>
 
       {hover && (
         <Html position={[distance.x - 3, distance.y - 1.5, distance.z]}>
-          <div className='song-frame'>
-            <img src={song.images[2].url} alt='song' />
+          <div className="song-frame">
+            <img src={song.images[2].url} alt="song" />
             <div>
-              <div className='recommendation-text-song'>
+              <div className="recommendation-text-song">
                 <p>{song.title}</p>
               </div>
-              <div className='recommendation-text-artist'>
+              <div className="recommendation-text-artist">
                 <p>{song.artist}</p>
               </div>
             </div>

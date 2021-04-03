@@ -78,7 +78,7 @@ const HomePage = () => {
     <>
       <Canvas
         camera={{ position: [0, 0, 120], fov: 10 }}
-        style={{ height: '80vh', width: '100vw' }}
+        style={{ height: '100vh', width: '100vw' }}
       >
         <OrbitControls autoRotate autoRotateSpeed="0.5" />
         <ambientLight position={[50, 50, 50]} />

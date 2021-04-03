@@ -276,8 +276,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 25px;
-    margin: 24vh auto;
+    bottom: 0;
+    margin: 30px auto;
     width: 315px;
   }
 }

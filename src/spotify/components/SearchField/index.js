@@ -5,12 +5,7 @@ import Track from '../Track';
 
 import './SearchField.css';
 
-const SearchField = ({
-  accessToken,
-  currentDevice,
-  setRecommendedTracks,
-  setCurrentSong,
-}) => {
+const SearchField = ({ accessToken, currentDevice, setRecommendedTracks, setCurrentSong }) => {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const [clicked, setClicked] = useState(false);
@@ -18,7 +13,7 @@ const SearchField = ({
 
   const inputStyle = useSpring({
     to: clicked && { cursor: 'text' },
-    from: !clicked && { cursor: 'pointer' },
+    from: !clicked && { cursor: 'pointer' }
   });
 
   useEffect(() => {
@@ -32,8 +27,8 @@ const SearchField = ({
     fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + accessToken,
-      },
+        Authorization: 'Bearer ' + accessToken
+      }
     })
       .then((queryResult) => queryResult.json())
       .then((json) => {
@@ -43,16 +38,16 @@ const SearchField = ({
 
   return (
     <>
-      <div className='search-box'>
+      <div className="search-box">
         <a.input
           ref={searchField}
-          className='search-field'
-          type='text'
+          className="search-field"
+          type="text"
           style={inputStyle}
           onChange={(e) => setSearchText(e.target.value)}
           onClick={(e) => setClicked(true)}
         />
-        <img src={searchIcon} alt='search' className='search-icon' />
+        <img src={searchIcon} alt="search" className="search-icon" />
       </div>
       {searchResult &&
         searchResult.map((result, i) => {

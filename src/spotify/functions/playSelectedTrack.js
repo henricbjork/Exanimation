@@ -14,24 +14,18 @@ export const playSelectedTrack = (
   currentDevice
 ) => {
   if (!accessToken) return;
-  if(sessionStorage.getItem('queuedTrackUri')!==null) {
+  if (sessionStorage.getItem('queuedTrackUri') !== null) {
     sessionStorage.removeItem('queuedTrackUri');
   }
-  const id = uri.split(":")[2];
+  const id = uri.split(':')[2];
   playTrack(uri, accessToken, currentDevice);
   getTrack(accessToken, id).then((current) => {
-    console.log(
-      'Currently playing: ' +
-        current.artists[0].name +
-        ' - ' +
-        current.name
-    );
+    console.log('Currently playing: ' + current.artists[0].name + ' - ' + current.name);
     // getAudioAnalysis(accessToken, id)
     // .then((audioAnalysis) => {
-      //   console.log(audioAnalysis)
-      // });
-    getRecommendations(accessToken, id)
-    .then((recommend)=> {
+    //   console.log(audioAnalysis)
+    // });
+    getRecommendations(accessToken, id).then((recommend) => {
       setRecommendedTracks(recommend);
       setCurrentSong({
         id: id,
@@ -39,14 +33,21 @@ export const playSelectedTrack = (
         song: current.name,
         album: {
           image: current.album.images[0].url,
-          name: current.album.name,
-        },
+          name: current.album.name
+        }
       });
-      checkSongTextWidth('player')
-      checkArtistTextWidth('player')
+      checkSongTextWidth('player');
+      checkArtistTextWidth('player');
       const trackUri = recommend[Math.floor(Math.random() * recommend.length)].uri; // select a random track from recommendations
-      queueTrack(trackUri, accessToken, setRecommendedTracks, setCurrentSong, currentDevice, current.duration_ms);
-    })
+      queueTrack(
+        trackUri,
+        accessToken,
+        setRecommendedTracks,
+        setCurrentSong,
+        currentDevice,
+        current.duration_ms
+      );
+    });
     // getRecentlyPlayed();
   });
 };

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { setSongSelection } from '../../../spotify/functions/setSongSelection';
 import { playSelectedTrack } from '../../../spotify/functions/playSelectedTrack';
@@ -26,9 +26,15 @@ const SongMobile = ({
 
   const previewSong = (value = null) => {
     setMobileBrowseSong(value);
-    checkSongTextWidth('recommendation');
-    checkArtistTextWidth('recommendation');
   };
+
+  useEffect(() => {
+    if (mobileBrowseSong?.id === recommendation.id) {
+      checkSongTextWidth('recommendation');
+      checkArtistTextWidth('recommendation');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mobileBrowseSong]);
 
   const loader = new THREE.TextureLoader();
   const texture = loader.load(imageUrl);
@@ -44,7 +50,6 @@ const SongMobile = ({
         position={[distance.x, distance.y, distance.z]}
         onPointerDown={() => {
           if (mobileBrowseSong?.id !== recommendation.id) {
-            // e.stopPropagation();
             previewSong(song);
           } else {
             setSongSelection(recommendation.uri, accessToken)
